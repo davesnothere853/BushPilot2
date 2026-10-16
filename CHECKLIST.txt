@@ -1,0 +1,142 @@
+BUSH PILOT 2 - DAVE'S MAP + WORLD CHECKLIST          (updated 2026-10-13, evening)
+[x] done   [~] started / partly there   [ ] not started yet
+Every item gets built from real reference photos and checked against them
+from several angles before it's called done.
+
+=============================================================================
+ RULES (always)
+=============================================================================
+ [x] Real reference photos for everything; compare from multiple angles
+ [x] Build each asset once, render it alone, reuse it across the map
+ [x] Really good textures on everything (CC0 photo scans)
+ [x] Scale right against the 1.8 m pilot and the trucks
+ [~] 60 fps on Ultra on Dave's PC (FSR Quality); lab capped at 120
+ [x] 1980s time frame; no brand names, film names or characters
+ [x] Every building made of structure pieces (so it can break later)
+ [x] Roads drivable for the trucks (sane grades and widths)
+ [x] Back up at milestones; keep DESIGN_NOTES up to date
+ [x] Ask before downloads; tell Dave if anything costs money or is harmful
+
+=============================================================================
+ 1. THE HOME TOWN  (layout: reference/towns/dave_town_aerial*.png,
+    look: realistic, the colours/mood of Dave's Grok pictures)
+=============================================================================
+ [x] Layout picked: paved main street on a gentle bench above the river,
+     bush airport on the river flat below town
+ [x] Move the town onto that bench on the map (off the steep hill)
+ [x] Paved 2-lane main street, yellow centre line, gravel parking
+ [x] Town entrance: "Welcome to" sign, rail fence, rocks
+ [x] Gas station at the entrance (canopy, old pumps, price sign ~$1.19,
+     service bay, oil drums, no brand)
+ [x] Wooden false-front shops with porches (asset built)
+ [x] Retune shops to dark weathered brown wood (the pictures' look)
+ [x] General store, cafe, bar (pink neon), hardware, hotel
+ [x] Church with steeple
+ [x] Town hall
+ [x] Police station (blue light)
+ [x] Volunteer fire station, 2 bays, hose tower, siren
+ [ ] Roadhouse with neon sign
+ [x] Small houses up the hillside lane
+ [x] Wooden boardwalk along the shops
+ [x] Power poles and sagging lines along main street
+ [x] Street lamps; water tower; flagpole at the town hall
+ [ ] Old rusty pickups, flatbed and fuel truck parked around town
+ [ ] Lit windows and neon glowing at dusk/night
+ [x] Dirt lane up to the hillside houses
+
+=============================================================================
+ 2. BUSH AIRPORT (outskirts, on the river flat)
+=============================================================================
+ [x] Gravel airstrip on the junction flat, levelled (620 m)
+ [x] Quonset (round-roof) hangar
+ [x] Windsock, avgas tank;  [ ] tie-downs, flag
+ [ ] Bush planes parked and tied down
+ [x] Road from main street to the airport
+
+=============================================================================
+ 3. MOUNTAINS, LOOK AND SKY
+=============================================================================
+ [x] Jagged, sharp peaks at the current scale
+ [~] Alps blue haze layers between ridges (dave_alps_haze.png)
+ [~] Foggy cliff canyon / river of fog in the gorge (dave_canyon_fog.png)
+ [ ] Real clouds (3D / volumetric, low cloud on the peaks)
+ [ ] Sunset / dusk sky like the sunset picture
+
+=============================================================================
+ 4. ROADS
+=============================================================================
+ [~] Road network routed (highway, glacier, saddle, mine, logging)
+ [ ] Re-route the failed ones (lakes, lookout, mast, logging 1 + 3)
+ [ ] Draw roads on the map and cut them into the ground
+ [ ] Paved highway, gravel roads, mud roads
+ [ ] Mud roads and wet spots that bog trucks down
+ [ ] Downed trees blocking roads that you have to clear
+
+=============================================================================
+ 5. WATER
+=============================================================================
+ [~] Rivers down the valleys at the right ground height
+ [ ] Flowing river shader wired in (written, not yet used)
+ [~] Lakes; [ ] proper shorelines and water heights
+ [ ] High mountain lakes that freeze in winter
+ [ ] Real waterfalls somewhere
+ [~] The sea / fjord
+
+=============================================================================
+ 6. LANDMARKS (recognisable, 1980s)
+=============================================================================
+ [x] Radio tower (120 m guyed mast)
+ [x] Fire lookout tower
+ [x] Microwave relay + passive reflector
+ [x] Mine headframe
+ [x] Lighthouse
+ [~] Glacier (shape there; needs real ice look and texture)
+ [ ] Ice caves you can explore (and mine later)
+ [~] Mammoth frozen in the ice (placeholder)
+ [~] Dinosaur bones (placeholder)
+ [ ] Mission: saw the ice block out and crane it out
+ [ ] Cranes as a vehicle
+
+=============================================================================
+ 7. GEOLOGY / ORE
+=============================================================================
+ [x] Ore deposits where they'd naturally occur (gold belts, placer gold in
+     the rivers, copper, coal) + colour clues in the rock
+ [ ] Hook the deposits into prospecting / mining in the game
+
+=============================================================================
+ 8. FOREST
+=============================================================================
+ [x] Real-tree generator trees (eztree.dev): spruce, hemlock, fir,
+     cottonwood, aspen
+ [x] Treeline on the mountains
+ [~] Forest performance (lighter trees + 3D only close; check fps)
+
+=============================================================================
+ 9. PHYSICS, DAMAGE AND FIRE
+=============================================================================
+ [x] Real material table (steel, wood, concrete, brick...) incl. fire data
+ [~] Pole barn you can drive through (parked - "later game deal")
+ [ ] Every building comes apart realistically when hit
+ [ ] Snap a tower's guy wire by crashing into it; tower can fall
+ [ ] Buildings catch fire; fire spreads through a town
+ [ ] Wildfires spread through the forest
+
+=============================================================================
+ 10. MORE OF THE MAP (from earlier)
+=============================================================================
+ [ ] Harbor town (Cordova look, dave_harbor_town.png)
+ [ ] Railway with timber trestles
+ [~] Caves (natural cave systems)
+ [ ] Building interiors
+ [ ] Sewer
+ [~] Sounds for the world
+ [ ] Harry's hangar
+
+=============================================================================
+ 11. SEEN IN DAVE'S PICTURES - CONFIRM BEFORE BUILDING
+=============================================================================
+ [ ] Snowmobile (on a trailer)
+ [ ] Flatbed and utility trailers, jerry cans
+ [ ] Police car
+ [ ] 1980s SUVs

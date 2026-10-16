@@ -1,0 +1,52 @@
+HOPE VALLEY TERRAIN - references (DESIGN_NOTES 226)
+===================================================
+Dave: a mountain town that feels real and full of features - no big flat
+plains; mountainous curving roads, lakes and rivers; a river flowing out of a
+modelled cave entrance in a mountain; later a crack in a mountain you can dig
+into, a deep cavern and an underground river through a modelled cave. His
+strip should be difficult, in the mountains. Scale must feel right next to
+the 1.8 m character and the vehicles - compact and detailed, not huge.
+
+Real Hope, BC (en.wikipedia.org/wiki/Hope,_British_Columbia):
+- At the confluence of the Fraser and the Coquihalla, elevation ~41 m.
+- Southern end of the Fraser Canyon (Coast Mountains north-west); Cascades
+  east and south. Significant peaks close north, east and south of the
+  townsite. Flat land ONLY to the west (the Fraser floodplain starts here).
+- Coquihalla River: rises at the Coquihalla Lakes, drops ~1,000 m in 53 km
+  (~19 m/km) through a deep narrow valley, "tumultuous ... incessant roar";
+  mouth at Hope 38 m. Coquihalla Canyon east of town: narrow gorge, the
+  Othello Tunnels (old railway tunnels through the canyon walls).
+- Kawkawa Lake: a lake community just east of town.
+- Highways 1, 3, 5, 7 meet at Hope; CP and CN railways both pass through.
+- Oceanic climate, ~2,000 mm precipitation, cloudy much of the year.
+- Hope Slide (1965), en.wikipedia.org/wiki/Hope_Slide: 47 million m3 off
+  Johnson Peak's south-west face, 2 km wide, fell ~1,200 m, debris up to
+  150 m deep over the highway; the scar is still mostly bare rock.
+- Hope Aerodrome: turf, 1,207 m, 4.8 km west of town in Flood.
+
+Forest (en.wikipedia.org/wiki/British_Columbia_mainland_coastal_forests):
+- Low: western hemlock, western red cedar, amabilis fir, Douglas fir (south
+  coast). Bigleaf maple, vine maple, red alder in gullies, slides, riverbanks
+  (yellow-orange in fall).
+- High: mountain hemlock, amabilis fir, yellow cedar; above treeline alpine
+  meadows, sedge, lichen-covered rock. Logged valleys: 1970s-80s clearcuts
+  and logging roads switchbacking up the slopes.
+
+Mountain features to model (from the photos and the above):
+- Steep forested walls rising right behind town; rock bluffs and cliff bands
+  (grey granite), talus / scree fans below them, avalanche chutes (treeless
+  strips of alder and slide brush down the slopes), creek gullies with
+  waterfalls, a bare slide scar, snow above ~1,500 m, rocky summits.
+- Benches and knolls at the foot of the slopes; the river's gravel bars;
+  a narrow side canyon with a railway tunnel.
+- Lakes: a lake in a basin just east of town; small tarns higher up.
+- A creek coming out of a cave mouth at the foot of a limestone cliff (a
+  karst resurgence): an overhanging dark opening, the creek pouring out over
+  boulders, moss, spray.
+
+Mountain strip (flyingmag.com/nowhere-to-hide, mountainflying.com backcountry
+landings):
+- Short, sloped: land uphill, take off downhill; often one-way with no
+  go-around; timber crowding the sides and ends; surfaces dirt / gravel /
+  grass, soft and hard spots; often hidden until short final behind terrain;
+  canyon and creek winds that shift near the ground.

@@ -1,0 +1,31 @@
+WATER TRUCK REFERENCE (13 Oct) - ONE truck, used for everything we can see:
+an early-90s L-series single-axle water truck, white cab, white modified-elliptical tank.
+Listing photos (26), host d2uhsaoc6ysewq.cloudfront.net/56862/Water-Trucks-Ford-L8000-<n>.jpg:
+  457 left side (MEASURED)   455 right side   458 / 463 front   460 / 462 front 3/4
+  461 / 464 rear   465 / 466 rear 3/4   467 / 469 rear wheel and skirt   468 / 471 front wheel
+  472 ladder + ID lamps + fill pipe   474 / 476 / 477 tank seams
+  481 / 486 seats, shifter, spray control box between the seats   482 headliner + overhead box
+  484 dash right side (vents, lower panel)   487 door card   489 dash and wheel   491 speedometer
+Hidden parts (same model, other truck 56875/46896000-020): 006 rear plumbing, 009 rear spring with
+  overload leaf, 010 fuel tank + battery box, 013-018 engine bay, 017 front axle/spring, 019 cab.
+  Cluster close-up: 3391/Instrument-Panel-Clusters-Ford-L8000-57482738.
+
+MEASURED (side photo 457, tyre 11R22.5 = 1.05 m; front axle = 0, + back):
+  bumper front -0.83, grille face -0.66, cowl/windscreen base +0.61 (y 1.78), cab back +1.61
+  wheelbase 3.58, rear end +4.30, roof 2.40, hood top 1.70 front / 1.78 cowl
+  door 0.62..1.54, sill 1.04, window 0.70..1.45 / 1.85..2.30, handle +1.35 / 1.49
+  fuel tank (left) +1.10..2.05, y 0.45..0.93, step on top
+  water tank +1.62..4.28, top 2.40, skirts y 1.05..1.38 (white box sills, amber lamp front, red rear)
+FRONT (458): grille 1.30 x 0.70 chrome, 11 bars split by a wide centre bar with an oval badge (blank in game);
+  hood 1.52 wide, fenders 2.36 wide with square sealed-beam headlamps (0.23 x 0.16) at x 0.97 y 1.09,
+  amber box turn lamps on the fender tops; black channel bumper 2.45 wide, ends kicked back,
+  front spray bar along it with an elbow nozzle each end; west-coast mirrors on tube frames, round spot below;
+  5 roof marker lamps; one-piece windscreen.
+REAR (461): flat head, slightly narrower at the bottom; ladder (two rails, 3 flat rungs, hoops above the top);
+  3 red ID lamps on top; white fill pipe over the top at the right, black hose looped to the rear spray bar;
+  spray bar across under the tank (elbows up at the ends); light boxes each side (red tail + white back-up),
+  centre bumper box; mud flaps.
+INSIDE: tan dash wrapping round, brushed-silver cluster (two warning-lamp windows + round vent on top,
+  tach left / speedo right, two small gauges each side), knob panel left (yellow park brake), switch panel
+  right; big black two-spoke wheel nearly flat; tan engine cover between the seats; high-back cloth seats;
+  tall shifter; spray control box on the floor between the seats; tan ribbed headliner, overhead box right.

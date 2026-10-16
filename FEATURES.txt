@@ -1,0 +1,200 @@
+BUSH PILOT 2 - WHAT'S IN THE GAME AND HOW TO USE IT
+(test bed; updated 2026-10-11. Keys are the defaults - Menu > Controls lets
+you rebind any of them. "Pad" = Xbox-style controller.)
+
+=============================================================================
+ CHANGES IN THIS UPDATE
+=============================================================================
+ - Machines no longer fall through the map when you dig deep and drive into
+   the hole: the whole body of every machine/truck now collides with the dirt
+   (before only the wheels/tracks did). Very deep narrow shafts: the machine
+   nose-dives in but stays out of the walls.
+ - Parked / for-sale planes sit on their wheels instead of floating, and are
+   real planes (physics running, can be bought and flown).
+ - Plane door: opening it shows the real cabin (seats, panel, yokes) instead
+   of a black box. Every plane has its cabin built, not just yours.
+ - The boxy shape sticking out of the roof behind the wing is gone (the cabin
+   inside was poking through the tapering tail).
+ - Gauges easier to see (plane and both trucks): faces glow a little, needles
+   always bright, glass no longer a mirror. Water truck dash rebuilt so every
+   gauge is in view and nothing blocks it (3-spoke wheel, lower gear knob,
+   dash below the hood line). Pickup: the cab was a solid block with a lid
+   over the dash - now hollow; hood lowered to the real truck's height so you can
+   see over the nose. Plane: resting view looks a little lower so the top of
+   the panel shows.
+ - Water truck: diesel tank now lies along the frame under the driver's door
+   with the steps in front (was a drum sticking out sideways); air tanks along
+   the rails (were through the drive shaft); air-intake pipe connected.
+ - Cockpit camera: head locked at the pilot's eye, mouse = free look, the view
+   stays where you leave it. A dot in the middle works switches (look at it,
+   click). Hold Alt for a normal mouse pointer. Hold right mouse to zoom in on
+   a gauge. Mouse wheel no longer zooms the view out (that's what made it feel
+   like you slid back in the seat). Seat-back (End) limited to 6 cm.
+ - First person on foot: your own body no longer shows/clips into view (it
+   still casts its shadow).
+ - Camera shake: engine buzz, rumble on the ground (rougher off the strip),
+   a bump on touchdown, stall buffet, explosions. Menu > Options > Camera
+   shake (0% turns it off, up to 200%).
+ - F10 also opens the menu (Escape can be grabbed by other apps).
+ - NEW PICKUP: built from scratch in Blender over scale drawings - frame,
+   V8, transmission, transfer case, driveshafts that spin, front I-beams and
+   coils, rear axle on leaf springs, exhaust, tank, spare. Clear glass, see-
+   through lamp lenses with working bulbs (head, park, tail, brake, reverse,
+   blinkers, markers, plate), bench seat with a Mexican blanket, steering
+   wheel that turns, opening hood and tailgate, tyre choices.
+ - Everything checked to scale against the pilot (1.76 m): pickup 6.0 m long
+   1.92 m tall, water truck, dozer (cab raised so you fit), loader,
+   excavator, forklift and plane all in proportion.
+ - Sound: pickup sounds like an old cammed 350, water truck a diesel that
+   revs up when the PTO pump goes on, machines with hydraulic whine; wind,
+   birds, creek, rain, crickets, muffled inside cabs.
+
+=============================================================================
+ FLYING
+=============================================================================
+                               KEYBOARD                  PAD
+ Nose down / up                W / S  (or Up / Down)     Left stick up/down
+ Roll left / right             A / D  (or Left / Right)  Left stick left/right
+ Rudder left / right           Q / E                     Right stick left/right
+ Throttle up / down            Shift / Ctrl  (= / -)     RT / LT
+ Brakes (both)                 Space                     A
+ Left / right toe brake        Z / X                     -
+ Flaps down / up a notch       F / R                     X / Y
+ Trim nose up / down           T / G                     D-pad down / up
+ Look around                   Numpad 8 4 6 2, mouse     Hold RB + right stick
+ Chase / cockpit view          C                         B
+ Wheels up/down (amphib)       L                         -
+ Feather dead engine (twin)    U                         -
+ Outside lights                V                         -
+ Get out / in                  O                         Left stick click
+ Back to last airstrip         Backspace                 -
+ Next destination              N                         D-pad left
+ Chart (map)                   M                         Back/View
+ Job board                     J                         -
+ Controls reminder             H                         D-pad right
+ Menu                          Esc or F10                Start
+ Full screen                   F11                       -
+ Seat up / down                Page Up / Page Down       -
+ Seat forward / back           Home / End                -
+ Co-op: ask for / hand over    K                         -
+
+ Engine (by hand, or let I do it all):
+ Auto start / shut down        I
+ Battery master                1        Alternator      2
+ Magnetos (OFF R L BOTH)       3        Starter (hold)  4
+ Primer (one stroke)           5        Fuel selector   6
+ Carb heat                     7        Cowl flaps      8
+ Mixture richer / leaner       ] / [    Prop rpm up/dn  . / ,
+
+ In the cockpit you can also click every switch, knob and lever: look at it
+ (dot turns orange, its name shows), click; drag levers; mouse wheel over a
+ knob turns it. Alt = mouse pointer instead.
+
+ Planes: the Wolverine bush plane (wheels, tundra tyres, skis, amphibious
+ floats) and the DC-3. Damage by part, repairs in the menu, engine service
+ at the cowl (Y at the nose opens it). Planes for sale on the aprons: walk up
+ and press E to buy. Fuel and load: Menu > Load and fuel.
+
+=============================================================================
+ ON FOOT
+=============================================================================
+ Walk                          W A S D                   Left stick
+ Run                           Shift                     RT
+ Jump                          Space                     A
+ Look                          Mouse                     Right stick
+ Use / pick up / load / talk   E                         X
+ Door / take / put away        Y                         Y
+ Inventory                     Tab                       LB
+ Hotbar slot                   1 - 8                     D-pad left / right
+ Build menu                    B                         -
+ Smoke                         P                         -
+ First / third person          C                         B
+ Get in plane / vehicle        O (at the door)           Left stick click
+ Mouse pointer (let go)        Hold Alt
+
+ Truck throttle / brake       W / S                     Right / left trigger
+ 4WD (2H/4H/4L; 6x4/6x6/Low)  G                         D-pad up
+ Diff lock / lockers          9                         Right stick click
+
+ Test shortcuts: F2 tool yard, F3 water truck, F4 wet flats by the creek,
+ F6 pickup, F7 loader, F8 fuel truck. F9 records a frame-timing log.
+
+=============================================================================
+ GOLD, DIGGING AND TUNNELS (inside the test square)
+=============================================================================
+ - Shovel and pick are real tools (hotbar). Dig with E where you look; hard
+   or frozen ground needs the pick. Pan at water: carry dirt, E at the water.
+ - Ground is generated from the world seed: rolling ground, rock knoll, bog,
+   pond, creek, buried pay channels (richest on the inside of bends), a
+   bench terrace, the mining pad. Console: newworld / seed.
+ - Finds near the surface: bottles, pans, 1898 coins - sell them with gold.
+ - Tunnels: dig your own; timber sets hold the roof; ladders to climb out.
+ - Generator (fill with the gas can, E start/stop, Y pick up) powers rope
+   lights strung along drifts.
+ - Water pump: set it at the water's edge (E), runs to the lowest ground.
+ - Sluice box at the creek; wash plant / trommel on the pad (runs on gas:
+   pour a gas can into its drum, E start/stop); dump dirt into the hopper with
+   the excavator or loader. Gold builds up; sell at the menu.
+ - Gas can: fill at the fuel pumps at town strips (E), pour into machines.
+ - Workbench at the tool yard: Y picks the recipe, E makes it (timber set,
+   ladder, sluice and more) from logs you cut.
+ - Chainsaw: fell trees (E at a tree) for logs.
+ - Fire: campfires, and wildfire that spreads through what grows there.
+
+=============================================================================
+ MACHINES (walk to the cab door, O to get in / out)
+=============================================================================
+ All drive with W A S D (S brakes, then reverses), Space handbrake.
+ Dozer:      E blade down/up, Shift/Ctrl raise/lower by hand. Push with the
+             blade down to cut and fill: roads, pads, ramps.
+ Excavator:  look where to dig (the arm follows), E dig / dump. Y switches to
+             levers: boom, stick, bucket by hand. Dump into the hopper.
+ Loader:     Shift/Ctrl arms up/down, R/F curl/dump bucket, E swap bucket and
+             forks. Drive into dirt with the bucket flat to fill it.
+ Forklift:   Shift/Ctrl forks up/down, E pick up / set down (pallets, DC-3).
+ Pickup:     Generic late-80s 3/4-ton SuperCab long bed (modelled in
+             Blender off scale drawings). E hitch / unhitch (back the ball
+             under a tongue). Load cargo into the bed on foot at the tailgate.
+             I engine (cammed V8 sound). V headlights, Z / X left / right
+             blinker, brake and reverse lights work. On foot: Y at the nose
+             opens/closes the hood, Y at the back the tailgate.
+             Working gauges (MPH, RPM, fuel, temp, oil, amps), 4-speed.
+             Parts: everything from the engine to the lockers, lift and
+             tyres (235 highway, 31 A/T, 33 mud, 35 mud) is a real part -
+             Esc -> Workshop on the apron, or by hand under the hood.
+ Water truck: late-80s heavy truck with a 4,000 gal tank. I engine on/off (needs air
+             to build before it drives). E fills at water (park the suction
+             hose at the back-left by the pond, creek or a flooded hole) /
+             switches the sprays. 1-5 open/close the spray valves (FL FR MID
+             RL RR). On foot at the back: E takes the hose off the reel, open
+             the HOSE valve on the manifold (E at it), E opens the nozzle; Y
+             reels it back in. 50 ft hose.
+ Fuel truck: the same truck with a diesel/avgas tank. E at a fuel pump
+             loads it; anywhere else E fills whatever's parked close by
+             (plane and pickup avgas, water truck diesel).
+ Mud:        open diffs (a spinning wheel takes the power), 4WD and lockers
+             to get through; a mud bog near the strip to play in.
+ Gauges in all the trucks work like the plane's. The pickup has a
+             three-gauge pod under the dash and the plane a two-gauge pod
+             under the panel: wire each gauge to a reading (boost, fuel
+             pressure, air/fuel, tach, temps...) in Esc -> Workshop.
+
+=============================================================================
+ BUILDING, JOBS, WORLD
+=============================================================================
+ - B: lay out your own strip, put up a log cabin, steel pole barn / hangar,
+   or a camp. Hangar doors: E at the door.
+ - J: job board - passengers, mail, groceries, fuel drums, pallets; cargo is
+   real objects you load. Reputation at each town.
+ - Birds (and bird strikes), weather with rain/snow, seasons, frozen lakes,
+   night lights at towns, wrecks you can salvage.
+ - Co-op flying (K to hand over controls).
+
+=============================================================================
+ STILL TO COME (asked for, not built yet)
+=============================================================================
+ - Rope: towing/winching, tie-downs in the pickup bed, lowering into shafts.
+ - Working fuel station at the town strips (skid tank, dispenser, hose to the
+   wing); menu fuel slider stays.
+ - Better barrels, signs, windsock, runway markers, dock props.
+ - Loader forks lifting the skid trommel.

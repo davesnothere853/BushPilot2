@@ -1,0 +1,2455 @@
+
+=== 62. Water with physics and flow (idea, 2026-10-10) ===
+Dave: "i want water to have physics as well and flow"
+- Water should be a simulated thing, not a flat plane: it flows downhill,
+  pools in dug holes, drains when you cut a channel with the dozer.
+- Pairs with the deformable ground: shallow-water sim on the same fine grid
+  (height + water-depth per cell, flow between neighbours).
+- Mining uses: pump water to the wash plant, settling ponds, diverting a
+  creek, flooding your own cut if you dig below the water table.
+- Proving ground gets a pond + later a small creek to test flow.
+- NOT BUILT YET - run the design past Dave before building.
+- Dave add-on: water can be PUMPED OUT or MOVED - dewatering pumps for the
+  pit, pumping from pond/creek to the sluice, moving water where you need it
+  (hoses/pipes as physical gear you place, 80s style trash pumps).
+
+=== 63. Character and on-foot immersion (direction, 2026-10-10) ===
+Dave: "i want to focus more on the character this time and the whole walking
+around it was very clunky with the whole low poly thing. i want it to feel as
+immursive as possible"
+- The character is a priority in BP2, not an afterthought. Old game's walking
+  felt clunky/low-poly.
+- On-foot feel targets: smooth acceleration/stopping (no instant start),
+  proper eye height, subtle headbob, camera lean, footstep crunch by surface
+  (gravel/moss/bog squelch/snow), breathing on climbs, boots/hands visible in
+  first person, ground conforming (slower uphill, sliding on steep scree,
+  sinking a bit in muskeg).
+- Physical interactions stay king (no menus): reach out and grab, carry with
+  weight, climb into machines hand-over-hand feel.
+- Proper character body: well-proportioned rig (a proper rig or better),
+  real walk/run/carry animations, visible in mirrors/shadow.
+- Applies to the proving ground: walking around the apron must already feel
+  good there - it is one of the test criteria.
+- Dave add-on 2: GROUNDWATER / water table. In the old game water appeared
+  anywhere you dug below water level - keep that, but make it live: water
+  seeps into a deep cut gradually (not instant), flows and settles like
+  cellular water - moves cell to cell, finds its level. Underground
+  flow: digging near the pond floods faster; bedrock holds it out. Dewatering
+  pump keeps a wet cut workable, turn it off and the pit fills back in.
+
+=== 64. New game = NEW MODELS (rule, 2026-10-10) ===
+Dave: "Remember New game you keep making the same models"
+- BP2 reuses the old game's BRAINS (flight model, engine sim, dig math,
+  machine logic) but NOT its looks. Every visual model gets remade from
+  real reference photos, better proportions, more detail where it counts:
+  plane (Wolverine-class bush beater), dozer, excavator, hangar, pilot,
+  props. Don't ship an old-game mesh as a BP2 model.
+- Remake order (most-seen first): 1 plane visual, 2 dozer, 3 hangar/apron
+  props, 4 excavator, 5 pilot character (ties into #63 immersion focus).
+- Dave follow-up: trees/plants count as models too - NO old-game plant
+  models either. Spruces got remade (needle cards); now remake deciduous
+  canopies, shrubs (willow/alder/dwarf birch), ground plants, rocks the
+  same way - card/sprig based, judged from render shots like the rest.
+
+=== 65. OceanPro addon (candidate purchase, 2026-10-10) ===
+Dave found: OceanPro for Godot 4.7 by Cornfield Labs ($95)
+https://cornfieldlabs.itch.io/godot-oceanpro
+- GPU FFT ocean, 3 cascades, foam/whitecaps, shoreline wet sand, buoyancy
+  component, 512 GPU surface probes, full GDScript source, no royalties.
+- Needs: Godot 4.7.x, Forward+, Vulkan, Windows - matches BP2 exactly.
+- Fit: the REAL map's coastal water + floatplane ops (buoyancy + probes =
+  plane floats riding actual waves). NOT for the proving-ground pond
+  (one ocean per scene, built for big water), and NOT a substitute for our
+  flowing/pumpable groundwater sim (notes 62) - they'd work together.
+- Decision: hold until the big map; Dave's call on the $95.
+
+=== 66. THE REAL PLAN: old game + new terrain + new look (2026-10-10) ===
+Dave: "i want to keep the core of the game just change the way it looks" /
+"pretty much everything we worked on but just better graphics with new
+built models eventually. just with the new terrain model"
+- BP2 is NOT a from-scratch game. It is the ENTIRE old game (jobs, fleet,
+  mining, builds, prospect, camp, cargo, menus, saves, DC-3, the island)
+  with two swaps:
+  1. TERRAIN: the old 40 m heightmap + dig tiles is replaced by the unified
+     deformable ground (0.5 m cells) streamed in chunks around the player -
+     dig anywhere on the island, no tiles, no pop. Proving-ground ground.gd
+     is the proven core; it needs a streaming layer for island scale.
+  2. LOOK: overcast-north atmosphere recipe, new ground shader, card
+     trees/shrubs everywhere, and models REMADE over time (plane, dozer,
+     hangar, excavator, pilot) without changing how anything plays.
+- The proving ground testworld stays as the tech/look test bench.
+- Feedback from Dave's first testworld session (fix in testworld, carry
+  into the merge): no pause menu, no collisions with plane/machines,
+  no controller support in the testworld shell (the old game's main.gd
+  already has all three - another reason the old core comes across whole).
+- Dave: the proving-ground square must show FINAL-game buildings, runway
+  and trees - the square IS the final look, just small.
+- Dave: procedural noise textures didn't look good. He's willing to use
+  real textures and models off the web. Plan: CC0 PBR texture sets
+  (free CC0 photo textures: moss+tundra grass, wet gravel, peat, rock,
+  sand, corrugated metal, worn planks) wired into the ground and building
+  shaders with normal+roughness maps; CC0/CC-BY models where they beat
+  hand-built (props first: drums, pallets, crates).
+- CORRECTION from Dave: NO old island map. "i dont want the old map i like
+  the new design on the small map" - "a demo of sorts". BP2 is a DEMO:
+  the old game's systems (fly, mine, jobs, money, menus, saves, machines)
+  running on the new small square map as the whole world. No streaming
+  layer needed - ground.gd as built IS the world. The square gets final-
+  quality buildings/runway/trees/textures. Old island + its world.gd are
+  retired as reference only.
+- Dave: carry over ALL the airfield/building content from the old game into
+  the demo square - runway lights, buildings, camps, fuel, the builds
+  system, everything we made - UNLESS an easily-sourced web model does the
+  job better. Rule of thumb: systems and layouts always carry over; for
+  each MODEL, check for a good CC0 replacement first (free CC0 packs,
+  free CC0 gltf models - Dave downloads, drops in chat),
+  otherwise remake ours with the new look.
+
+=== 67. Art style: Dave likes POLYART (2026-10-10) ===
+Dave shared a free polyart zombie pack and said:
+"i just like this level of polyart". Polyart = clean stylized low-poly:
+deliberate silhouettes, chunky bevelled shapes, smooth gradient / flat
+colours, consistent palette - NOT the crude/inconsistent low-poly he called
+"clunky" in the old game. OPEN QUESTION (asked Dave): replace the Dead
+Stick realism target with polyart, or blend (polyart models under the moody
+overcast-north lighting/fog, Firewatch-style)?
+- Dave answered "no preference". Working default: POLYART MODELS + MOODY
+  OVERCAST LIGHT (stylized but atmospheric). Consequences: photo PBR
+  textures become optional (polyart uses flat/gradient colour + vertex
+  colour; ground gets clean stylized colour zones); card trees would move
+  to polyart-style faceted trees to match. Nothing rebuilt until Dave
+  confirms after seeing a test render.
+- TARGET LOOK REFERENCE (Dave, 2026-10-10): reference/target_look_polyart_forest.png
+  This answers the style question: STYLIZED MODELS + CINEMATIC LIGHTING.
+  What's in it:
+  * polyart character (chunky, faceted, painted colour, no photo texture)
+  * spruces built from branch cards - very close to our card spruces
+  * DENSE grass blades carpeting the ground right up to the camera
+  * faceted low-poly mountains in the distance, hazed blue by aerial
+    perspective
+  * strong depth of field (foreground blur, background soft) - cinematic
+  * low warm sun, blue sky, deep shadows under trees, saturated greens,
+    soft ambient occlusion, gentle bloom
+  Godot pieces to get there: CameraAttributes DOF, dense grass MultiMesh
+  near the camera, SSAO+SSIL, sky with clearer blue (less grey overcast),
+  low-poly mountain ring outside the square, polyart remakes of plane /
+  machines / pilot / buildings.
+- 2nd reference (same polyart game): reference/target_look_polyart_rain_night.png
+  Night storm: rain streaks, splashes on a wet road, wet sheen reflecting
+  the sky, heavy cloud deck, polyart gas station + cars, silhouetted
+  spruce treeline. Same style holds in bad weather -> our overcast/rain
+  weather fits it. Also note its HUD: thin compass strip across the top
+  (NE/E/SE ticks) - a clean, period-neutral way to show heading on foot.
+- 3rd reference: reference/target_look_polyart_valley.png
+  Hillside over a polyart town in a valley. Key details: thick chunky
+  grass-blade clumps covering slopes (big, few, broad blades - not thin
+  realistic grass), wildflowers poking up (sunflower, lupine), smooth
+  rolling hills with SMOOTH shading (terrain itself not faceted), giant
+  faceted low-poly mountains as a pale hazy backdrop wall, heavy aerial
+  perspective/blue haze with distance, town readable at a glance (bright
+  roof colours: red, white, blue). Polyart = faceted for mountains and
+  props, smooth for near terrain, chunky cards for grass.
+- The three reference shots are from a survival game (a survival game,
+  a solo-developer game, well reviewed
+  ). Target art style = a clean low-poly polyart look.
+  Encouraging precedent: one person built that world. Likely built from
+  stylised polyart asset packs + strong lighting.
+- 4th reference: reference/target_look_polyart_deer.png (polyart reference)
+  Close-up polyart deer: FLAT-SHADED facets (hard per-face normals), many
+  small well-placed facets following real anatomy, only 3-4 colours per
+  model (body orange-brown, darker belly/legs, cream ear, dark nose/eye),
+  colour changes along facet edges. Lesson for our models: the old game
+  was ALSO flat-shaded - the difference is proportion accuracy from
+  reference + enough facets in the right places + a disciplined small
+  palette + good light. MeshKit already builds flat-shaded meshes; the fix
+  is modelling care, not a different technique.
+  Possible feature hint: WILDLIFE (deer/moose/caribou wandering the bush)
+  - ask Dave before building.
+
+=== 68. Polyart pipeline: Blender-by-script (2026-10-10) ===
+Headless Blender (pip bpy 5.2.2) runs in the workspace. tools/polyart.py
+turns a detailed model into polyart: Decimate (collapse) -> flat shading ->
+sample its texture per face (sRGB->linear!) -> k-means into one shared
+14-colour palette -> vertex colours. Test on the rigged pilot: 27,713 ->
+3,046 faces, reads as polyart with the right colours
+(reference/pilot_polyart_test.png). TODO for game use: decimate BEFORE
+baking pose and keep the armature modifier so the .glb stays skinned and
+animates; clean speckle facets (vest reflective stripes -> beige spots)
+with a majority-vote smoothing pass over neighbouring faces.
+- Dave (2026-10-10): the rigged pilot has NOTHING under its clothes/hat
+  (body cut away where covered), so outfits/hats can't be swapped. Wants a
+  character with a full body underneath and separate swappable clothes.
+  Candidates: free modular characters (free CC0, polyart, rigged,
+  separate outfit/hair parts) or MPFB2 (MakeHuman for Blender, free: full
+  base body + separate clothes/hair, any proportions, rigged).
+- Dave (2026-10-10, firm): "remember all the collisions and everything we
+  worked on from the previous game. all the game functions and menus. have
+  it work for this small map." => PORT THE OLD GAME'S main.gd AND ALL ITS
+  SYSTEMS (menus, saves, collisions, walker, cargo, jobs, fleet, mining,
+  builds, prospect, camp, HUD, cockpit, settings, controller) onto the
+  small map. testworld.gd was only a shell; the real game entry becomes the
+  ported main.tscn with world = the small map (ground.gd terrain).
+- Layout = storyboard PG-01 (runway 09/27 + hangar north, mining pad,
+  rock knoll NE, muskeg S, pond SW, road job). Past the edge: OPEN PLAIN,
+  flyable/landable, fading into haze with faceted mountains far off.
+
+=== 69. Caves underground (idea, 2026-10-10) ===
+Dave: "make it so there are caves and stuff under ground"
+- Our ground is a HEIGHTFIELD (one height per 0.5 m cell): it can dig
+  down and pile up, but can't have overhangs, tunnels or caves.
+- Caves need VOXEL terrain (3D density grid meshed with marching cubes /
+  Transvoxel) - the usual smooth-voxel approach. Options:
+  (a) Zylann's godot_voxel (Voxel Tools): mature, has GDExtension builds
+      for Godot 4, does caves, LOD, editing, collision - but a big
+      dependency and our ground/dig code would move onto it.
+  (b) Our own marching-cubes layer just for underground pockets (mine
+      tunnels / natural caves) under the heightfield: limited but fits.
+  (c) Hybrid: keep the heightfield surface, add voxel "cave volumes" you
+      break into from a pit wall.
+- Also opens: hard-rock mining tunnels (adits), old 1890s workings to
+  find, flooded caves (ties to groundwater idea #62).
+- NOT building yet - needs Dave's pick after the small-map port works.
+- Dave add-on: "i want to dig very deep". Today bedrock (2.5-4 m down)
+  stops every dig. Deep digging needs: bedrock that CAN be broken (slow,
+  ripper / hydraulic breaker / blasting), deeper geology (weathered rock,
+  hard rock, quartz veins with lode gold, groundwater table), and pit
+  walls that need benching to stay up. A heightfield can do very deep OPEN
+  PITS; tunnels/shafts/caves need voxels (see above) - deep digging +
+  caves together are a strong case for option (a) voxel terrain.
+- Dave add-on: "eventually put supports up under ground" - timber mine
+  supports (posts + caps, cribbing) in tunnels; unsupported spans cave in.
+  Classic 1890s/1980s placer-drift mining. Needs voxels (tunnels).
+- Dave: "a true mine" - the goal is a real underground mine: dig a
+  portal/adit or shaft, drive tunnels, set timber supports or risk cave-
+  ins, follow veins, haul ore out. Confirms the voxel direction (a) for
+  the future terrain upgrade.
+
+=== 70. Realistic suspension + driving physics (2026-10-10) ===
+Dave: "i want realistic suspension and driving physics if possible"
+- Today the dozer/excavator drive KINEMATICALLY: they slide along and snap
+  to the ground height (no mass, no traction, no tipping). The plane is
+  the only thing with real physics (custom rigid body, sprung gear).
+- Plan: give ground machines the same treatment as the plane - a custom
+  rigid body (mass, inertia) with spring/damper contact points:
+  * tracked (dozer, excavator): 6-8 road-wheel contacts per track, each a
+    raycast spring+damper on the ground; per-track drive force with
+    traction from the surface (gravel/grass/mud/bog), slip and spin-out,
+    pivot turns by braking one track; climbs limited by real grip and
+    weight transfer; can tip over on a side-slope; blade load adds drag.
+  * wheeled (trucks, loaders, the fuel bowser later): raycast wheels with
+    spring/damper/anti-roll, Pacejka-lite tyre friction, differential.
+  * muskeg: soft ground sinks contacts and saps traction (storyboard).
+- Built in our own GDScript physics (like plane.gd) rather than Godot's
+  VehicleBody3D: we control every number and it reads the deformable
+  ground directly (and the voxel ground later via raycasts).
+- Ties into BeamNG-ish damage later (bent tracks, broken springs).
+- Dave: voxel ground must NOT be blocky - smooth, like other voxel games /
+  Farming Simulator / Out of Ore. => Voxel Tools SDF channel meshed with
+  VoxelMesherTransvoxel (smooth marching-cubes style), never the blocky
+  mesher. Surface stays smooth hills; digs leave smooth pits and tunnels.
+
+=== 71. Machines: hands-on controls, smooth with the voxel ground; VR (2026-10-10) ===
+Dave: "make sure all the dozers and excavators work smoothly with what we're
+trying to do. It was cool how it worked with just hitting a button to dig.
+But maybe more dynamic controls - go up and down on our own and dump the
+buckets where we want." + "Remember everything has to work in VR."
+- Keep the one-button EASY mode (look where to dig, E digs / E dumps).
+- EXCAVATOR LEVERS (toggle with the door key, Y): ISO pattern like Out of
+  Ore / real machines. Keys: A/D swing, W/S stick out/in, Shift/Ctrl boom
+  up/down, R/F bucket curl/dump. Pad: left stick = swing + stick, right
+  stick = boom (pull back = up) + bucket (left = curl), triggers = boom.
+  The teeth bite in a hand's depth; dragging or curling through ground
+  fills the bucket (ground.cut_to - never deeper than the teeth, never
+  through bedrock); a full bucket or too deep a bite stalls the arm;
+  opening the bucket pours it under the teeth (a pile, or the wash plant
+  hopper). Camera turns with the cab.
+- DOZER BLADE BY HAND: Shift/Ctrl (triggers, right stick) raise/lower it
+  any time; E still drops / lifts it. Below the tracks it cuts a ramp
+  down each pass; just above it spreads what it carries.
+- VR (see 38, 44): the same lever pattern maps 1:1 onto Quest Touch
+  thumbsticks (left = left joystick, right = right joystick). Later, in
+  VR you grab the real cab joysticks / blade lever with your hands
+  (XR hand grips drive the same levers_step / blade_adjust inputs). Every
+  machine control must stay reachable in-world, no flat-screen-only UI.
+  Voxel ground must hold VR frame rate (72-90 fps stereo): LOD distances
+  are tunable; drop to 0.5 m voxels on weak PCs.
+
+=== 72. Hand digging needs a real shovel (2026-10-10) ===
+Dave: "I want to have to use shovels to dig and not just anywhere."
+Chosen: NEED A REAL SHOVEL. The shovel is an object in the world (a new
+game starts with it leaning by the hangar). Walk up, E picks it up; it's
+in your right hand (seen in third person, a hand tool in VR later). With
+it: dig, fill the pan, shovel into the sluice. Without it: no hand digging
+(panning at water still works). Y (door key) sticks it in the ground where
+you stand; it stays there (saved) until you come back for it - leave it at
+the claim and you have to walk or fly back for it.
+Later: buy spares, carry it in the plane as cargo, a pick for hard/frozen
+ground, a proper digging animation (foot on the step, VR hands drive it).
+
+=== 73. Player-made tunnels; inventory + hotbar (2026-10-10) ===
+Dave: "I want to make the tunnels myself remember that."
+- NO pre-made tunnels/caves in the game. The player digs every drift: face a
+  bank with the shovel (in hand) and dig in, scoop by scoop (voxel carve).
+  Walkable inside (voxel floor/walls/roof). Dig along the pay streak on
+  bedrock = drift mining; a pay face fills the pan. Rock needs a pick later.
+  Spoil must be hauled out later (wheelbarrow / ore cart on rails).
+  Dark underground: a headlamp item. Timber sets or it caves in (69).
+Dave: "I want an inventory on my person as well as a hotkey bar."
+- Backpack with a weight limit (kg) + an 8-slot hotbar. On foot, keys 1-8
+  pick what's in your hand (the plane's 1-8 switches only in the cockpit),
+  pad D-pad left/right cycles. Tab / pad LB opens the backpack.
+- Items are real: shovel, gold pan, pick, headlamp, timber sets, chainsaw...
+  Tools only work from the hand (hotbar). Drop/stick items in the world.
+- VR: backpack over the shoulder + belt slots you reach for (no flat menu).
+- Dave: "There can be natural caves randomly though." => a few natural caves
+  per map from a seed: worm-like passages and chambers in the rock (the
+  knoll, under the bedrock line), some with a small entrance on a slope,
+  most found by breaking into them while digging. Everything else the
+  player digs.
+- Dave: caves "branching, like real cave systems": branching cave systems (winding
+  "worm" passages that split, chambers, the odd ravine), at many depths, a
+  few opening on slopes. Smooth voxels, not blocks. Deterministic from the
+  map seed; kept off the runway/apron/pad. Player's own digs are saved as
+  an edit log and replayed on load.
+- Dave (after seeing the first drift): "a bit weird, I'm hoping I can make
+  them a bit more square. I would like to drive the equipment in it in the
+  future." => drifts are cut as ORIENTED BOXES (flat floor, straight walls,
+  flat roof), not spheres. Hand drift ~1.8 m wide x 2.2 m high. Later:
+  machine-size headings (~4 m x 4 m) cut by the excavator/loader so
+  equipment can drive in; portals/adits with timber or steel sets.
+
+=== 74. Demo map = ONLY the square (2026-10-10) ===
+Dave: "that last mini map you made was bad. didn't like the random other
+airports. i just want that square to test." => Bluff Camp and Willow Bar
+removed. One strip (Proving Ground 09/27). The claim is the square itself
+(owned from the start). Jobs/skydive/tests stay at the one strip.
+- Dave: "I really don't even want those rendered mountains, just a small
+  test square." => far mountains removed from the world (world_look keeps
+  the code for later). Flat ground round the square stays only so the plane
+  can take off and fly a circuit.
+- Dave: "I'm not trying to make the game, just a test base for a future game
+  with all the features." => BP2 is a FEATURE TEST BED: one small square,
+  every system testable in it (voxel digging/tunnels/caves/supports, tools +
+  inventory, machines + physics, plane, look, VR). No time on progression
+  (jobs/contracts/career). Keep test runs short and focused on what changed.
+
+=== 75. Water truck (2026-10-10) ===
+Dave shared: a 4,000-gallon water truck
+(https://www.loadkingmfg.com/water-trucks/4000-gallon-water-truck/).
+Reference: elliptical steel tank 198" x 96" x 64.75" (5.0 x 2.4 x 1.6 m),
+domed ends, 24" man-way on top, 2-1/2" fill pipe, 3" suction hose kit
+(draft fill from a pond/pit), five air spray valves (2 front, 1 mid,
+2 rear), rear 50' hose reel with nozzle, rear pipe ladder; on a tandem
+truck chassis. In the test square: a drivable wheeled truck (ties to the
+wheeled-vehicle physics in 70) that fills from the pond, the creek or a
+flooded pit (draws down water_sim), carries 15 m3, and sprays it out
+(dust control, wets the haul road, or drops water where you want - it
+flows in water_sim). Polyart model built from the reference.
+
+=== 76. Dig VERY deep (2026-10-10) ===
+Dave: "is there random caves?" (yes: 7 systems, 2 open at the surface) and
+"I want to be able to dig verrry deep."
+- Voxel ground now goes 150 m below the lowest surface (was 60 m).
+- Bedrock is no longer a hard floor: rock digs, but hard - the pick breaks
+  it at a fair rate, a shovel or the excavator bucket only scrape it slowly.
+  (Later: a rock breaker on the excavator, drilling + blasting, a hoist /
+  headframe over a shaft, ladders, hard-rock quartz veins with gold.)
+- Some cave systems now start deep (down to ~90 m).
+- Deep holes fill with groundwater: pumps matter.
+
+=== 77. Random soil & rock, things to find (2026-10-10) ===
+Dave: "make sure to generate random soil compositions not just the same
+everywhere. In other digging games there would be sand or something when digging and you
+would find diamonds."
+- The ground is a 3-D mix from seeded noise, not flat bands: topsoil /
+  peat (muskeg), silt, clay lenses, sand lenses, gravel, the pay gravel
+  streak on bedrock, glacial till with boulders; bedrock varies (schist,
+  granite) with quartz veins.
+- What you dig is what you see: the voxel shader uses the same function as
+  the game, so a cut face shows the sand lens you're digging into.
+- Materials dig differently: sand fast (and runs), clay slow and sticky,
+  till slow, rock needs the pick.
+- Finds while digging: gold nuggets (pay gravel, more on bedrock), quartz
+  with gold in veins, garnets, the odd jade, and very rarely a diamond -
+  real items in the backpack, worth money.
+
+=== 78. Buildings: steel pole barns, log cabins, the bush hangar (2026-10-10) ===
+Dave: "I want steel pole barn building and log cabin style buildings."
+"Ditch the red" -> "white maybe green". "White hangar with a classic hangar
+style door. Find some pictures of interiors and replicate" (Alaska / bush
+planes), "train off pictures first, don't do it off memory" - he sent a photo
+of a light taildragger on tundra tyres in a hangar: bare galvanised corrugated sheet
+inside, dark steel frames and purlins, rusty fluorescent battens on rods,
+plain concrete, planks under the tyres, rope and a jerry can by the door.
+"Make sure nothing is in the centre blocking a plane from coming in, and
+make sure everything has proper collision."
+- Build menu (B, on foot): Log cabin (7x6, porch, stove, bunk), Log house
+  (10x8, full porch, stone chimney), Steel pole barn (12x18, white with green
+  wainscot and trim, 6 m sliding doors - machines drive in), Open pole shed,
+  Hangar (any strip in the test bed). The building goes in front of you,
+  door facing you; the pad is cut and filled flat first (voxels follow).
+- Models: scripts/building_models.gd (polyart, MeshKit).
+- Hangar (home one at Proving Ground and the buildable one): white ribbed
+  steel, green wainscot, bifold lift-strap door (Schweiss style, as on the
+  Palmer, Alaska hangar) shown folded open; inside matches the photo. Centre
+  lane kept clear for 15 m of wing; all the gear is along the walls and the
+  pilot room + loft sit in the back right corner.
+- Collision: walls (hollows) plus solid boxes for everything you can bump:
+  furniture, stove, porch rails, chimney, shed posts, benches, shelves,
+  drums, floats, tyres, tug, pilot room, stairs, frame columns.
+- Tested (kindtest): plane taxis in through the door undamaged, centre lane
+  clear, walker stopped by the workbench, every kind builds level, you walk
+  in through each door and the walls/furniture stop you.
+- Later: open/close the bifold door (animate), climb the loft stairs, colour
+  choices per building, VR hands on the door switch.
+
+=== 79. Equipment that works together, Farming Simulator 25 style (2026-10-10) ===
+Dave: "Pick up truck that can take some packages as well in case the plane
+crashes and you can still remove packages if not too damaged and put them in
+the bed and drive to destination or other plane. Ability to tow a trailer
+with equipment or make the equipment a trailer itself and you tow it to the
+destination, like the sluice and gold mining equipment." "Think Farming
+Simulator 25." "How they work together, different equipment."
+One shared set of rules, not one-off vehicles:
+- HITCH / TONGUE: anything with a hitch (pickup, later the water truck)
+  pulls anything with a tongue. Back up to it and press the attach key in
+  the cab (FS: Q) when the hitch is close; same key to detach. Trailers
+  follow on their own axle (kinematic, off-tracking on corners), sit on the
+  ground, add drag/weight to the tow vehicle, and are saved where you leave
+  them.
+- BEDS / BOXES: a pickup bed (and later a flatbed trailer) holds cargo
+  pieces in spots; loaded by hand (carry and drop in), later by forklift
+  (pallets). A dump box (later) is filled by the excavator and tipped.
+- Equipment on wheels: the sluice box and the wash plant are trailers
+  themselves - tow them to the claim, unhitch, and they work where they
+  stand (sluice at the water's edge).
+- Crash salvage: a crash no longer wipes the load. Each job takes damage
+  (fragile more); anything under 15% condition is destroyed, the rest stays
+  in the wreck. Walk up and pull it out, carry it to the pickup, drive it to
+  the destination (drop it there: delivered, paid by condition) or to
+  another plane and load it in.
+- Stage 2: flatbed trailer (forklift pallets on/off), dump trailer
+  (excavator fills, tip into the wash plant hopper), lowboy (drive the
+  excavator or dozer on, haul it). Later: tension belts (unstrapped loads
+  slide/fall on rough ground), trailer brakes, jack-knife.
+
+=== 80. Fire that spreads (2026-10-10) ===
+Dave: "Can you add fire and have fire spread?"
+- A fire grid like water_sim (1-2 m cells over the square): fuel from what
+  grows there (grass, brush, trees - forest_at / flora), moisture (wet
+  ground, creek, rain, snow), burning cells heat their neighbours, wind
+  pushes it downwind and uphill faster; burnt ground goes black and the
+  trees go to snags.
+- Starts: a crashed plane on fire, a campfire left going, a dropped
+  cigarette later, lightning later.
+- Buildings catch (log cabins easily, steel barns hardly) and burn down.
+- Fighting it - the equipment working together: the water truck's sprays
+  put cells out (they're wet), the dozer cuts a firebreak (bare ground has
+  no fuel), a pump and hose from the creek, a shovel to beat out a spot fire.
+  Later: water bombing from a float plane scooping the pond.
+- Polyart flames and smoke (particles), glow at night, the sky goes hazy.
+
+=== 80. Fire that spreads (2026-10-10) ===
+Dave: "Can you add fire and have fire spread?"
+- A fire grid over the square (like water_sim): each cell has fuel (grass,
+  brush, forest from the ecology; nothing on dug dirt, gravel, the runway or
+  water), moisture (wet ground near the creek and pond, standing water) and
+  heat. Burning cells use up their fuel and light their neighbours by
+  chance - faster downwind, uphill, through dry grass and timber; slow or
+  not at all through wet muskeg; dug ground and roads are firebreaks.
+- You see it: flames and smoke on burning cells (pooled particles, only
+  near you), blackened ground and burnt snags after.
+- Ignition: a crashed plane on fire, a campfire left going (sometimes), a
+  flare / lighter item. Buildings catch: log cabins burn down (a hollow
+  shell left), steel buildings don't.
+- Putting it out: the water truck's sprays (water lands on the cells),
+  pumps, dozing a firebreak, digging, rain later. Smoke hurts you if you're
+  in it.
+
+=== 81. Propeller strike gore (2026-10-10) ===
+Dave: "Add gore and lots of blood splatter if you get hit with the prop."
+- Walking (or running, or being pushed) into a turning propeller's disk is
+  fatal: a burst of blood spray and chunks, red mist, the screen goes red,
+  you drop. Blood splats land on the ground round the plane (decals that
+  stay a while), on the cowling and spinner, streaks on the windscreen and
+  the leading edges - they stay on the plane until it's washed (water truck
+  spray or a hose later). The near-miss warning stays ("Stay clear").
+- Respawn as for any death (menu: back to the last airstrip).
+
+=== 82. Birds and bird strikes (2026-10-10) ===
+Dave: "Add birds with bird strikes."
+- Flocks over the square: geese in Vs moving between the pond and the
+  flats, ravens and gulls loafing round the strip, a hawk circling. Polyart,
+  flapping, they scatter from a plane or a walker coming close.
+- Strike: a bird inside the plane's swept volume. Damage by closing speed
+  and where it hits - windscreen cracks (or breaks: wind and noise), the
+  engine swallows it (rough running, power loss), the prop takes a nick, a
+  leading edge dents. Feathers burst, blood and guts splat on the plane
+  (same decals as the prop gore, washed off the same way).
+- Most likely low and slow near the pond and at dawn/dusk.
+- Dave: "Can be in air or on ground and take off if flying and hit." Birds
+  sit on the ground (the strip, the flats, the pond shore) and flush when a
+  plane taxis or rolls at them or a walker comes close - the take-off roll
+  through a flock is the classic strike. Flying flocks cross at height.
+
+=== 83. Tunnel power and light, folding trailers, real models (2026-10-10) ===
+Dave: "Gas can, rope lights, generators for tunnels would be cool. Also make
+the trailers fold. Use real life models as examples - the gold equipment and
+equipment trailers and trucks from that time period (1988) or now."
+- Gas can (jerry can / jerrycan-style 5 gal) in the inventory: fills the
+  generator, the pump, the truck. Generator (a small portable on a frame,
+  a small portable generator of the 80s): set it down at the
+  tunnel mouth, fuel it, pull-start it; it runs for hours on a tank, noise.
+- Rope lights / string lights: lay them along a drift from the generator -
+  a cable with bulbs every few metres, they light the tunnel; plug them in.
+- Trailers fold for the road: the portable wash plant folds its screen deck
+  and hopper wings down for towing and unfolds to work (like a Goldfield /
+  Gold Machine / Keene / Dove portable plant; later a trommel trailer). The
+  sluice trailer's legs fold. Equipment trailers: a tilt-deck / tag-along
+  (Cronkhite, Felling, Trail King lowboy) for the machines.
+- Trucks of the period: a late-80s 3/4-ton (3/4-ton pickup
+  square-body), a single-axle dump truck, the water truck; work from photos
+  of real ones before modelling, not memory.
+
+=== 84. Crafting bench (2026-10-10) ===
+Dave: "Maybe a crafting bench you can get from supplies and items you've
+collected or mined."
+- A workbench you build (logs + bought supplies) or buy, set down in a
+  cabin, the barn or the hangar. Stand at it: a recipe list, made from what
+  is in your backpack and nearby storage:
+  timber sets (logs), ladders (logs), sluice riffles and matting, a rocker
+  box, rope lights (wire + bulbs bought), gas cans, a better pan, pick
+  heads (iron), lanterns, stretchers for the plane, skis/floats repairs.
+- Ingredients come from what you collect and mine: logs (chainsaw), rock,
+  quartz, gold (smelt into bars), iron/scrap from wrecks, plus supplies
+  flown in (nails, wire, bulbs, fuel). survival-crafting style but small.
+
+=== 85. The whole small-to-medium placer outfit, from real photos (2026-10-10) ===
+Dave: "Let's add all that based off actual photos we can find." Rule: find
+real photos first, show them to Dave, he picks / clarifies, THEN model.
+"I'm looking for a small to medium mining operation."
+To add (each from photos):
+- Moving dirt: wheel loader (feeds the plant from a stockpile, stacks
+  tailings); rock truck / tandem dump truck (hauls pay and tailings).
+- Washing: the wash plant redone from photos (screen plant or trommel -
+  Dave to pick), grizzly + feed hopper, sluice runs, stacker conveyor for
+  the washed rock, clean-up gear (gold wheel / jig, pans, magnet, a small
+  clean-up sluice) that turns concentrate into gold.
+- Water: big diesel water pump (4-8") with suction/discharge hose,
+  settling ponds dug and used (water re-used, dirty water settles).
+- Power/fuel/support: generator(s), fuel tanks + fuel trailer + transfer
+  pump, light plants (tower lights) for night shifts, lowboy trailer and
+  tractor for moving the machines between claims, service truck / shop
+  (welder, compressor, grease).
+- Hand gear: rocker box, metal detector, test-hole auger / sampling.
+- Camp: bunkhouse, cook shack, wall tents, radio/sat phone.
+Already in: excavator, dozer, water truck, pickup, pan, shovel, pick,
+sluice box, highbanker trailer, the airstrip and plane.
+
+=== 86. Wheel loader (from Dave's photo) and engines modelled (2026-10-10) ===
+Dave's photo: a medium articulated wheel loader (LiuGong 8xx class) with a
+quick-coupler pallet-fork carriage (black, tall backrest grid, two long
+tines); yellow, big tread tyres on yellow rims, ROPS cab, rear engine and
+counterweight, Z-bar lift linkage with yellow cylinders. Build it with a
+bucket and the forks (swap at the coupler); forks lift the skid trommel
+plant by its fork pockets onto a trailer.
+- "Model engines like the other models": the loader (and the machines)
+  get a real modelled engine you can see under the hood / side doors, like
+  the plane engines (engine_model.gd) - not a plain box.
+=== 87. Jitter (2026-10-10) ===
+Dave: "first let's fix the jitteriness of the game". Cause: physics runs at
+120 Hz with physics interpolation ON, but the camera followed the walker's
+RAW physics position every frame (and cargo pieces were drawn at the raw
+plane/walker positions) - so the view stepped. Fix: the camera follows
+get_global_transform_interpolated(); the camera, cargo, doors, folds,
+birds and gore (moved per frame) have interpolation off.
+
+87b. Frame drops near trees / low flying (found 2026-10-10 with the F9 log
+   and a new "spottest" that times every script along the user's path):
+   - The PC had an old plane.gd: the plane smoothed itself AND Godot's
+     physics interpolation smoothed it again -> judder. Synced.
+   - Below 40 m the plane checked every body point against the nine nearest
+     tree cells twice a physics tick, rebuilding each tree from noise every
+     time: ~3.2 ms per check, ~25 ms a frame, so physics fell behind (8
+     catch-up ticks a frame, 12 fps). Flora.tree_near now keeps a 2-second
+     cache: 0.18 ms.
+   - Wing flex followed the g-load and rebuilt the whole airframe mesh up to
+     ten times a second (~15 ms each): the 160-220 ms spikes. Now two shapes
+     only, on the gear and in flight.
+   Still to do: trommel drum turns only when its engine runs on gas.
+
+88. Trommel on gas, bigger excavator, map edges (2026-10-10)
+   - Excavator now ~14 t (model x1.45, 0.85 m3 bucket, 6.8 m reach) - the
+     size that feeds a plant's hopper. The cab finishes swinging before it
+     digs or dumps; a dump counts where the bucket really is (it used to
+     "wash" from 7 m away). Over a hopper the bucket rises clear of it.
+   - Trommel plant: fuel in its drum (40 L delivered, 200 L max), E at the
+     engine starts / stops it, burns ~0.7 L/min, exhaust smoke while running,
+     stops when dry. Dumps go into a 4 m3 hopper (overflow spills beside);
+     running, it washes 0.08 m3/s and gold builds up as it goes. Saved.
+   - Gas can: full / empty items, one at the tool yard (and added to old
+     saves). Pour into the plant at its engine; fill an empty one at a strip's
+     fuel pump ($30). Next: machines and generators use it too.
+   - Edges: the voxel generator tiles its height image, so the mesher's
+     voxels just past the bounds read the far side of the map - a 1.5-3.4 m
+     wall along the edges (worst by the bog). The image is now padded with
+     each edge's own heights. And the ecology (bog, forest) no longer stops
+     dead at the square: it fades out over the plain, which now reads the
+     same fields (ground.zone_at) - no straight-line seams on any future map.
+   - Tests: feedtest, gastest, edgetest, deepdoz, machtest, spottest.
+
+89. Wheel loader (from Dave's photo): articulated, 1.8 m3 bucket, forks on a
+   quick coupler (E swaps). Shift/Ctrl arms, R/F curl/dump. Fills driving
+   into a heap with the bucket flat (firm ground only scrapes). Dumps into a
+   trommel hopper if high enough - a real loader clears ~3 m, the hopper is
+   3.9 m, so it says to build a dirt ramp. F7 walks to it. Next: forks lift
+   the skid trommel.
+90. Tunnel power: generator (5 L, gas can fills it, E start/stop, Y picks it
+   up) and rope light strings: E at the generator / a string's end to plug
+   in, walk out up to 15 m, E to hang. Lit while the chain reaches a running
+   generator. Gas cans now hold a partial amount.
+91. Finds: gold-rush bottles, rusted pans, 1898 dollars near the surface;
+   steppe bison skulls and mammoth tusks in the deeper muck; nuggets in the
+   pay. Rare; sold at the assay office with the gold.
+92. Workbench by the tool yard: Y picks, E makes - timber set, ladder, sluice
+   box (logs + a little cash), rope light, 100 g gold bar (+8% at sale).
+80b. Fire built: 4 m patches with fuel from what grows there; spreads
+   downwind and uphill (~0.3 m/s with a breeze), trees burn down, ground
+   goes black, water truck spray puts it out, nothing spreads in winter.
+   Crashes catch fire half the time; console "fire" starts one.
+93. The square from a seed (map_gen.gd, Game.world_seed, console
+   "newworld [seed]"): rolling ground, knoll, muskeg side (N/E/W), pond in
+   the low ground, creek downhill from the knoll to the pond, 1-2 buried
+   channels with pay on bedrock (richest inside bends: ~3.4 vs 0.8 g/m3
+   outside), a bench terrace, the mining pad on the best reachable pay.
+   Strip, apron, hangar and yard stay put. A new layout keeps your gold and
+   gear (machines move to the new pad); digs, fires and tunnel gear reset.
+
+94. Rope (rope.gd): verlet chain with gravity, fixed length, ground contact,
+   drawn as a tube; the water truck's hose uses it. Next on it: towing /
+   winching, tie-downs in the bed, lowering into shafts (Dave wants all three).
+95. Water truck rebuilt: a late-80s heavy conventional (Dave's pick) under the 4,000-gal tank
+   (superellipse section, domed + flanged heads, manway with dogs, cam-lock
+   fill, walkway rail, pipe ladder, rubber-lined hose trays with the suction
+   hoses, DOT markers). Full chassis (rails, axles, Hendrickson tandem,
+   tanks, stack with heat shield, air cleaner) and a real cab: hollow shell,
+   seats, dash with working gauges (mph, rpm, air, water, oil, fuel, volts,
+   tank gallons, pump psi), lamps and rocker switches, wheel, 10-speed
+   shifter. Engine must run (I) to drive; brakes release at 60 psi air; the
+   PTO pump only works running. Five spray valves (1-5 in the cab, levers on
+   the rear manifold), the hose off the reel (50 ft, sprays where you look,
+   puts out fire, washes the plane), Y reels it in.
+96. Trommel at work: spray in the drum, gravel tumbling, oversize down its
+   chute, water sheets running down both sluices (brown while washing), tail
+   pours, a dirt burst for each dump.
+97. Pickup rebuilt as a late-80s 3/4-ton 4x4 (Dave's pick): square body,
+   stacked quad lamps, two-tone, 8 ft Fleetside, step bumper; underneath:
+   frame, both solid axles with diffs, leaf springs, shocks, gearbox,
+   transfer case, drive shafts that turn, exhaust and muffler, tank, spare.
+   Inside: bench, dash with working gauges, shifter and transfer lever.
+   Engine must be started (I).
+98. Fall-through guard: anything ending up under the ground is put back on
+   top and logged ("FELL THROUGH ..." in godot.log) to find the cause.
+
+99. Machine hulls touch the ground (hull.gd). Root cause of "fell through
+    the map digging deep and driving into the hole": only wheels/tracks
+    met the ground, and their springs are capped, so when a machine drove
+    into a pit deeper than its suspension the body went straight through
+    the pit wall. Now every tracked/wheeled body carries a box of hull
+    points; each tick any point under the ground is pushed out (sideways
+    down-slope on steep walls), the body is turned about the contact and
+    velocity into the wall is removed. Normal pits: machines sit on the
+    floor. Very deep narrow shafts: machine nose-dives in but the cab stays
+    out of the walls. The main fall guard (checks body middle) stays as a
+    last resort.
+
+100. Parked planes are real planes (world._park_live, fleet). They were put
+     at a guessed height (+1.66 m, +3.1 m for the DC-3) and frozen, so they
+     hung in the air whenever the gear or ground didn't match. Now they're
+     sat down on their own wheels (settle_here) and their flight model keeps
+     running, brakes set; one far from the camera (>700 m) and standing
+     still dozes so it costs nothing. Every plane now has its cabin built
+     (seats, panel, yokes), not only the one you fly.
+101. Pilot door is a real opening: the left skin has the hole cut, the
+     doorway is a frame (sill, posts, header) instead of a black plate, and
+     the door has an inside trim panel. The cabin interior follows the
+     fuselage: it used to run full height to z 1.62 where the tail has
+     already dropped 30 cm, so a box stuck out of the roof behind the wing.
+     The baggage bay now tapers with the tail, roof corners chamfered like
+     the skin (cabintest checks every interior vertex against the skin).
+102. Seeing the gauges (viewtest / planeview measure it from the seat: each
+     gauge's angle from the default view and whether a ray from the eye is
+     blocked). Water truck: cluster was 35-48 deg down, under a brow that hid
+     the small gauges, tilted opposite to the gauges on it, behind a 4-spoke
+     wheel; the shift knob stood at 2.25 m in the view. Now the cluster and
+     centre panel face the eye (DASH_AT / DASH_TILT), small gauges above the
+     big ones, 3-spoke wheel (top open), lower knob, eye 2.50 m. Pickup: the
+     lower cab was a solid block whose lid at 1.40 m covered the dash, seat
+     and floor; now a shell. Its hood was 1.66 m (eye height) - a real 3/4-ton hood
+     sits at the beltline, 1.40 m; grille/lamps moved down with it. Faces
+     glow (emission 0.85), needles unshaded, glass a faint glint instead of
+     a mirror. Plane: instruments are 42-54 deg below the fuselage line;
+     the cockpit's resting gaze is now 12 deg down (was 5).
+103. Vehicle parts must be real and in their place (Dave: no random shapes
+     that do nothing). The truck's diesel tank now lies along the frame under the
+     door on strap brackets with the steps ahead of it (was a drum across
+     the frame); air tanks along the rails (were crossing through the drive
+     shaft); intake pipe from the air cleaner under the cab (was a loose box).
+104. Cameras (Dave: "camera locked but with free look", "end up far back in
+     the seat", "see my body sometimes"). Cockpit: the eye stays at the pilot's
+     eye point; the mouse is captured and turns the head, no drift back to
+     centre; switches are worked with a centre dot (Alt = pointer). The wheel
+     used to zoom the view out to 80 deg - that was the "sliding back"; now
+     the wheel only works controls and the right button held zooms in (x0.5)
+     and springs back. Seat-back limited to -6 cm. On foot first person: the
+     rigged body is one skinned mesh (face + torso), hiding only hat/hair left
+     the camera seeing inside the head and collar; now the whole body is
+     shadows-only in first person (a tool in hand still shows). Camera shake
+     (_shake_basis): smooth small rotations, never a jump of the eye - engine
+     buzz with rpm, ground rumble with speed (rougher off strips), touchdown
+     kick, stall buffet, explosions; Options > Camera shake 0-200%. F10 opens
+     the menu as well as Esc. FEATURES.txt: master list with keys and pad.
+105. Sound: engines you hear where they are (engine_sound.gd): the pickup a
+     cammed small-block V8 (crossplane firing, lumpy idle), the water truck
+     a big six diesel (clatter, turbo whistle) that kicks up to 1,200 with
+     the PTO in (key 6 / the rear PUMP switch), machines a diesel with
+     hydraulic whine. The plane's sounds come from the plane (3D) instead of
+     playing everywhere. ambience.gd: wind in gusts, birds by day, crickets
+     on summer nights, the creek and pond, rain - muffled inside a cab.
+     Water truck controls cut to a pump switch and sprays (no lever bank).
+106. The pickup rebuilt in Blender over a side/front/rear drawing (Dave's
+     pick: a late-'80s three-quarter-ton extended cab, 8 ft bed; generic,
+     no badges): bp2_truck/build_pickup.py -> assets/vehicles/pickup_body.glb,
+     loaded at run time (GLTFDocument). 155 in wheelbase, 76 in roof, 79 in
+     wide. Clear glass, bench seat under a striped Mexican blanket, jump
+     seats, dash with the working gauges, steering wheel that turns, hood
+     and tailgate on hinges (Y), real lamps (see-through lenses, reflectors,
+     bulbs that light; V lights, brake and reverse lamps, Z/X blinkers),
+     engine bay, frame, twin-beam front and leaf-sprung rear, transmission,
+     transfer case, turning drive shafts, exhaust, tank, spare. The model
+     sits on its axles and rides up with bigger tyres. Seat/headroom sized to
+     the pilot (eye 1.66, headliner 1.88). The drive shafts used to stand
+     up out of the truck after their first spin (rotation reset before the
+     rest pose was read) - fixed.
+107. Scale check (scaletest): every vehicle against the real machine and
+     the 1.76 m pilot. The dozer's upper works were 0.45 m low (hood at chest
+     height, cab roof 2.4 m) and the blade 3.4 m wide: now hood 1.85, ROPS
+     3.0, blade 3.1 (D5 size). Water truck, loader, excavator, forklift and
+     the bush plane were already in proportion.
+
+108. MAPS: ALASKA AND OUTBACK (2026-10-11)
+ - Game.map "north" (shown as Alaska) or "outback"; Menu > Season, weather and
+   realism > Map rebuilds the world. Outback: red-dirt palette in the ground
+   shaders (PAL macro, uniform outback), hot sun crossing the northern sky,
+   eucalypt/spinifex plants (veg_meshes _outback_*, flora _outback_*), red
+   dust. Paused for now: Alaska first.
+ - Alaska cold light (Game.cold_look, console "look classic" to compare):
+   lower sun (x0.75), bluish sun, blue-grey haze x3.6 with full aerial
+   perspective, cold colour-grade LUT (world._grade_lut), contrast 1.16,
+   saturation 0.88, morning height-fog over the low ground. Fireweed only on
+   burns and cleared/disturbed ground.
+
+109. MUD (2026-10-11)
+ - ground.gd: mud_base (1 m grid: muskeg, creek edges, pond shore, wet
+   hollows; none on gravel or rock), churn (driving makes it worse),
+   mud_at() with season (summer x0.8, frozen in winter, spring x1.3), rain
+   and torn ground. rut(): presses ruts up to 35 cm (saved with the ground).
+ - wheeled_body / tracked_body: per-wheel sink (settles under load, spinning
+   digs in, rolling climbs out), grip x0.32 at full mud, bow-wave drag plus
+   speed drag; rocking back along your own packed ruts halves the drag.
+   Tracks float: less drag and sink, slip only after 1 s stalled.
+   Forklift bogs in anything soft. Test "mudtest".
+ - vehicle_dust.gd: dust off dry ground, mud spray (spinning throws more),
+   muck caked on the lower body (shaders/muck.gdshader overlay) that builds
+   up and washes off in water/rain.
+ - Ground look: moss + lichen + dwarf-shrub tundra, grey cobble gravel bars,
+   dark wet mud where mud_base is high (wetmap.g), grey tailings, mud ruts.
+
+110. WATER TRUCK DIESEL SOUND (2026-10-11)
+ - Made offline (bp2_audio/gen_diesel.py, numpy) as real recordings would be:
+   a worn inline six (firing order 1-5-3-6-2-4, uneven cylinders), sharp
+   blowdown pulses through a straight stack and muffler (firing harmonics,
+   chamber bark 300-450 Hz under load), diesel knock and injector ticks on
+   every firing, timing-gear whine, intake breath, exhaust rasp. Loops are
+   whole engine cycles filtered circularly (no seams). 32 kHz mono.
+   idle (650, loping), 1000/1450/1900 x load/coast, turbo, jake (engine
+   brake), start (clunk, crank against compressions, catch, flare, hunt
+   down), stop (run-down, rock-back thump).
+ - engine_sound.gd kind "diesel": equal-power rpm crossfade, load/coast
+   blend by load (quick on, slower off), turbo lags the revs (spool) and
+   whistles down when you lift, compression-release brake when off the
+   throttle above 1150 rpm at speed, start/stop one-shots. "Engines" bus
+   low-pass closes to 1.7 kHz in a cab (EngineSound.cab_muffle).
+ - water_truck.gd: throttle_in and load_now (throttle x mud/spin/hill, PTO);
+   rpm from a 9-speed-style gear band 1150-1900, held by the gear off the
+   throttle, revving free when stuck/spinning.
+ - Loader parking fixed (it read the pad's radius as its z).
+
+111. PARTS AND THE WORKSHOP (2026-10-11)
+ - parts.gd: CATALOG (engines, heads, intakes, carbs/injection, turbos,
+   intercooler, fuel pumps/filter, exhausts, radiators, alternators, battery,
+   starter, transmissions, transfer case, driveshafts, diffs, lockers) and
+   CHASSIS (lifts 0/2/4/6 in, tyres highway/AT/33 mud/35 mud). Every real
+   part has a uid and its own condition; fitted per vehicle, spares on the
+   workshop shelves; saved in user://parts.cfg.
+ - engine_sim.gd: a mean-value engine (air, throttle, VE, AFR, turbo spool
+   and charge temperature, fuel pump capacity, knock, heat and thermostat,
+   oil, electrics, wear). estimate() previews hp/boost/temp for the menu.
+ - Workshop menu (Esc -> Workshop, the apron by the hangar): pick a slot,
+   pick a part off the shelf or buy one, see the change before you commit.
+   plan_swap() does it in one step: the old part to the shelves, anything it
+   needs first fitted too (flanged manifold for a turbo, a lift for big
+   tyres, the right intake for a carb), anything that no longer fits taken
+   off and the right one fitted (a new engine family's heads, intake,
+   exhaust), from the shelves or bought. The engine is switched off for you.
+ - By hand under the hood: aim at a part (by its real place and size, the
+   one you're aimed at lights up), E to take it off, hold the right part and
+   E on a full slot to swap.
+ - The plane keeps its radial; its carburettor and a turbo are parts.
+
+112. MUD BOG (2026-10-11)
+ - ground.gd mudbog(): a 20 x 12 m pit, 1 m deep with 7 m ramps, in a
+   clearing near the strip, deep mud all through; a sign at the edge.
+ - Mud only lies where it would: creek banks, the pond shore, low dips and
+   soft muskeg, wetter in spring, frozen in winter.
+
+113. FOOTSTEPS (2026-10-11)
+ - bp2_audio/gen_steps.py: four takes each of gravel, soft (moss/tundra),
+   mud (with the suck), snow (squeak), water (slosh), hard (floors).
+ - on_foot.gd: a step every stride (0.78 m walking, 1.35 running), the
+   sound from what's underfoot; quiet (STEP_DB, -30 dB).
+
+114. VEHICLE NOISES AND AMBIENCE (2026-10-11)
+ - vehicle_noises.gd: clunks off real jolts (vertical acceleration),
+   squeaks and rattles with how rough the going is, creaks in rough air in
+   the plane; NOISE_DB sets how loud. A slipping fan belt squeals on about
+   one start in four (more when cold), louder with throttle, for
+   SQUEAL_SECONDS (4). Console: "squeal".
+ - ambience.gd: wind, creek and rain are three-stage filtered noise (a
+   whoosh, not static), calm days near silent; more birds - busy at dawn and
+   dusk, single calls through the day, sometimes answered - with trills and
+   two-note calls. Console: "amb <layer|all> on/off" to find a sound.
+
+115. DIFFERENTIALS AND MUD FEEL (2026-10-11)
+ - wheeled_body.gd: open diffs - each axle pushes only as hard as its
+   weakest wheel allows (with a little internal friction, DIFF_BIAS 1.5);
+   lockers make an axle drive both wheels; lock_inter for the axles to each
+   other (part-time 4WD is locked; a 6x6's inter-axle diff isn't).
+ - Water truck: 9 / right stick click = diff lock (everything). Pickup:
+   selectable lockers (switched with 9) or automatic ones, front and rear,
+   as workshop parts.
+ - Two-pass wheel contacts: the truck settles into mud as a whole (a tyre
+   that's dug in keeps its load); the water truck's tandem is on walking
+   beams (each side shares its load, a wheel can droop 0.2 m into a hole).
+ - Mud drag pushes on the truck, not through the tyre's grip, so the wheels
+   spin when you ask for more than the mud gives; spinning digs in slower.
+   Deep mud wants 4WD; lockers get you through the bog.
+ - Water truck low range: G steps 6x4 -> 6x6 -> 6x6 Low (double pull,
+   15 km/h).
+
+116. TYRES AND WHEELS (2026-10-11)
+ - tyre_mesh.gd: a turned carcass (bead, bulging sidewall, rounded
+   shoulders), raised tread that follows the crown (highway ribs, AT blocks,
+   mud lugs that run over the shoulder, rib/lug/flotation for the truck),
+   pressed steel wheels turned from their profile (lip, barrel, dish, hub,
+   slots or hand holes, hex nuts, locking hubs on the pickup's front).
+ - The pickup's axles are their own parts in the model: a lift kit raises
+   the body and the axles stay with the wheels; the driveshafts angle down.
+
+117. WINTER SNOW AND FIRE (2026-10-11)
+ - The voxel ground had no snow (the season's snow settings went to a
+   shader that didn't have them). voxel_ground.gdshader: snow over the
+   undisturbed ground, thinner on steep faces, melted where fire.gd says.
+ - fire.gd: fire spreads in spring and fall too (dryness 0.65 / 0.8, rain
+   x0.25); in winter a burning patch thaws the snow round it (~25 s) and
+   only thawed ground can catch, so a winter fire creeps and the trees go up
+   one by one. Thawed ground snows back over in ~10 minutes.
+
+118. FUEL TRUCK (2026-10-11)
+ - water_truck.gd variant "fuel": the same truck, an aluminium tank in two
+   compartments (2,500 gal diesel, 1,500 gal avgas), lettering and hazard
+   placards (1202 diesel, 1203 gasoline/avgas), parked by the apron's fuel
+   pump. E in the cab or at the back: at a pump, load (paid by the gallon
+   unless sandbox); anywhere else, fill whatever's parked within 15 m (the
+   plane and the pickup take avgas, the water truck diesel). It runs off its
+   own diesel load. F8 jumps to it.
+
+119. CLEAN-UP (2026-10-11)
+ - The painted look is gone (setting, screen pass, shader). No game or
+   brand names in the code, notes or game (the rig's bone names stay - the
+   model files use them). Dead functions, unused variables and four unused
+   shaders removed. The pickup's old tyre swap at the wheel is gone (tyres
+   are parts). Upscaler: FSR 2 modes (Quality/Balanced/Performance) and a
+   sharpness slider.
+ - DC-3: the engines moved out to 3.35 m (nacelles, gear, props, walker
+   collision and damage points with them) and the props are back to the full
+   3.5 m disc with white tips; 0.14 m tip clearance to the fuselage.
+
+120. DIGGING AND PICK ANIMATIONS (2026-10-11)
+ - pilot_rig.gd builds two clips from key poses at load ("dig": drive in,
+   lever, lift, swing off to the right and dump, 1.6 s; "pick": up over the
+   shoulder, a hard swing down, recover, 1.2 s). Each bone's turn is given in
+   the character's own frame and converted to the bone's local pose, the
+   hips drop and the knees bend with "hips_y". While one plays the tool lies
+   along the hands (a shovel down the shaft from the left hand through the
+   right to the ground in front; a pick out past the hands). Played on each
+   dig / pick / tunnel / sink action, one at a time.
+ - tools/pose_view.tscn renders the key poses (side and front) to check them.
+
+121. GAUGE WIRING (2026-10-11)
+ - gauge_wiring.gd: signals with their dials (boost/vacuum, fuel pressure,
+   air/fuel ratio, tach, oil, water temp, volts, MAP, power, knock, fuel
+   flow for the pickup; boost, fuel pressure, tach, MAP, CHT, EGT, oil temp,
+   carb air temp, fuel flow for the plane). Fuel pressure comes from the
+   fitted pump and how hard it's working (it sags past its capacity).
+ - The pickup has a three-gauge pod under the dash right of the column, the
+   plane a two-gauge pod under the panel; Esc -> Workshop -> pick a gauge and
+   what it reads. Wiring saved with the pickup, per plane in wiring.cfg.
+ - A plane with a turbo fitted now whistles as it spools.
+ - Ground season settings are global shader values (project.godot
+   [shader_globals]): the voxel engine copies the ground material for every
+   chunk, so plain uniforms set later (snow, mud wetness, the melt map)
+   never reached the ground. Winter snow on the ground works now.
+
+122. PAINT, STRIPES AND DOORS (2026-10-11)
+ - Six more DC-3 paint schemes (Midnight Mail, Olive Drab, Tundra Orange,
+   Glacier Blue, Spruce, Cream & Red). Registration letters follow the tail
+   cone's taper and go light on a dark skin.
+ - The cheat line on the DC-3 is cut at the cargo door; each leaf carries its
+   own piece, so the stripe swings away with the door instead of hanging in
+   the opening. A dark lip covers the gap between the leaves.
+ - Wolverine: the paint stripes had a step at two stations (each segment
+   sized its bands differently) and the baggage door was a flat slab standing
+   proud of the tapered hull. Stripes now take one height and band size per
+   station; the baggage door is built to the hull's slope and carries its
+   piece of the stripe. tools/plane_view.tscn renders the Wolverine.
+
+123. FIRE ONLY ON WHAT BURNS (2026-10-11)
+ - A patch's fuel leaves out gravel (apron, pad), creek and shore sand and
+   soft wet ground. Before a patch catches, _burnable_now samples five points
+   in it against the live ground: mud (season, rain, churn), dug or spoil
+   dirt and wet ground don't burn; most of the patch must be dry vegetation.
+
+124. LOGS AND TIMBER (2026-10-11)
+ - Felling (chainsaw, a machine, a plane) leaves the tree lying; walk along
+   the trunk and E bucks it up into logs (about one per 6 m of trunk, 1-4)
+   that lie beside it. Trees burnt down by fire can be salvaged (one log
+   less). Logs are real pieces (cargo.gd own_logs, saved in logs.cfg, kept
+   out of jobs.carried and the plane): carry one on the shoulder (55 kg), put
+   it in the pickup bed (8, lengthways, two high) or on the log trailer (15,
+   five across, three high), take it off again. At the log deck in the tool
+   yard a log dropped, or a truck or trailer backed up and unloaded ("roll the
+   N logs off"), goes into your stock (builds.logs) for building and the
+   crafting bench.
+ - log_trailer.gd: a tandem towable with bunks and stakes, parked at the
+   tool yard (where you leave it is saved, log_trailer.cfg); hitches like the
+   sluice trailer; its load counts in what the pickup pulls. cargo.trucks is
+   [pickup, log trailer]; a piece in a bed remembers which ("veh").
+   Hauled trunks are marked in Flora.felled (y +1) and no longer drawn.
+ - Timber sets: 9 kg (was 16) and stack 6, so you can carry a few in; the
+   prompt says whether the spot is already held and how many bare roof spans
+   are near. Bare gravel roofs stand 150 s (was 75) before they start to
+   work. Help page: Tunnels and timber. Tests: logtest, tunneltest.
+
+125. TRUCK PARTS (2026-10-11)
+ - The water and fuel trucks take parts in the workshop like the pickup
+   (keys water_truck / fuel_truck, tags truck + i6d, Parts.TRUCK_SLOTS):
+   engine (7.8, 10 and 14 L sixes), injection pump (stock / high output -
+   it caps the power), lift pump, filter, exhaust (turbo manifold / pulse
+   manifold), turbo (18 / 28 psi), charge-air cooler, radiator, battery,
+   transmission (5-speed / 10-speed range box), tandem rear axles (4.56 /
+   5.29 / 6.17), suspension (stock springs, heavy duty, air ride,
+   walking beam) and tyres (the four sets that used to be swapped at the
+   wheel, now workshop parts; pickup tyres won't go on).
+ - water_truck.truck_estimate: power from the engine and its condition,
+   x0.6 without a turbo, more with boost and an intercooler, the exhaust's
+   flow, capped by the injection pump; top speed and pull from the gearbox
+   and axle ratio; weight over stock. apply_parts sets the body's power, top
+   speed, mass, suspension travel and spring rate (wheeled_body.spring_mul),
+   and the tyres. A truck missing a part it needs won't start.
+ - Old saves get the stock set bolted in, keeping the tyres they had.
+   Test: tyretest.
+
+126. CARRYING THINGS (2026-10-11)
+ - Items carry a "carry" meta (inventory.CARRY): which bone (hand, chest,
+   head) and how it sits, in the rig's frame. pilot_rig.hold_tool works the
+   grip out against the pose he's in a couple of frames later (arm hanging),
+   so it hangs right whatever the bone's rest pose. Gold pan (now a proper
+   green 15-inch pan: sloped sides, lip, riffles) by the rim at his side;
+   pick under its head; shovel at its balance point, blade forward; gas cans,
+   pump and generator hang from their handles; rope ladder rolled up; rope
+   lights coiled; timber sets on the right shoulder; the headlamp is worn.
+ - Working (dig, pick) still lays the tool along the hands as before.
+ - tools/pose_view.tscn -- items=a,b,c renders each item held.
+
+127. TRAILER MODE (2026-10-11)
+ - main.gd -- trailer=1 shot=a,b,... out=DIR (scripts/trailer.gd), run with
+   --fixed-fps 24 so each drawn frame is 1/24 s of game time however slow it
+   draws; frames are saved per shot as PNGs and stitched with ffmpeg.
+   Shots: title, fly, dc3, end, trucks, dig, fire, hose, winter. Captions
+   and fades are drawn in the game.
+ - The ground's global shader values are declared in project.godot, so
+   ensure_globals no longer lists them at runtime (that call is editor-only
+   and was spamming errors).
+
+128. PHONE CONTROLS (2026-10-11)
+ - touch_controls.gd: a CanvasLayer that presses the game's own input
+   actions, so touches drive everything keys and controllers do (and a
+   Bluetooth controller works alongside). Left thumb stick (roll / pitch,
+   or steer / walk); drag on the right half to look; a throttle slider (the
+   plane's stays where you leave it; in a vehicle it's spring-loaded gas and
+   brake); buttons that change with flying / driving / on foot, and MORE
+   for the menu, map, jobs, engine, lights, help and LEVEL.
+ - Tilt to fly (option): the phone's gravity vector against the attitude
+   it was held at when LEVEL was pressed; 25 degrees of tilt is full
+   control, scaled by Tilt sensitivity. Added to the stick.
+ - Settings: Touch controls (automatic on a touch screen / on / off), Tilt
+   to fly, Tilt sensitivity (Controls page). A phone's first run starts on
+   the Low graphics preset. Landscape (sensor) orientation. export_presets
+   .cfg has Windows and Android presets. Test: touchtest.
+ - DC-3 with the engines at 3.35 m: dc3roll test - a full-power take-off
+   roll holds the centreline within 2 degrees, no damage; a taxi turn on
+   one brake turns 135 degrees in 15 s without tipping.
+
+129. ONE GAME, TWO DEVICES (2026-10-11)
+ - There is one project: this one (installed to the PC folder
+   C:\Users\davku\Documents\BushPilot2). The same code runs on the PC and
+   the phone; touch controls only show on a touch screen.
+ - The phone gets a trimmed COPY made by tools/make_phone_zip.sh (Android
+   voxel libraries only; no Windows/Linux libraries, tools, tests or
+   reference). Never unzip the phone copy over the PC folder (the PC needs
+   the Windows library), and never copy files back from the phone: every
+   change is made here, then installed to the PC and re-zipped for the
+   phone. Saves (user://) are separate on each device.
+
+130. AIRCRAFT TUG (2026-10-11)
+ - tug.gd: a small yellow tug parked on the apron by the home hangar (where
+   you leave it is saved, tug.cfg). Get on like the forklift; E with its
+   hitch by the plane's tailwheel (engines off, plane stopped) puts the tow
+   bar on. The plane then follows like a trailer: its main wheels are the
+   axle and stay on the ground at the height they were, its tail goes where
+   the 1.7 m bar takes it, so it pulls out of the hangar tail first and backs
+   in nose first. E unhooks (the plane on its brakes); climbing into the
+   plane unhooks it too. Slower with a plane on (2.2 m/s); it won't drive
+   into the plane or the hangar walls.
+ - Test: tugtest (pulled 8 m and turned 44 degrees with the bar held at
+   length). tools/truck_view.tscn -- veh=tug [withplane=1 views=towing].
+
+131. RULE: MODELS FROM A REFERENCE (2026-10-11)
+ - Dave's rule: never build a model of a real kind of thing without first
+   looking at an actual picture of it. This workspace can't download images
+   from the web (image search shows them to Dave, not to me), so ask him to
+   attach a screenshot or photo, and build from that.
+ - The tug: he wants a small, compact airport tug (not a big tow tractor).
+   Waiting on a reference picture before remodelling it; the towing itself
+   (tug.gd: hook on, follow, unhook) stays as it is.
+
+132. TIMBER SETS FROM REAL DRIFTS (2026-10-11)
+ - From Dave's reference photos (an old timbered drift; a timbered portal).
+   Inside the hill a set is round logs, the same bark-brown logs bucked from
+   the trees with pale cut ends: two posts splayed wider at the foot, a cap
+   log overhanging them, 5-7 lagging poles over the cap against the roof
+   reaching on toward the next set, side poles packed in behind the posts on
+   one side or both, now and then a wedge. Each set is its own (seeded from
+   where it stands): log sizes, lean, colour and how much lagging differ.
+ - Where the cover over the roof is thin (under 1.2 m: the mouth of the
+   drift) the set is a portal of square-sawn timber instead: posts on a sill,
+   boards up the outside, a heavy overhanging cap with a row of header
+   blocks on top, bolt heads.
+ - Drifts come out rough: each bite also takes a few bites out of the walls
+   and the roof corners (logged voxel carves), so the drift isn't a
+   machined box and the roof arches a little.
+ - tools/timber_view.tscn renders a stretch of timbered drift and a portal
+   (its rock walls are a stand-in, not the game's ground).
+
+133. ROCKS IN THE DIRT (2026-10-11)
+ - Digging, tunnelling and sinking a shaft sometimes turn up a rock
+   (4 / 6 / 5 % a bite). "Clunk..." - it sits where it came out, 20-70 kg,
+   and the shovel won't go through it: any dig within 0.9 m of a rock is
+   refused until the rock is moved.
+ - Rocks are cargo pieces like logs (kind "rock", cargo.own_rocks): pick one
+   up with E, carry it, set it down anywhere, or put it on the pickup bed or
+   the log trailer. Saved in user://logs.cfg with the logs.
+
+134. ADMIN COMMANDS (2026-10-11)
+ - Console (` or F1). For testing and for when something gets lost:
+   give <item> [n]   into the inventory; what doesn't fit lands at your feet
+   logs N            N logs added to the log-deck stock (for building)
+   log N / rock N    N loose logs / rocks on the ground in front of you
+   gold G            G grams of gold in your pocket
+   part <name>       a part from the catalog (part alone lists them; a
+                     partial name filters); heavy ones land at your feet
+   bring <tug|trailer|pickup|water|fuel|loader>
+                     parks that vehicle 6 m in front of you
+ - main.gd consoletest=1 runs every one of them once.
+
+135. DRIFT WALLS: DIRT AND ROCK (2026-10-11)
+ - Cut faces in voxel_ground.gdshader use 3D noise (a wall is vertical, so
+   x/z-only noise made straight streaks).
+ - Dirt: posterised brown clods, dark root streaks near the top, scattered
+   grey stones. Pay streak: packed rounded cobbles (grey, rusty, dark) in a
+   rusty sandy matrix, shaded rims. Bedrock: jointed blocks, each its own
+   grey, dark open joints, the odd pale quartz seam.
+
+136. NEW GAME WIPES EVERYTHING (2026-10-11)
+ - A scene reload keeps static vars and the Game autoload. Flora.felled (cut
+   and burnt trees) is static, and the old wipe deleted world.cfg but left
+   the dictionary in memory, so the last game's trees came back (and were
+   saved again). Game.last_strip / tyre_kind / leg_kind also carried over.
+ - The wipe now runs at the top of the fresh scene's _ready (Game.
+   new_game_pending), before anything loads: deleting files in the old scene
+   let a timed save in its last frame write one straight back.
+ - main._wipe_saves() is the one list (SAVE_FILES) plus every static and
+   autoload field that is career state. A new static that holds game state
+   must be cleared there. newgametest=1 checks it.
+
+137. DAMAGE FOR EVERY MACHINE (2026-10-11)
+ - vehicle_damage.gd: pickup, water and fuel trucks, loader, tug, log
+   trailer, forklifts, dozers, excavators. Engine / body / running gear,
+   1 = new. Hits read off the machine's own velocity (a quick and a slow
+   follow; the gap over ~5 m/s is a hit), so it works for every body type.
+   Into something: front end and engine; dropped: springs and wheels.
+   Rolled over 1.5 s: big hit, engine stops. Standing in a grass fire
+   scorches it (and a plane on the ground in a fire: tyres, fabric, tanks).
+ - Effects: engine pull lerp(0.4..1); a wrecked engine (<= 5%) won't start
+   or run. Bent gear: slower, pulls to one side. Smoke from the engine
+   under 55% while it runs, darker as it dies.
+ - Repairs: menu, Workshop page, for machines parked in the workshop area
+   (bill by size). Console: damage [0-1], repair, repair all.
+   Saved in vehicle_damage.cfg (wiped by New game). damagetest=1.
+
+138. FLUID WEIGHT (2026-10-11)
+ - Trucks: water truck load = water + its own diesel; fuel truck = diesel
+   and avgas compartments (3.18 / 2.72 kg a gallon) + its diesel; pickup
+   adds the gas in its tank (2.8 kg/gal). Updated every step it's driven.
+ - Planes: each wing's fuel at its own tank (out along the span), so a dry
+   tank leaves a heavy wing and the balance point moves out - every force
+   is taken about it, so she rolls toward the full side. Engine oil
+   (0.83 kg a quart) in each engine.
+ - Driver drawn in every machine whenever the camera is outside (it was
+   left hidden from first person on foot). Menu: buttons wrap and the menu
+   is never wider than the window (the parts pages ran off screen).
+
+139. QUARTZ VEINS: HARD-ROCK GOLD (2026-10-11)
+ - veins.gd: 5-6 steep quartz sheets from the world seed, most across the
+   rock knoll (white float shows through thin cover), one or two blind ones
+   in the flats. Strike, dip 65-88, thickness 0.35-1 m wobbling, tapering
+   ends, a meander, gold in shoots (rich patches, lean quartz between).
+   One formula in veins.gd and voxel_ground.gdshader (vein data as a small
+   float texture, a plain material uniform set once at setup), so the seam
+   you see is where the pick finds quartz.
+ - Looks: milky white sugary quartz, grey glassy patches, rust staining
+   (heavier at the walls), a dark selvage, gold flecks (metallic) - more in
+   the rich shoots. On the surface: faint float where bedrock is thin.
+ - Mining: pick only, 3 swings a bite (shovel: "it wants a pick"). Each bite
+   breaks out a 16-32 kg chunk of ore (carried like a rock: white with rust
+   and gold specks) and, in rich shoots, sometimes free gold straight into
+   your pocket. Tip ore into the wash plant's hopper to crush it for its
+   gold. veintest=1.
+
+140. TROMMEL OVERSIZE, ROCKS (2026-10-11)
+ - The oversize chute ran uphill (far end up). Now from under the drum lip
+   down and out, on two legs.
+ - Washing throws real rocks off the chute end (one per 0.45 m3). Back the
+   log trailer or the pickup under it and they load into the bed; else
+   they pile on the ground (14 max there).
+ - Rocks: by hand, the shovel flicks any under 40 kg aside, and the loader
+   and excavator buckets scoop rocks up with the dig and dump them back out
+   as rocks (into a bed under the bucket, or the hopper).
+
+141. COLLISION FOR EVERYTHING (2026-10-11)
+ - ground.gd: keyed solids (set_solid / clear_solid) and platforms
+   (set_platform / clear_platform), movers for machines, wheel_ground().
+ - Machines are boxes (movers): you can't walk through a truck; machines
+   can't drive through each other (a hitched trailer and its truck excepted);
+   the plane ignores them (the tug's bar).
+ - Wash plants are solid (to the plane too), the chute end clear for a
+   trailer. Sluice trailers: the bed, not the tongue.
+ - Pieces on the ground (rocks, logs, crates) and dropped gear: low ones are
+   platforms - you step up on them and wheels ride over them; tall ones
+   (drums, pallets, a generator, a pump) are solid. colltest=1.
+
+142. FIRES AND EXPLOSIONS (2026-10-11)
+ - A machine catches fire: standing in a grass fire, a big crash, rolling
+   with the engine running, burning debris landing on it, a blast nearby.
+   It burns hotter, lights the ground round it, and after ~40 s (a fuel
+   truck sooner) the tanks go up. The water truck's sprays knock it back
+   and put it out (cooling buys time). The plane: the same, 45 s fuse.
+ - explosions.gd: fireball, flash, boom, parts flung (debris.gd), burning
+   fuel and bits thrown out that burn where they land (14-35 s, on any
+   ground) and light grass, brush, machines and planes they land on. Blast
+   damage to people, machines and the plane near it. Strength from the
+   fuel aboard (a full fuel truck is the biggest). Screen and ground shake
+   on foot too, falling off with distance. boomtest=1.
+
+143. AUDIO OVERHAUL (2026-10-11)
+ - Found by recording the game on Dave's PC (console "rec N" -> _rec/ in
+   the project) and reading the spectrum: the creek was loud separate
+   blips (the "bubbles"); the pickup's cam lope was baked into a loop that
+   also played off idle, sped up into a 3.7 Hz throb, every firing a
+   ringing 85 Hz tone, heavy sub-20 Hz; starts jumped from cranking to full
+   running in one step; the explosion was a flat hiss cut off at 3 s; fire
+   made no sound; third person was muffled as if in the cab.
+ - Now made offline like the diesel (bp2_audio): gen_v8.py (pickup:
+   crossplane firing out of two pipes, glasspack resonances, lope only at
+   idle, load/coast at 1600/2600/3600, start = crank, cough, catch, flare,
+   settle; stop = run-down), gen_amb.py (brook: a rush with thousands of
+   tiny bubbles), gen_fx.py (plane catch, explosion: crack, boom, rumble,
+   falling bits; fire loop: roar and crackle), gen_steps.py gravel (heel
+   and toe clusters of stone ticks, no hiss).
+ - engine_sound.gd LAYERS: the diesel and the V8 share the layered player.
+   audio.gd: the plane's catch one-shot, the running loop fades in under
+   it. Explosions play from the blast (3D). Every fire (vehicle, wreck,
+   the three nearest grass-fire patches) has its sound. Cab muffle only in
+   first person. Belt squeal rarer (8%, 25% cold). Creek quieter, falls off
+   within 45 m.
+ - Also: grass-fire smoke and flames use the soft puff (they drew as grey
+   squares); a blown-up machine is charred black until repaired; console
+   in <truck>, goto <place>, burn, rec; bring parks long trucks clear.
+
+144. TREES REBUILT AS SOLID POLYART (2026-10-11, first pass)
+ - Near 3D trees (Graphics > Trees > Full 3D up close) are now solid
+   polyart in the look of reference/target_look_polyart_*.png, not picture
+   cards: white spruce a full cone of layered drooping boughs with jagged
+   needle teeth and upturned tips round a dark core, leader on top; black
+   spruce a thin bent spire of short ragged clumps with gaps, dead stubs and
+   the club top; paper birch two leaning stems, black dashes and a dark
+   base, forked limbs with lumpy leaf clusters; aspen one straight pale
+   trunk with eye-scars, bare low down, a narrow crown. veg_meshes.gd
+   tree_cards(). Still to tune (colours, density) and the grass / brush.
+
+145. FOOTSTEPS ON GRASS AND MUD (2026-10-11)
+ - The grass/moss step was a long low thump under a smeared rustle - it
+   sounded like walking through mac and cheese. Now: a short dull heel
+   knock, crisp crackle of dry stems under the boot, the toe rolling off a
+   beat later with its own crackle, a swish of grass. Mud: a heavy slap
+   going in and a quiet pull coming free, no bubbly sweep. gen_steps.py.
+
+146. (reserved)
+
+147. HOME BASE BUILDINGS, WOOD STOVES, BUILDINGS BURN (2026-10-11)
+ - The home base is log buildings and a pole barn under steel roofs
+   (structures.gd, building_models.gd): the log OFFICE (desk with the HF
+   radio and log book, a chart of the area, notice board, filing cabinet,
+   couch, kitchen counter, first aid, extinguisher), the BUNKHOUSE cabin
+   (bunk, table and chairs, kitchen shelves, coat hooks, rifle over the
+   door), the red pole-barn SHOP, woodpiles, an outhouse, drums, propane.
+   The LITTLE CABIN IN THE WOODS stands back in the trees ~140 m off the
+   base with its cache on tin-wrapped poles, woodpile and outhouse.
+ - Wood stoves work: firebox on a stone hearth with a heat shield, kettle,
+   pipe with a damper and rain cap; a wood box beside it. Take an armful
+   from a woodpile, fill the box, load and light the stove (E). Lit: the
+   door window glows, it crackles, lights the room, warms you while you're
+   inside, and smokes from the pipe, drifting downwind. A load ~25 min.
+   The office and the woods cabin start with their stoves going.
+ - Every structure burns: it catches from a grass fire at its walls, a
+   brand from an explosion, or "burn [name]" in the console. Smoke, then
+   flames at more and more of it, lighting the grass round it; the hose
+   knocks it down while it's young. Left to burn it chars and comes down
+   to a ruin (ash floor, stumps of the bottom logs or the posts, the roof
+   sheets fallen in, the stove standing) you can walk through. Saved in
+   structures.cfg (new game wipes it).
+ - A session starts on your feet inside the office by the stove (or the
+   bunkhouse if the office has burnt). Main menu button: "Play".
+
+148. DRIFT MINER (2026-10-11)
+ - A compact boom-type tunnelling machine (a roadheader, the kind used for
+   small mine drifts and the permafrost research tunnel near Fairbanks):
+   tracked chassis, a slewing boom with a spinning pick-studded cutter head,
+   a gathering apron with two turning arms, a chain conveyor, the seat under
+   a canopy, lights, a muck tub on the tail. tunneler.gd. Start the cutter
+   (E), drive into a bank: it cuts a 3.0 x 2.7 m heading, ~0.45 m/s in
+   gravel, a third of that in rock; R / F tilts the boom to drive a decline
+   or a raise. Pay gravel fills the 3 m3 tub (tip it outside, E, into the
+   hopper); barren muck is stowed as gob. Roof checks continue every 1.7 m.
+   Shop: $46,000. Console: "in miner".
+
+149. LOADER, TUG, EXCAVATOR, DOZER REBUILT; DRIVERS SIT (2026-10-11)
+ - Loader to a real mid-size machine: 3.0 m wheelbase on 1.5 m tyres, cab
+   over the rear frame (roof 3.35 m), long sloping hood, curved
+   counterweight, deep front frame and tower, cranked lift arms with live
+   lift cylinders, Z-bar tilt linkage, 2.55 m bucket. Hinge pin 3.9 m.
+ - Tug to a real tow tractor (2.9 x 1.4 m, 6.00-9 tyres, seat over the
+   rear axle, pintle hook, light bar and beacon). It now tows ANY plane on
+   the field (yours, the fleet's, the ones for sale) and any trailer.
+ - Excavator to a 14 t machine: 3.65 m crawlers on a 2 m gauge, X-frame,
+   sprocket/idler/rollers, 2.5 m house, cab front left, curved boom with
+   twin rams, stick with its ram and H-link, rounded counterweight.
+ - Dozer: sloping hood, perforated radiator guard, fenders and rails over
+   the tracks, open track frames with rollers and final drives.
+ - Real tyres (tyre_mesh.gd) on the loader, tug, forklift and trailers.
+ - BUG FIX: the character rig had no seated pose for driving (DRIVE fell
+   through to standing), so every driver stood up through the floor - the
+   pickup driver was hidden under the truck. Now seated in every machine;
+   seat heights checked against the character.
+
+150. TRACK MARKS, RUTS, EXCAVATOR SELF-RESCUE (2026-10-11)
+ - wear.gd: a 20 cm map over the claim that tracks and tyres paint into;
+   the ground shader shows torn turf and tread prints (bp_wear global).
+   Crawlers rut soft ground a little as they go, more pivot-turning.
+ - Excavator stuck (driving, not moving, 1 s): the bucket goes down ahead
+   and levers and drags it out while the tracks drive. In lever mode: boom
+   down into the ground lifts the machine; stick in/out drags it. A
+   tracked machine can take an outside push (tracked_body ext_force).
+
+151. MINE TRACK AND ORE CARS (2026-10-11)
+ - mine_rails.gd: 610 mm gauge track in 3 m sections (26 kg, 8 in the tool
+   yard): E lays one on the end of your track or starts a line. A 0.7 m3
+   side-dump ore car (shop $1,400) runs on it: walk into an end to push,
+   it rolls down grades; shovelling within 3 m throws the muck in (with
+   its gold); E beside it tips it (into the hopper if alongside).
+
+152. Controller pedals, excavator modes, forklift, hangar workbench, building pads, gravel steps, cabin door
+   - Pad: on every machine the triggers are the pedals (RT go, LT brake then reverse). The
+     implement (forks, loader arms, dozer blade, miner boom, excavator boom in Boom mode) moved
+     to the right stick up/down (pull back = up); Shift/Ctrl still work on the keyboard
+     (main._implement_axis, Game.lever_hint for the on-screen hints).
+   - Excavator has three modes on Y / door: Auto (look to dig, as before), Boom (auto, but the
+     bucket height is yours: hold it down on a bank to plant it and lift her, drive and the arm
+     drags her out), Levers (every joint by hand). excavator.cycle_mode, _boom_mode, _push_f.
+   - Forklift rebuilt from real 2.5 t counterbalance trucks (1.6 m wheelbase, pneumatic tyres,
+     counterweight casting, slanted guard, propane bottle, 2-stage mast, tilt/lift rams, backrest,
+     L-forks). It no longer stops dead in mud (crawls at 30%), and can drive out if pinned.
+     A wrecked engine-less machine says so instead of silently not moving.
+   - The crafting bench is the workbench in the home hangar (world.workbench); the yard bench
+     is gone. BuildingModels.workbench(): laminated top, drawers, vise, grinder, pegboard tools,
+     shelf of cans, shop light.
+   - Buildings sit on levelled pads: ground.pad() flattens the footprint (+margin) to the
+     building's base and eases back on a ~1:3 grade (cut uphill, fill downhill). It edits orig
+     too, so it is "natural" ground, not a dig. Hangars, houses and structures.gd all pad.
+   - Gravel steps remade as dense broadband noise grains; the old pitched clicks read as drips.
+   - Cabin door: the left big window, its frame and the paint stripe now ride on the door, so
+     the opening is clear when it swings open.
+
+153. Plane types: the Meadowlark biplane (2026-10-11)
+   - plane_types.gd holds a spec per type (cylinders, oil, tyres/legs, eye point, door, visual
+     script, sale name). The Wolverine is unchanged; "biplane" is a Stearman PT-17-class trainer:
+     7-cylinder radial with cooling fins, pushrods, exhaust ring; two-blade 2.5 m prop; upper and
+     lower wings with ailerons on the lower only, rib tapes, cabane/interplane struts, flying and
+     landing wires; split-axle gear; two open cockpits (biplane_visual.gd).
+   - biplane_cockpit.gd: the Wolverine's live panel at 70 % under the forward coaming, a stick
+     instead of yokes, no flaps, compass on top, fill light.
+   - engine.gd governor/fine pitch scale with rated_rpm/2600. For sale at Proving Ground (CF-AKB).
+   - Liveries: per-type tables plus a paint mixer (20 enamels, PAINT_SLOTS); plane.paint saved.
+
+154. Turbulence and feel (2026-10-11)
+   - wind.gust_at(p): Dryden low-altitude intensities and scale lengths (sigma_w = 0.1 W20,
+     L_w = h), three FBM noise fields; thermals in 700 m cells by season/time of day
+     (convection()). Gusts are applied per panel (left wing, right wing, tail), so they roll and
+     pitch the plane rather than just moving it.
+   - plane.seat_force (specific force, body axes) drives a spring-damper head motion in the
+     cockpit camera and controller rumble (option). Stall box removed from the HUD.
+
+155. Crash aftermath: sparks, injury, the wreck (2026-10-11)
+   - crash_hazards.gd: a hard crash cuts wiring at 2-6 spots; with the master on and battery
+     charge they spark (crackle, specks, flash). Master off from the seat or E at the door stops it.
+   - Pilot injury = clamp((impact-7)/25); sitting in a burning wreck drains health.
+   - A wreck can't fly: lift cut to 12 % (wings) / 20 % (tail). Wings bend before they tear
+     (tear only > 30 m/s); fire > 30, explosion > 45 (60 %). Crash look: tail twisted at the
+     break, nose crumpled back, wings folded at the hinge, prop bent, wheels thrown. Fewer,
+     heavier debris pieces that slide further.
+
+156. Spilled fuel (2026-10-12)
+   - Fuel on the ground is a set of pools, each a pair of Decals (so it lies over bumps): dark,
+     faintly blue, glossy soaked ground with a ragged lobed edge, plus a rainbow fuel-film sheen.
+     Textures made in code once. The edge creeps outward as fuel runs in.
+   - A crash throws ~25 % of the fuel (max 30 kg) out of split tanks: a droplet spray along the
+     slide and splash pools ahead of the wreck. A split tank keeps pouring (fast in a wreck, a
+     slow drip when parked) into a pool under the wing, with drips falling.
+   - Pools soak in and evaporate slowly. A spark within reach can light one; a burning pool
+     lights its neighbours, the grass, and the wreck if close. Burnt ground stays black.
+
+157. Gore: fatal crashes, run over, crushed, trees (2026-10-12)
+   - Option "Gore" (Season, weather and realism page; Game.gore, on by default). Off: deaths
+     are as before (no blood, no lost limbs); it also gates the old prop-strike blood.
+   - gore.gd bodies: the pilot's own rigged figure for every piece. The body has its lost
+     parts' root bones scaled to nothing, with a raw red stump on the joint; each lost arm
+     (whole or from the elbow), leg (whole or from the knee) or head is a copy with the hips
+     scaled to nothing and the part's root scaled back up. Pieces fly and tumble (own simple
+     integrator, like debris.gd), bleed for a few seconds, splat blood where they hit, and
+     settle: a body on its back in the "sprawl" pose (pilot_rig.SPRAWL_KEYS), crushed bodies
+     flattened, limbs lying along the ground.
+   - Fatal crash (main._crash_gore): violence (impact-28)/25 picks the parts; over 40 m/s
+     60 % of the time he goes out through the windscreen, otherwise he stays dead in the seat
+     (seat_corpse, hidden in cockpit view). Can't climb out of a fatal crash.
+   - Run over (main._runover_check): every machine in _all_vehicles(); the walker inside its
+     mesh box at wheel height, the box point's speed through him > 2.2 m/s (wheels) or
+     0.35 m/s (tracks). Light trucks under 4.5 m/s knock you down and hurt; heavier or faster
+     kills; tracks always crush (a leg at least). Blood on the machine.
+   - Felling: 10 % of trees tear the hinge and come round toward the cutter, 1.7 s warning to
+     run. Anyone in the trunk's line is killed (gore); in the crown's reach, hurt.
+   - Console: goretest [thrown|crushed|seat], spill [kg] (fuel pool).
+   - Crash tweaks: at most one wing comes off in a crash or a blow-up (the other stays on,
+     bent); a blow-up throws 3 pieces, not 6.
+
+BACKLOG (2026-10-12): sensitive / explosive cargo missions; a traditional survival-style
+building system (logs -> foundations, walls, roofs, doors, snapping pieces).
+
+158. Optimisation pass (2026-10-12), measured with Godot's profiler on Dave's PC
+   - water_sim.gd: the surface-water step was ~3 ms a frame (Dictionaries and
+     temporary Arrays per cell, 10 steps/s over the always-running creek). Rewritten on
+     packed arrays with the four neighbours unrolled; and it holds still when the camera
+     is more than 700 m off the square with no pump running.
+   - Hidden aeroplane models (the Wolverine's when flying another type, the DC-3's, other
+     types') stop processing (process_mode DISABLED); the hidden biplane cost ~0.5 ms.
+   - vegetation.gd: the streaming scan did all five layers at once every 0.3 s (a ~10 ms
+     hitch); now one layer per pass every 0.06 s, wind uniforms every 0.3 s, and two
+     finished chunks built a frame instead of four.
+   - cockpit.gd: no size set on the full-rect HUD inside the gauge-face viewports (58
+     "non-equal opposite anchors" warnings at every load).
+   - Perf overlay (console "perf") now shows render CPU and GPU time per frame.
+   - Measured flying at Proving Ground, Custom/Ultra shadows: GPU ~14 ms, render CPU ~4 ms.
+     GPU is shadows (8192 atlas, 4 splits to 1400 m on Ultra) + MSAA; lowering Shadows to
+     High or Medium is the biggest single frame-rate setting.
+   - Gore: no red balls on the cut ends (Dave).
+
+159. Watching Dave play (2026-10-12)
+   - Loader: 140 kW (was 92) and locked diffs front and rear.
+   - The walking-keys legend hides while you drive a truck or machine (hud.in_machine).
+   - Menu buttons side by side (workshop vehicle tabs, Travel's runway/approach) no longer
+     word-wrap: a row squeezed them to blank slivers. The vehicle tabs wrap to a second line.
+   - Trees stop machines (main._vehicle_trees): the leading face of each moving machine's box
+     is checked against tree trunks (Flora.tree_near). The dozer, a heavy machine over 2.5 m/s
+     into a tree under 16 m, anything over 7 m/s into one under 9 m, or any sapling under 4 m
+     snaps it (it falls the way you were going, logs to buck); otherwise the machine stops
+     against the trunk.
+
+160. Machine tips toggle and controller rumble everywhere (2026-10-12)
+   - The how-to-drive line each machine shows getting on (pickup, tug, loader, water and fuel
+     trucks, dozer, drift miner, excavator, forklift) can be turned off: the help key while
+     driving toggles it, or Options "Machine control tips" (Game.machine_hints, saved).
+   - Rumble (Game.rumble): machines buzz with the engine and speed, knock on bumps (the body's
+     velocity change), shake with wheels spinning in mud, grind on tracks; a jolt() for
+     crashes, tree hits, being hit or run over, the prop, a tree coming down; on foot the
+     chainsaw buzzes and each shovelful or pick swing knocks; blasts shake it (_shake).
+
+161. Feel the engine (2026-10-12)
+   - main._engine_pulse: a knock on the strong motor for each firing (rpm/60 x cylinders/2),
+     halved down to ~12 a second when the motor can't follow (keeping the rhythm); missed
+     firings with a rough engine; the V8's big cam beats strong-weak; cranking heaves over
+     compression; the weak motor hums with revs and load. Plane: its engine (cylinders,
+     roughness, cranking); trucks and machines: their EngineSound state (v8 8, diesel 6, small 1).
+   - Options sliders: "Rumble strength" (Game.rumble_strength 0..2, scales everything) and
+     "Engine pulses in the rumble" (Game.rumble_engine 0..2). All rumble goes through main._vib.
+
+162. Played on a controller like a console game (2026-10-12)
+   - Getting in on foot is a tap of the left stick click (L3); getting out of the plane or a
+     machine is a hold (no accidental exits); the hints say "Hold Left stick click".
+   - On foot: D-pad left/right hotbar, D-pad down build menu, D-pad up headlamp, right stick
+     click hides the key legend; the legend shows the pad's buttons for each.
+   - LB in the plane or a machine opens the QUICK MENU (menu.gd "quick", main._quick_items):
+     everything without a button of its own - auto start, master, alternator, mags, primer,
+     starter (cranks 3 s), fuel selector, mixture, prop, carb heat, cowl flaps, lights, gear,
+     feather, seat, next destination; in a truck engine, lights, 4WD, diff lock; map, job
+     board, get out. Each runs the same action the keyboard would (main._fire).
+   - Rumble goes to every connected pad that isn't flight gear, and stays on when the mouse
+     moves. Console "rumble" tests it and lists the pads.
+
+163. The look of the menus and HUD (2026-10-12)
+   - A bush plane's placard: DIN lettering (Bahnschrift on Windows, SystemFont fallbacks),
+     a dark spruce-green board with a hazard-orange band across the top and a heavy shadow,
+     square corners. Buttons are dark boards with a cream keyline on the left that goes
+     hazard orange and thick when hovered or picked (easy to follow on a controller),
+     orange fill when pressed. Headings bold and letter-spaced with a short orange rule;
+     orange slider fill and scroll bar. HUD messages and the key legend use the same board
+     colour with an orange edge, and the HUD (gauges included) letters in DIN too.
+
+164-169. Resolution, chart close-up, getting started, misfires, weather fronts, save slots (2026-10-12)
+   - 164 Resolution option (Graphics): windowed sets the window size; full screen keeps the
+     monitor's mode and renders the 3D at that height (scaling_3d_scale x render scale).
+     Ultra shadows reach 1000 m (was 1400).
+   - 165 The chart (M) has an "Around you" close-up, 500 m, north up, centred on you: tool
+     yard, workbench, workshop apron, every building, every machine, your plane.
+   - 166 Getting-started list (left side) ticks itself off: shovel, gold, engine, take off,
+     a job, a tree, a machine. goals.cfg; Options "Getting-started list".
+   - 167 A rough engine misses audibly: firings drop out of the loop (a hole and a pitch
+     hitch), a sick one coughs. (Machine crash damage already existed: vehicle_damage.gd
+     watches every machine for hard stops and roll-overs; tree stops now count too.)
+   - 168 Weather fronts (Options "Weather changes", on): every 25-40 min the radio calls a
+     front five minutes out; the sky greys and the wind rises first, then rain/snow or fog
+     sets in; later it clears the same way.
+   - 169 Save slots (menu "Save slots: save / load", 5 slots): a slot is a copy of the save
+     files in user://slots/N plus the seed, last strip and wheels; loading copies them back
+     in a fresh scene before anything loads.
+
+170. The 3D relief chart set aside (2026-10-12): it drew nothing on foot. M opens the flat
+   chart (hud._draw_map) with the "around you" close-up beside it, in the plane and on foot.
+   topo_map.gd is still built, just never shown.
+
+NEXT SESSION (left off 2026-10-12, untested in Dave's game unless noted)
+ - (Dave) Burned forest regrows over time after a fire (saplings, then young trees).
+ - (Dave) Fix each tool's scale and hand placement (pistol, pick, shovel). Mixamo clips are downloaded to Downloads\bp_*.fbx (dig, pistol_shoot/aim/walk, throw, swing, hit_react, pick_up); pilot_rig loader for them is written but the files are not yet copied into assets/characters/src.
+ - (Dave) Aim-down-sights crosshair: written (hud._draw_crosshair, main _ads), untested.
+   - Check: tree collisions, loader power/lockers, fuel pools (console spill), quick menu (LB),
+     engine-pulse rumble (Dave saw no rumble on the GameSir G7 Pro: console "rumble" test sent,
+     answer pending; check GameSir app vibration), weather fronts, save slots, goals ticking,
+     gore in a real fatal crash, L3 tap to board.
+   - Fix: 3D relief chart (topo_map.gd) draws nothing on foot - set aside, M shows the flat chart.
+   - Export a Windows .exe (export templates in the editor, Project > Export).
+   - Backlog: helicopter, radial bush plane, log building system, hangar doors + stove,
+     explosive cargo missions, Git + LFS.
+   - Builds: zip after each decent update to Documents\BushPilot2_builds (Dave asked).
+
+171. Optimisation pass 2 (2026-10-12, in progress - notes kept as I go)
+   - birds.gd: a flock sitting on the ground more than 1200 m from the camera is not stepped
+     or redrawn (it was ~0.4 ms a frame for birds nobody could see). Index-keyed _far/_drawn.
+   - hud.gd: on foot the HUD redraws 20 times a second, not every frame (flying, the gauges
+     still redraw every frame; the gauge-face and panel copies untouched).
+   - vegetation.gd: the camera position goes to the plant materials only when the camera has
+     moved 20 cm (new materials get the last one when made).
+   - Measured after this pass (Proving Ground, in the air, outside view, Custom/Ultra):
+     47 fps (was 41-44), GPU 11.4 ms (was 14-15), render CPU 4.3 ms, physics 1.1 ms.
+     The frame is ~21 ms, so ~10 ms of main-thread time is still unaccounted for: not
+     scripts (~5 ms with profiler overhead). Suspects for next time: the voxel terrain's
+     main-thread work (VoxelLodTerrain, collision_lod_count 2), animation mixers and
+     skeletons, CPUParticles, the perf overlay's own per-script probe, and the debugger
+     link when run from the editor. Run windowed, open Debugger > Visual Profiler while
+     flying, and compare against an exported .exe.
+   - The getting-started list hides with the key legend (H / right stick click), and is off for good with Options > Getting-started list.
+   - The perf overlay was itself a load: it re-ran every script's _process on every 5th frame. Now it updates 4x a second and probes scripts every 10 s.
+   - RESULT with the lighter readout: 60 fps, 16.7 ms (the cap / v-sync), GPU 9.7 ms, render
+     CPU 3.3 ms, physics 1.4 ms - the "missing 10 ms" was mostly the perf readout measuring
+     itself. Headroom now: a higher frame-rate cap would show how far past 60 it goes.
+
+172. First Windows export (2026-10-12): Project > Export > Windows, release (no debug):
+   Documents\BushPilot2_builds\BushPilot2.exe + BushPilot2.pck + libvoxel.windows.template_release.x86_64.dll
+   (all three go together). A first try landed the same three files in the project root:
+   delete those. Export templates were already installed.
+
+173. Hazardous and sensitive cargo (2026-10-12)
+   - jobs.gd kinds: "explosives" (Dynamite for the mine: 1-4 cases of ~23 kg, out to the bush
+     strips, the best pay per kg) and "samples" (Core samples for the assay lab: fragile,
+     urgent). Jobs carry "explosive".
+   - Dynamite aboard (cabin or bay): a landing over 700 fpm can set it off (25-90 %), over
+     450 fpm a warning; a damaging hit over 0.3 severity may; a crash always does; a plane on
+     fire with it aboard goes up after 6 s. jobs.detonated -> main._on_dynamite: fire,
+     explosion (visual pieces), wreck; the pilot aboard is killed (gore), someone on foot
+     within 25 m is hurt.
+   - cargo.gd: a dynamite case (pale pine, red band, hazard diamond) and a core tray with grey cores.
+
+174. Co-op over the internet (2026-10-12)
+   - Hosting asks the router to open UDP 24680 (UPnP, on a thread) and then shows the
+     address to give friends (the router's outside address) plus the home-network one;
+     if the router won't, it says to forward the port or use a virtual-LAN app. The port is
+     closed again on Leave.
+   - The host tells each joining pilot its world seed; if theirs differs they're told the
+     claim's ground won't match and how to match it (console: seed N).
+   - Untested with two machines. ENet is in the stock export templates.
+
+175. Co-op: one world for everyone (2026-10-12)
+   - Joining a host whose world seed differs no longer just warns: the joiner takes the
+     host's seed, reloads, and rejoins the same address by itself (Game.pending_join), so
+     the claim, creek and gold are laid out the same for both. Their own saves (money,
+     planes, buildings) stay theirs.
+   - What co-op shares today: each other's planes and pilots on foot; riding along in a
+     friend's plane (E at their door) and handing the controls over (K). NOT shared yet:
+     trucks and machines, digging, buildings, felled trees, jobs/money, fires, cargo.
+   - Quick menu (LB) has 'Ask for / hand over the flight controls' when online (keyboard K), so a controller player can take over or hand back the plane.
+
+176. Dynamite for mining (2026-10-12)
+   - Item "dynamite" (0.25 kg a stick, stacks of 12; six in the tool yard by the shovel, and
+     old saves get a box once). Model: 32 x 200 mm buff waxed-paper sticks with a red
+     maker's band and crimped ends, a copper cap and a black-and-orange safety fuse; a tied
+     bundle of three lying on the ground. Icon to match.
+   - In hand, E: against a face within 1.8 m (voxel raycast) it's set there with an 8 s fuse;
+     looking down at your feet, set on the ground (8 s); otherwise thrown overhand (the pick
+     swing) where you look, 12 m/s + lob, 5.5 s fuse. dynamite.gd: the lit charge flies,
+     bounces, rolls, sticks against rock, spits sparks with a glow and a hiss.
+   - The blast (explosions.rock_blast): flash, boom, dust column, 14 rock chunks flung
+     (debris), hurts within 9 m; prospect.dig breaks a 2.2 m crater (rock too), the voxel
+     ground gets a 1.6 m bite (drift faces, caves), the spoil is deposited round the rim at
+     3-4.5 m (ground.deposit), a tree within 3.5 m goes over. Killed by it: gore, thrown away
+     from the blast.
+
+177. Dynamite tested on the PC: thrown stick lights with "Fire in the hole!", fuse sparks, blast throws rock debris and smoke, leaves a crater. Zip BushPilot2_build_2026-10-12_0454 saved. The .exe still needs a re-export to include dynamite.
+
+178. Co-op stand-in "buddy" (net.gd, console: buddy). A fake second player run locally, fed into
+     net.remotes as peer 990001 so everything downstream (remote plane, walking figure, ride-along,
+     seat, controls handoff) is the real co-op code path. is_online() is now _live() or buddy;
+     rpcs only go out when _live(); _send(id, what) routes _ask/_granted/_give_back to the buddy.
+     Buddy: plane C-FBDY parked 24 m off your right wing; follows you on foot; climbs into your
+     plane when you sit in it stopped (front right seat), gets out when you do. "buddy ask" -> he
+     asks for the controls, K hands them over (he flies straight and level), K takes them back.
+     Walk to his door + E rides in HIS plane: he takes off after 3 s, circles 500 m out, 250 m up;
+     K asks him for the controls (granted after 1.2 s, you steer with a simple kinematic model).
+     buddy fly / land / come / stay / off.
+     Passengers and skydivers now use the rigged figure (PilotRig) instead of the old blocky model.
+
+179. Co-op scrapping with tools. main.TOOL_HIT: pick .45, rail .35, shovel .3, timber .25, ladder .2,
+     bottle .15, gold pan .12 of a full health bar (+-15%). E with one of those in hand and another
+     player within 2.4 m in front -> _tool_swing (pick/dig motion, 0.9 s cooldown, blood puff),
+     net.hit_player -> _hit rpc -> main.take_hit on their side (knock back 0.6 m, message; at 0 they
+     die: sprawl body with lost parts like the blast deaths). _my_state now carries "hand" (their tool
+     shows in their figure's hand), "sw" (swing counter -> their figure plays the swing) and "dead"
+     (their figure is swapped for a gore body). Buddy has hp: hit him and he may get mad (fight mode,
+     swings a pick at you for .18 every 1.6 s); dead -> body, back at his plane after 10 s.
+     Console: buddy fight / buddy peace. Console: goto door (beside the pilot's door).
+
+180. Dismemberment while alive, the pistol, co-op dynamite, and an X on the getting-started list.
+     gore.sever_live(rig, part, vel, rng): shrinks the part's bone on the LIVE figure (re-applied on
+     AnimationPlayer.mixer_applied), throws the part as a piece, bleeds from the stump.
+     lost_live / restore_live (restore on _reset_to_last_strip). State "lost" syncs the parts a
+     player has lost so everyone sees the stumps; dead bodies include them.
+     Causes: tool hits (pick/rail/shovel 22% a limb), pistol (20% a limb, head = dead), a dynamite
+     blast within 5 m that doesn't kill (75% a limb). main._die_in_pieces / _lose_part.
+     Pistol: item "pistol" (generic 9 mm service pistol model, walnut grips), in the yard at
+     (-43.2,-75.4) (old saves get one once: flag gun_v1). E fires along the camera, 0.32 s between
+     shots; net.shot_target tests head/body/legs zones against remote players (blocked by the voxel
+     ground); otherwise a dirt puff where it lands. Body 0.28-0.38, head shot kills. Flash light +
+     generated report (main._make_shot). Others see/hear your shots (swing counter with pistol).
+     Co-op dynamite: lighting one rpcs _dyn(at, vel, fuse) so every player's game burns the same
+     stick and takes its own blast; net.blast_near hurts/dismembers the buddy.
+     hud: an X box on the GETTING STARTED panel turns Game.goals_on off (mouse must be free).
+     TODO (Dave): fix each tool's scale and hand placement (CARRY table / build_mesh sizes).
+
+181. Co-op hardening + test rig.
+     - Launch args "-- coop=host" / "-- coop=join": windowed, side by side, host() / join(127.0.0.1)
+       after 4 s. Set up in the editor: Debug > Customize Run Instances, 2 instances, override args.
+       Verified 2026-10-12: guest connects, host sees the guest's figure walk out of the plane.
+     - Guests can't change the shared world: the host sends season / time / weather / wind every 3 s
+       (net._world_now, authority-only rpc); a guest's menu shows a note instead of those rows and
+       hides New game / Load / Save slots; guest weather fronts don't run (host's do and sync).
+       Everything else a guest does in their menu is local to their own game.
+     - A guest's plane (stopped, within 14 m of the host's) moves 18 m to the right on joining so
+       the two don't spawn inside each other (net._apart_from).
+     - Aim down sights (RMB / LT with the pistol): camera over the shoulder, FOV 66->36, crosshair
+       (hud._draw_crosshair), hip-fire spread 0.045 vs 0.004 aimed; body turns with the view.
+     - pilot_rig: EXTRA motion-capture clips loaded at runtime from assets/characters/src/<name>.fbx
+       when present (pistol_aim/walk/shoot, throw, swing, hit_react, pick_up, shovel_dig); pistol
+       carry fitted in the pistol_aim pose ("fit" in CARRY). Files NOT yet copied in.
+     - Airport dressing people removed (world._build_apron people = 0): those were the "two people
+       on the airport" in the old blocky model.
+     - Guest map follows the host (reload like the seed); guests cannot pick the map.
+     - Guest plane moved apart via plane.pos + _snap_transform (setting global_transform alone was undone).
+
+182. Tools in hand, motion-capture clips, bullets vs machines and glass (2026-10-12).
+     - Mixamo clips copied into assets/characters/src (pistol_aim/walk/shoot, throw, swing,
+       hit_react, pick_up, shovel_dig) and loaded by pilot_rig at runtime (EXTRA). Verified: aiming
+       plays pistol_aim with the gun pointing forward in both hands over the shoulder.
+     - Carry fitting: every hand-carried tool is fitted in the idle pose (frame 0) at the real palm
+       (60% wrist->middle knuckle, 2 cm in), not mid-blend. Pistol fitted in pistol_aim.
+     - Pistol holstered on the right hip (inventory.HOLSTER_XF, anchor "hip") unless aiming; the
+       first E from the holster draws it (up for 1.5 s); RMB/LT draws and aims.
+     - Shovel shortened to ~1.05 m (handle 0.52, smaller blade) and carried blade-down.
+     - Pick: handle now runs through the palm 14 cm under the head.
+     - Visible muzzle flash (unshaded star at the muzzle, 45 ms) + light.
+     - Bullets: main._bullet_trace tests each machine/plane mesh box along the shot; glass panes
+       (named glass/window, or a see-through lit material) break (hidden, shards) and the round goes
+       on; anything else stops it: vehicles take body/engine damage (vdamage.hurt), planes the part
+       struck (wing/aileron/tank/prop/tail/tyre/fuselage), other players' planes via net.shoot_plane.
+     - Console: handcheck [item|aim|side|back|info|off] - close camera on his hands, numbers.
+
+183. Survival-shooter controller layout on foot + bullet holes (Dave: "think survival fps game").
+     On foot, controller: RT = use what's in your hand (dig, swing, fire, pick up: presses
+     "interact" once past 60%, main._rt_use), LT = aim, L3 = run toggle (ends when you stop;
+     at the plane's door / a friend's plane door L3 still gets in), LB / RB = previous / next hotbar
+     slot, View = backpack (View or B closes it), D-pad left = chart, D-pad up = headlamp,
+     D-pad down = build, X = pick up / interact, Y = door / put down, A = jump, B = camera.
+     Keyboard unchanged (Shift runs, E uses, RMB aims).
+     Bullet holes: main._bullet_mark - a Decal (16 cm on ground, 9 cm on metal with a bare-metal
+     rim) pressed along the shot, parented to the machine/plane it hit so it rides along; newest 80
+     kept; textures drawn once in code (_make_hole).
+
+184. Frozen copy "Bush Pilot 2 v1" (Dave: a separate game copy, like the first Bush Pilot):
+     Documents\BushPilot2_v1\BushPilot2 (packed with Project > Pack Project as ZIP, extracted;
+     project name "Bush Pilot 2 v1" so it shows separately in Godot's project list; the zip
+     Documents\BushPilot2_v1.zip is the same thing). Development carries on in Documents\BushPilot2.
+     Includes everything up to entry 183 (survival pad layout + bullet holes, not yet play-tested).
+
+185. Handoff package (2026-10-12): Dave is moving the project to a new Claude account. HANDOFF.md
+     (project root) is the start-here document: overview, how to run, file map, status, in progress,
+     known bugs, roadmap, design numbers, rejected ideas, Dave's preferences. Package = this project
+     minus .godot/, _rec/ and the non-Windows voxel binaries. docs/player_guide.md = guide source.
+     Still open: Desktop\Bush Pilot 2.zip for the friend (PC went offline mid-click).
+
+186. Check-over and optimisation pass 1 (2026-10-12, new account; done in a cloud copy, NOT yet
+     run on Dave's PC). All scripts parse (tests/check.gd: 0 failures, Godot 4.7.2).
+     - voxel_ground: generate_collisions off. Nothing uses physics bodies or physics raycasts
+       on the ground (wheels/walkers/caves use height_at / floor_below / VoxelTool), and every
+       remesh (ruts restamp each tick) was building trimesh collision on the main thread.
+     - world.apply_quality: the near-camera wave patch was switched back ON by the quality pass
+       (meta "off" = gfx_water == 0), undoing "ponds carry their own waves". Now stays off.
+     - plane: a parked fleet plane (may_doze, set by fleet.gd) stops running the flight model
+       after 2 s still with the engine off, not on fire, not crashed, not in water - anywhere,
+       not only past 700 m. Every parked plane at the home strip was 2 flight sub-steps a tick.
+     - engine_sound / audio: looping players turned below -60 dB are stopped and restarted the
+       frame they're turned up (engine_sound.gate_loops). Engines held 9 (diesel/V8) / 5 (synth)
+       / 8+ (plane) silent loops mixing every frame.
+     - plane_visual: wing flex follows plane.airborne (has hysteresis) instead of on_ground,
+       which flickered on rough strips and rebuilt the airframe mesh (~15 ms) each bounce.
+     - pilot_rig.set_head_visible: the tree walk runs on a change (or every 0.5 s), not every
+       physics tick (walker and seated driver called it 120x/s). A tool held on a "carry"
+       anchor now stays drawn in first person (it was going shadows-only).
+     - main: _all_vehicles() cached per tick (was rebuilt 5-6x a tick). _runover_check and
+       _vehicle_trees time speeds by physics ticks actually run, and run-over forgets positions
+       remembered before you got out (stale positions read as a huge speed = false deaths).
+       _get_in(anywhere) gets you off a machine first (recover/dock/tutorial from a machine left
+       driving set). _fall_guard waits for world/prospect (could null-crash during load).
+     - hull.gd: HULLOFF env read once, not every sub-step.
+     - Player Guide: on-foot table rewritten for the survival pad layout (RT use, LT aim,
+       L3 run toggle, LB/RB hotbar, View backpack, D-pad left chart), holster, bullet holes.
+     Found but NOT changed (need Dave's call or a test on the PC): the pond's visible surface
+     uses the flat water shader while floats ride water.gd's Gerstner sum (invisible ~0.2 m
+     waves); ground shaders are heavy per pixel (~27 noise calls); vegetation streaming has a
+     thread race on Flora.felled and quadratic buffer appends; fire saves the felled list to
+     disk for every burnt tree; HUD rebuilds its text every frame; co-op snapshots use the
+     receiver's clock with a 0.12 s delay (< 2 send intervals).
+
+187. Dave's asks this session (2026-10-12 evening, new account) - the standing list:
+     a) Check the game over and optimise it; "this is just a test bed, improve every aspect".
+     b) Back up everything to the backup folder (Documents\BushPilot2_builds) - a dated zip
+        before and after each change.
+     c) ART DIRECTION: "as realistic as possible at the same time ... like a claymation" -
+        real proportions and shapes, soft handmade clay surfaces (rounded edges, thumbprint
+        texture, matte, warm soft light). Still: real reference photos first, Dave picks.
+     d) MAIN MENU = A COCKPIT: a custom cockpit built for the menu; its switches, buttons and
+        knobs ARE the menu items. Don't show the undeveloped world in the main menu; let the
+        game render in behind it.
+     e) "very distinct tactile buttons and switches", "something very artistic".
+     f) Player Guide updated for the survival pad layout (done, 186).
+     g) "show screen shots at milestones" - send Dave a screenshot at each milestone.
+     h) "very realistic weather effects: rain, lightning, gusts of wind" - in the cockpit menu
+        first (night, raining, lined up on a runway, runway lights through the dark wet haze of
+        the windshield), then in the game.
+     i) Dave's PC may be used for rendering/testing when faster than headless.
+     j) IN GAME: random lightning strikes hit trees and start fires; camera shake when close,
+        scaled by distance (thunder delay by distance too).
+     k) Dave has a list of co-op problems - ask for it once the current work is done.
+     l) Get Dave's approval for most models (reference photos first, he picks).
+     m) LOOK: "more smooth and realistic than so low poly ... i like the crispness of the low
+        poly though" -> smooth-shaded, bevelled, more detailed shapes, but crisp: clean
+        silhouettes, sharp readable light and shadow, clear colours. Not muddy photoreal.
+     n) VEHICLES: "look more like real trucks not so boxy" - curved panels, real proportions,
+        wheel arches, rounded cabs and hoods (reference photos first, Dave approves).
+     o) Reference photos for EVERYTHING ("you make things so much better when we look at photos
+        online and build off that").
+     p) COCKPIT MENU picks: Beaver-style panel (black crinkle paint, round gauges, chunky
+        toggles, throttle quadrant). START = the red-guarded toggle (flip the cover, flip the
+        switch). Settings sliders = levers on the throttle quadrant (throttle/prop/mixture
+        style knobs). Brightness, volume etc. = levers.
+     q) "im trying to make it look not so generic ai": no even grids or symmetry for its own
+        sake; lay things out like the real reference (Beaver panel: flight gauges left, engine
+        gauges centre, radio stack, toggle row bottom-left, breakers right, T-handles under,
+        quadrant below) and add specific lived-in details (crooked label tape, worn paint by the
+        switches, a grease-pencil note on masking tape, a photo tucked in the panel edge).
+     r) Menu cockpit uses the REAL working gauges from the Wolverine cockpit (HUD-painted faces,
+        3D needles), live from the parked plane; they come alive when START is flipped.
+     s) BUG (Dave): the gauges in the truck models are messed up - fix (truck_dash.gd).
+     r) Cockpit menu gauges = the real working gauges from the Wolverine cockpit (cockpit.gd faces
+        painted by hud.gd, real needles), not stand-ins.
+     s) BUG (Dave): the gauges in the truck models are messed up - check truck_dash.gd.
+
+188. Cockpit main menu (2026-10-12): scripts/menu_cockpit.gd + shaders/wet_glass.gdshader.
+     Its own World3D in a SubViewport over the screen; the game's 3D is switched off under it
+     (menu.open main page). Night, rain, lined up on a wet runway: edge lights (white, amber
+     last 600 m), red end, green threshold, blue taxiway, a beacon on the old tower, a hangar
+     with a sodium lamp; volumetric haze, SSR on the wet asphalt, rain streak particles.
+     Beaver-style panel: the REAL plane gauges (real_gauges.gd - the Wolverine cockpit's
+     HUD-painted faces, cased, 3D needles), radio with amber 122.80, masking-tape note,
+     a photo tucked in, compass on the glare shield. Menu buttons become controls by their
+     text (_kind_for): START/RESUME = red-guarded toggle (flip cover, flip switch, starter
+     grinds, engine catches - tach/oil/MP needles come up - fade to black, the world settles
+     behind (vegetation idle, max 6 s), fade in). Toggles, push-pull breakers, knobs, radio
+     knob (CO-OP), red T-handle (QUIT). Sliders on other pages = levers on the quadrant.
+     Label-maker tape under each control, set by hand (crooked). A torch beam follows the
+     focused control. Weather: gusts rock the plane and lean the rain and the runs on the
+     glass, rain comes in sheets, lightning (2-4 strokes) with thunder ~3 s/km later.
+     Controller: D-pad / stick moves between controls by screen direction, A works it, LB/RB
+     pick a lever. Mouse: hover / click, drag levers. Sounds (rain, wind, thunder, clicks) are
+     made in code and stop when the cockpit is put away (Dave: rain kept playing).
+     main.gd: shows the cockpit (boot mode) while the world builds, menu.adopt_cockpit() takes
+     it over - the half-built world is never seen.
+
+189. MODEL LAB (tools/model_lab.tscn, F6): one model, no game. Type a name (cockpit, gauges) or
+     a res:// script path; it rebuilds itself when the script (or what it preloads) changes on
+     disk and saves _rec/lab_latest.png 2.5 s later (F12 any time). _rec/lab_cmd.txt switches
+     the model from outside. A script can define lab_build() to set itself up for the lab.
+
+188. Cockpit main menu v1 (menu_cockpit.gd, shaders/wet_glass.gdshader, real_gauges.gd).
+     - Own World3D in a SubViewport: night, rain in sheets, lined up on a wet runway; edge lights
+       (last 600 m amber), red end bar, green threshold, blue taxiway, a rotating beacon, a
+       sodium lamp on a far hangar; volumetric haze; SSR wet asphalt.
+     - The windshield is a shader over the screen: hazy through wet glass, beads that act as
+       little lenses, runs that slide down and lean with the gust.
+     - Weather: gusts (rock the plane on its gear, slant the rain, push the runs, moan in the
+       wind loop, twitch the airspeed needle), rain in sheets, lightning in 2-4 strokes that lights
+       the cockpit from a random side, thunder ~3 s per km later.
+     - Panel laid out like a Beaver: the Wolverine's real instruments (real_gauges.gd, HUD-painted
+       faces + 3D needles) - six on the left, tach/MP and small engine dials centre; radio stack with
+       amber digits (CO-OP); toggle row bottom-left (GRAPHICS, CONTROLS); red-guarded START toggle
+       (and guarded NEW GAME / BACK TO STRIP); push-pull breakers (HOW TO FLY, LOGBOOK, SAVE, JOBS,
+       FLEET, WORKSHOP); rotary knobs down the right (TRAVEL, LOAD/FUEL, WX/SEASON); red fuel-shutoff
+       T-handle under the panel = QUIT; throttle quadrant levers = the open page's sliders.
+     - Label-maker tape under every control (crooked), masking-tape grease-pencil note, a photo in
+       the panel edge, a whiskey compass. A torch beam follows the control you're on.
+     - It reads menu.gd's Buttons/HSliders (no logic copied): new menu items appear by themselves.
+     - START: cover flips, switch flips, starter grinds, she catches (gauges come alive), fade to
+       black, the game unpauses and the world streams in behind the black (vegetation idle, max
+       6 s), then fades up. The game's own 3D isn't drawn under the cockpit (disable_3d).
+     - Shown from the first frame (main.gd boot cockpit, adopted by the menu): the half-built world
+       is never seen. Its sounds stop when it's put away (Dave: rain kept playing).
+
+189. MODEL LAB (tools/model_lab.tscn - open it, F6). One model, no game: type "cockpit", "gauges"
+     or a script path. Rebuilds itself when the script (or real_gauges/hud/wet_glass) changes on disk,
+     then saves _rec/lab_latest.png (+ numbered jpgs). Claude drives it through _rec/lab_cmd.txt
+     ("name [yaw pitch dist]" or "shot"). Dave: "a tool instead of running the whole game and just
+     make quick live changes".
+
+190. LIVE TUNING: scripts/tune.gd + tools/tune.cfg ([cockpit] cam_pos, fov, flood, dome, torch,
+     exposure, fog, haze, glass_blur/tint/wet, bead_sheen/size, runway_glow, rain_db, panel_pos...).
+     The cockpit eases to the file's values ~6/s: change a number, save, watch it move - no rebuild,
+     no backup zip (Dave: "edit the model super fast without having to make new saves"). Backups only
+     at milestones. Model Lab also takes vehicles: pickup, water_truck, fuel_truck, loader, dozer,
+     excavator, tug, forklift, log_trailer (flat ground, orbit camera).
+     Dave's asks: (t) make the Model Lab SHAREABLE for a friend who also makes Godot games with
+     Claude - a clean generic addon with NO Bush Pilot code or notes. (u) build the new truck body in
+     the lab (code-built, live-tunable).
+
+191. Pickup body in code (scripts/truck_body.gd; pickup_truck.CODE_BODY = true, the Blender
+     pickup_body.glb stays as the fallback). Late-'80s full-size extended cab, 8 ft bed, no names:
+     lofted side skins with a gentle bulge and a real beltline, nose rounded in plan, arches cut
+     round each wheel with flares, front clip + separate crowned hood, flush raked greenhouse in
+     glass with paint pillars and a roof cap, open bed (floor, tubs, rail caps), separate tailgate,
+     chrome wrap bumper, grille, composite headlamps, tall tail lamps, west-coast mirrors, a basic
+     interior. Same part names and frame as the glb (Hood, Tailgate, SteeringWheel, AxleF/R, *Bulb).
+     Two-tone by whole triangles with seams at the paint lines (crisp). All shape numbers in
+     tools/tune.cfg [pickup]; the Model Lab rebuilds it on save.
+     Old files kept: Documents\BushPilot2_builds\old_models (pickup_truck_BEFORE_code_body.gd.txt,
+     pickup_body_ORIGINAL.glb). Dave: "save every version" -> the Model Lab copies each changed file
+     to res://_versions/<name>/<timestamp>_<file>.txt (not exported: *.txt is excluded).
+
+192. Square-body pickup (truck_body.gd): '73-'87 regular cab, 8 ft bed, 131.5 in wheelbase, after
+     Dave's blue/white K20 photo (reference/target_truck_squarebody_blue.png). Brand-free. Two-tone
+     schemes: blue, red, green, tan, orange, black, yellow (tune.cfg [pickup] scheme).
+193. Model Lab: four-view sheet (_rec/lab_sheet.png, now shot through the main camera - the old
+     SubViewports froze), reference overlay ("ref <file> [alpha]"), seated driver fit, footwell.
+194. Front end detail pass (recessed headlamps, bezels, egg crate, bumper).
+195. Doors (DoorL/DoorR, hinged at the A pillars, door_toggle), real suspension motion (axles roll,
+     leaf springs flex in two halves, shocks telescope, drag link and drive shafts follow -
+     truck_body "links", place_link), and the VEHICLE TEST BED in the Model Lab
+     (tools/vehicle_testbed.gd): doors/hood/tailgate/lights, spin, steer, bounce/twist/roll/pitch,
+     chassis view, hide ground, drive on a test course (bump, offset mounds, whoops), RUN FULL TEST
+     -> _rec/test_sheet.png. lab_cmd: "test <what>".
+196. Proportions from the photos: flat high hood (nose 1.27, cowl 1.34), bed rail level with the
+     sill (1.41/1.42), lower roof (1.90); crisp rounded corners at panel ends, roof, nose.
+     Reference photos: Desktop\Vehicle Projects\<vehicle>\References (one vehicle per folder),
+     copies in reference/squarebody. Backup: BushPilot2_builds\BushPilot2_2338_v196_squarebody.zip.
+197. MAXIMUM REALISM STANDARD (Dave, 2026-10-12) - applies to EVERY future vehicle/model build:
+     - Not literal low poly: smooth high-poly forms (MeshKit.detail x3 sides, dense lofts,
+       MeshKit.bevel rounds every box edge), crisp edges only where the real thing has them.
+     - Every component its own part (own node, own meshes): truck_body _sw("Name") / Kits parts.
+       The pickup has ~130: panels, glass, lamps, bezels, grille, bumper, radiator, full engine
+       (block, pan, heads, valve covers, intake, carb, air cleaner, manifolds, distributor, plug
+       wires, coil, timing cover, balancer, water pump, fan, shroud, alternator, PS pump, belts,
+       starter, oil filter, dipstick, mounts), bellhousing, transmission, transfer case, radiator
+       support, hood latch and hinges, brake booster, master cylinder, brake lines, wiper motor,
+       heater box and hoses, washer bottle, regulator, horn, battery/tray/cables, steering column
+       and shaft, fuel neck/lines, parking brake cables, interior pieces.
+     - Built from reference photos first time, as close as possible; big batches, not tiny tweaks.
+     - Real paint: softer factory colours, clearcoat with a faint orange-peel ripple, road dust low.
+     - Everything breakable (next): parts tear off as physics bodies in crashes/explosions, glass
+       cracks then shatters, headlamps bust out, panels dent. Test bed gets Crash / Explode.
+     - The voxel world gets the same treatment later: same features, higher poly, smaller blocks.
+198. Real square-body dimensions measured off a true side photo (reference/squarebody/05):
+     cowl 0.74 m behind the front axle (cab moved back 0.34; long fender behind the wheel),
+     tail 2.87, taller glass (belt 1.35, roof 1.91, roof rail 0.10 above the glass), bed rail at
+     the sill. truck_body.cab_dz / driver_dz / engine_z keep the seat, wheel, gauges, eye, engine,
+     hood hinge, drive shafts and part spots where they belong. Model Lab sheet: 8 views (side,
+     front, rear, top 3/4, front 3/4 low, rear 3/4, engine bay hood off, chassis 3/4).
+     Pushing files: the device copy can come from a stale staged copy if the same staged path is
+     reused - always stage under a fresh name (timestamp prefix).
+199. Breakage (scripts/vehicle_breakage.gd - NOT vehicle_damage.gd, which keeps the numbers):
+     dents (mesh pushed in, normals redone), glass cracks (shaders/cracked_glass.gdshader, up to
+     4 webs) then shatters into shards, lamps bust out, parts tear off as RigidBody3D debris
+     (convex hulls, own collision layer so they don't fling each other, velocity capped).
+     RULES table: name prefix -> kind, mass, tear-off impulse. Test bed: Crash front / side,
+     Hit windshield, EXPLODE, Rebuild. Not yet wired into the game's crashes.
+200. '81-'87 K10 (Dave's black K10/K20 photos, reference/k10_80s): front "84" (tune front = "84",
+     "73" keeps the old face) - stacked rectangular lamps, charcoal egg crate with three bright
+     bars, thin bright surround, chrome bumper with black rub strip; hood with the raised centre
+     panel; painted double pinstripes (shoulder pair + a low pair over the wheel openings);
+     35 in all-terrains (tyre "at35") on polished wheels; clear lower lamps. detail 2 / density
+     0.6 (lower poly, same proportions).
+201. Bed: corrugated floor, front wall bands, boxy tubs, sills, tie-downs, tailgate inner ribs;
+     corner posts with the square-body tail lamps (bezel, reflector strip, reverse lens, screws)
+     that bend round the corner; chrome step bumper with pad and plate recess.
+202. Body styles - separate trucks, same front/cab/doors/chassis: lab names "pickup", "blazer"
+     (106.5 in, 2-door, white removable top, big quarter glass, rear seat), "suburban" (129.5 in,
+     4 doors, long roof, two benches). pickup_truck.variant -> TruckBody.build(style); RZ from
+     the style; doors found by name (DoorL/R, DoorBackL/R). Short bed: a garage option later.
+     NEXT: winch (front bumper, rope physics, double winching in co-op), wire breakage into the
+     game, Dave's co-op list, other vehicles rebuilt to this standard.
+203. Winch (scripts/winch.gd on rope.gd): in the front bumper (cradle, drum, motor, gearbox,
+     clutch lever, roller fairlead). States stowed / carried / hooked; the drum pays out as you
+     walk the hook away, hooking leaves slack; taut cable pulls both bodies (wheeled_body.pull,
+     summed per step, so two winches on one truck add up - co-op double winching). Line pull
+     42 kN, snaps at 95 kN, stops 3 m short. The pulling truck holds its handbrake while its own
+     winch is loaded. Test bed: hook tree / stuck truck (in a mud hole) / in / out / stow.
+     NOT yet in the game (main.gd keys, net sync, remote rope).
+204. Cleanup pass: arch lips and liners stop at the body edge; inner fender walls clear the
+     tyre; floor at 0.50 with a transmission tunnel; driver_dz / eye 1.73 (no clipping); tail
+     lamps flush in corner posts (CORNER 0.11); tailgate stamped profile with seams at the paint
+     lines; mirrors re-oriented (glass facing back, two arms + upright).
+205. Headlamps: real lamp units - chrome reflector bowl, bulb, fluted glass lens (procedural
+     prism normal map); amber parking lamps under them; warm halogen colour (~3000 K) for the
+     bulbs and beams (pickup_truck.WARM_HEAD).
+206. Rollover + panels as real stampings + paint shader (13 Oct):
+     - Seated driver takes the cab's pitch and roll (main._seat_driver, model_lab._place_driver);
+       first-person view rolls with it (on_foot.seat_tilt).
+     - Hull for the pickup follows its outline (bumper / hood / cab / bed rails), not one box
+       as tall as the cab; hull contacts scrape (friction, spin scrubbed) - hull.resolve(dt).
+       Test bed: ROLL OVER.
+     - The bed side is ONE stamped panel (_bed_ring + _panel_loft): inner wall, flat top rail,
+       outer skin with the body line, and the wheel opening's rolled lip and flange - one
+       cross-section along the whole length, faces turned by the section itself. No separate
+       rail caps or rear arch lips. Use this for every big panel next (fenders, cab sides,
+       doors, hood): one piece shaped like the real pressing, separate only where the real
+       truck is bolted together - it dents like sheet metal and can't gap.
+     - Wheel openings from four side photos: flat top, rounded corners, sides leaning out
+       (wider at the rocker) - tune arch_len 0.50 (half width at the rocker), arch_slant 0.15,
+       arch_corner 0.13; the front opening 6 cm longer (arch_front_extra) so the tread clears
+       at full lock. Inner fender splash walls fore and aft of the front tyres.
+     - Paint is a SHADER (shaders/truck_paint.gdshader): the two-tone bands and the dust are
+       worked out per pixel from the height in body space; vertex alpha 0 = banded, 1 = fixed
+       colour (insides, ends, undercoat). No paint seams, no zig-zags; parts that swing or
+       break off keep their paint. Low pinstripes run straight and stop at the openings.
+     - Fuel filler: dark pocket with a neck rim; FuelDoor is its own part, hinged at its front
+       edge; FuelCap unscrews (two turns, backing out) and hangs on its tether, swinging
+       (pickup_truck.fuel_door_toggle; test bed "Fuel door"). Door painted by the shader.
+     - Gas door, front corners rounded (fender edge post), wheel tub undercoat.
+     - Model Lab: no 8-view sheet after every reload ("sheet" command only) and numbered shots
+       only on F12 / "shot" - the burst after every change was a GPU spike (the AMD driver
+       reset at 01:19). Milestone saves only.
+     NEXT: the small plane, built the same way (one-piece panels, paint shader, parts that
+     break off, references first).
+207. Last truck pass before the plane: pillars are pressed steel sections, not tubes (A pillar:
+     flat face, rolled edges, windshield rubber, stops ahead of the door frame so the door
+     swings clear; C pillar / cab back corner: one wrap-round panel out to the back glass);
+     back glass rubber all round; sharper, prouder shoulder line with the paint break on its
+     edge; K10 pinstripes (tune trim = "molding" gives bright strips instead); tailgate faces
+     from its own section (it was inside-out); HAMMER stamped in the tailgate (block letters
+     pressed out of the panel, painted with it - _stamp_text / _slab, tune tailgate_name);
+     tail lamps are red fluted glass you see into, reflector and two bulbs behind; smaller
+     spare tucked up; test bed list scrolls.
+208. The bed side is now the whole pressing: _bed_side_full runs the bed section back along the
+     side, turns the rear corner (BED_RC 0.05) and carries on across the back as the corner
+     pillar, ending at the tailgate's shut gap - shoulder line, paint break and rail wrap round
+     the corner; the separate corner-post boxes are gone (SUVs keep theirs). Tail lamps sit on
+     that back face and wrap the corner onto the side, their top on the shoulder line (as on
+     the real truck, reference squarebody/02); the tailgate's recessed band has its top step on
+     the paint line, the name in the lower colour. Headliner tucked inside the glass.
+
+209. Truck feel + lab (13 Oct): tyres squash where they touch (shaders/tyre_squash.gdshader, world
+     space against the vehicle's down, more under load; the rim doesn't give). Winch: line pull 60 kN,
+     breaks at 130 kN, the rope pulls straight under load (rope.taut), the winching truck holds
+     against the pull, a stuck truck drags (stuck_drag). Model Lab: opens on its own from the
+     desktop "Model Lab" launcher (no editor, no game); saving the lab, the test bed or on_foot
+     restarts the lab in a second on the same model; winch / rope / hull / breakage / shaders hot
+     reload with the vehicle. "cam ... -size" = orthographic, for checking against drawings.
+
+210. THE SUPER CUB (13 Oct) replaces the 185 in plane_body.gd ("plane" in the lab): a rough bush
+     PA-18 type, built to scale off the 3-view (reference/supercub/00) and checked by laying the
+     drawing over an ortho side view - 10.73 m span, 6.88 m long, 1.60 m constant chord, round
+     tips, 1 deg dihedral; V-struts from one fitting to both spars with jury struts; split-axle
+     gear with the bungee shock struts, 31 in tundra tyres (new "tundra" balloon profile in
+     tyre_mesh); sprung tailwheel; round tail with brace wires. White fabric with the red band
+     and pinstripes, red wing tops, rudder and elevator, red nose bowl and spinner (photos 01/02).
+     Wing skins are skinned with explicit winding (_skin: each face points away from the chord
+     line under it) - the centroid guess turned the thin half-foils' undersides inside out.
+     Fabric skin has cut-outs in the paint shader (cut_min/cut_max boxes) behind the windows,
+     the door and the baggage door, so you see into the cabin.
+     Everything opens (test bed buttons rename themselves per vehicle via test_labels()): split
+     door (top up under the wing, bottom hangs), left window, cowl side panels gull-wing up over
+     the engine (a modelled flat four: case, finned cylinders, rocker covers, intakes, exhaust,
+     mags, starter, alternator, baffles, mount), baggage door, fuel caps unscrew and hang, lights,
+     control sweep (ailerons, elevator, rudder, flaps, both sticks, pedals).
+     Cockpit from real PA-18 / L-21B cockpit photos (reference/supercub/10-12): curved black
+     panel, 7 gauges + compass, radio stack, master / mags key / starter / 5 toggles / 6 breakers,
+     primer, carb heat, cabin heat, park brake; throttle + red mixture on the left wall, flap
+     handle, red fuel valve, overhead trim crank, fuel sight gauges; both sticks, both pedal
+     sets with heel brakes, red seats with belts, brown lining and tube frame. Every control is
+     its own node (meta "control", "pivot").
+     Workflow: tools/_render.gd renders the model on Claude's side (xvfb + GL) in ~3 s, so
+     most checking happens before a push; the lab shows the result live on Dave's PC.
+
+211. Cub, second pass (13 Oct): windows per the 3-view (slanted front post, posts at -0.17 /
+     0.214 / 0.629, the big rear window with its sloping back edge; the fabric is cut for the
+     whole band and the unused corners filled). Floor, linings, firewall molded to the
+     fuselage's real section (_skin_x) - nothing square pokes out. The pilot has a Cub seat pose
+     (pilot_rig "cub_seat": legs out to the pedals, hand on the stick; a vehicle names its own
+     seat clip with seat_clip()). Ground physics: a WheeledBody on the mains + tailwheel, the
+     bungees as springs, it settles tail-down, taxis (Drive WASD), tyres squash with load.
+     Test bed in drop-down sections; a Plane section: run engine, flaps, control sweep, measure
+     vs the real numbers, clip check (cabin vs skin), blueprint side/front (the 3-view's lines
+     laid over the model at scale, pitched with it), flat side/front/top and cockpit views.
+
+212. Cub, third pass (13 Oct, live on Dave's screen): the cowl is one smooth shell - the cheek
+     humps are part of the side panels' own rings (_cheek: a round hump along the line through
+     each inlet, filleted in), the nose bowl and the domed face go through the same field so the
+     seam lines up; the inlets are open snouts with rolled lips, the face drawn forward round
+     them (_nostril), a collar carrying each snout's wall back into the skin (_z_on finds the
+     skin), dark throats back into the humps. Cowl button cycles: panels up -> whole cowl off
+     (maintenance, engine bare) -> back on. Air filter 20% smaller on a black intake hose
+     (IntakeTube, stays when the filter's pulled) curving up into the carb box. Glass: the
+     windshield wraps onto the sides back to the front post (no painted wedge); windows are flat
+     panes (_on_side uses the flat side in the window band; fabric fillers still follow the
+     rounded skin); no frame tubes across the glass or the door opening.
+
+213. Cub, fourth pass (13 Oct, live + headless sweeps): tools/_angles.gd renders any number of
+     angles in the plane's own frame in one run ("faces" tints any back face red - the
+     reversed-face check; "only=" / "hide=" isolate parts), the lab takes "plane pcam ..." in
+     the plane's frame. Found and fixed: the wing open at the root, behind the false spar and at
+     the cut-out ends; the flap/aileron noses open; the centre section's underside flipped (a
+     jagged black sheet from the cockpit); the cabin lining cutting across the roof corners.
+     Windshield wraps round to the front post and tucks under the centre section; a padded dash
+     to the glass; window frames black, flat in front, the rear window following the turtledeck;
+     a fabric strip closes the wing root down to the window frames. Pilot sat down 11 cm (head
+     was in the wing root), legs to the pedals (feet now in the rig's CHAIN), stick between the
+     knees, throttle by the left hand. Rounded fin/rudder (FIN_LE). Baggage floor molded to the
+     belly (stuck out the bottom). Tyre squash: smooth bulge across the tread (a hard sign()
+     tore slivers off as it rolled - the "black smoke") and clamped/eased. Sounds: engine_sound
+     "lyc4" (flat-four bark + the prop's blade-pass beat by blades), the plane's starter/start
+     recordings, a clunk on every door/window/panel. Markers button (numbered known points).
+
+213. Cub, fourth pass (13 Oct) + MODELLING CHECKLIST (what kept going wrong, and the tricks that
+     fixed it - run this before every push of a model change).
+     Tools: tools/_angles.gd renders any number of angles headless in the model's own frame
+     ("faces" tints back faces red = something open or wound backwards; "hide=" / "only="
+     isolate parts; "pilot" seats the rig); the lab takes "<model> pcam ..." in the model's
+     frame; the Reference markers button (numbered known points); Clip check.
+     Checklist:
+      1. Nothing open: every loft/cut-out gets its closing faces (wing root, behind the false
+         spar, the ends of flap/aileron cut-outs, control-surface noses). Run "faces" round it.
+      2. Explicit winding (_skin / own quads with a hint) for thin or odd shapes - loft's
+         centroid guess flipped the centre section's underside into a black sheet.
+      3. Panels on curved skin follow the skin (grid of points on _skin_x), never one flat
+         fan: flat fans cut across the inside (lower door) or stand off it (rear window,
+         baggage door, fairings). Flat only where the real thing is flat (front windows).
+      4. Edges that meet share the same points (door halves, windshield to front post, panel
+         to dash, cut boxes to door edges). Use named constants for shared corners.
+      5. Nothing floats: every bracket, lever, knob, lamp is mounted on the wall, panel or
+         wing it belongs to (measure from _skin_x / the panel bounds, not a guessed x).
+      6. A part that's built must be finished (_done) - the instrument panel face was never
+         built and showed as a hole for a long time.
+      7. Inside and out: the inside of one-sided skin is see-through, so anything you can see
+         from the seat needs a lining or a kick panel; check the cockpit view every pass.
+      8. Join (JOINS / _join_components): fixed trim goes under what it's fastened to (lights
+         in their wing, window frames and fairings in the fuselage); only moving or separately
+         breakable things stay their own part.
+      9. Lamps like the truck's: chrome reflector, bulb, prism-cell lens (_lens_mat).
+     10. Look at the reference photo for the spot before and after; render 4+ angles headless
+         first, then push live and check on Dave's screen.
+     This pass: windshield wraps to the front post and tucks under the centre section; padded
+     textured dash; panel wall to wall in tidy rows, labelled; clickable controls (left click),
+     right-drag head look, wheel zoom in seats; nav/strobe/beacon/landing/taxi/panel lights;
+     sounds (engine_sound "lyc4", prop beat, starter, catch, clunks); smooth aft fairing;
+     rounded fin/rudder; seated pilot on the cushion with hands on stick and throttle; the
+     right door's halves meet with posts like the left; tyre-squash bulge smoothed (the
+     "black smoke"); baggage floor molded; components joined.
+
+FUTURE (Dave, 13 Oct): rally races and rally cars. The Hope map: real terrain is in
+reference/hope (AWS terrain tiles / NRCan CDEM, z13 ~12 m); next the street map (roads, rail,
+buildings) from OpenStreetMap - credit "Map data (c) OpenStreetMap contributors"; BC lidar
+(1 m) later for the town, the strip and the claim.
+
+214. The small town (13 Oct, scripts/small_town.gd on the town kit scripts/town_block.gd; lab "town").
+  Dave: a small made-up town near the mountains, not the real map; one main intersection;
+  1982 feel; truck-level detail (not plane-level); quantity first, polish later; a picture
+  after every building. Layout (x east, z south): Main St z=0 (14 m, parking both sides),
+  Cross St x=0, the light over the corner; Park Rd z=-116 and River Rd z=116 with ~10 houses.
+  NW: corner store (brick, flat over), pharmacy (painted holiday windows), restaurant, grocery
+  behind its lot. NE: town hall (columns, two flags), police (two-tone cruisers), post office,
+  fire hall (engine, hose tower). SW: the 80s gas station (canopy, 2 islands, price sign, bays,
+  tow truck, cream block with fire escape). SE: bank (time/temp), gable hardware, barber, hotel
+  tavern, park (bandstand, memorial), burger stand. Edges: motel, church, welcome arch, rail.
+  Valley: hand-made (Dave: real heights too big and plain) - rounded forested mountains, a big
+  river ~300 m wide with pale sand bars (his photo), creeks down the gullies, boulders and
+  outcrops, fall-colour trees on the banks, and a long flat gravel bar for bush-plane landings
+  (BAR_X 480..980 by the river line). Litter: static along the curbs, wind_litter.gd moves
+  paper / leaves / bags with simple wind physics. leaf_tree.gd (fall trees whose leaves turn and
+  drop) is written but not yet tested - the town still uses the simple trees.
+  Kit fixes: MeshKit.cylinder starts at its origin (poles, trunks, bins were floating); gable
+  ends use the wall colour; car wheels on their axles; mipmapped anisotropic textures (crisp).
+  NEXT: put it live in the lab; leafy trees; real collisions and physics on props; join the game.
+
+215. The truck treatment for the other machines (13 Oct; Dave: "same design mindset" as the truck,
+  not the truck or the new planes; check the reference photos for each). scripts/equip_kit.gd: the
+  truck's paint shader for every machine (glossy, dust kicked up from the ground: dust_all() gives
+  each part its own height via the shader's new y_off), truck-style lamps (rubber housing, chrome
+  reflector, bulb, prism lens), hydraulic cylinders (painted barrel, caps, gland, chrome rod,
+  clevis eyes, ports) and hoses, rubber-sealed glass, grated steps, rails, bolt rows, hazard
+  stripes, decals (generic model numbers: L-95, D-6, E-225, F-50, TUG 2), padded seats, mirrors,
+  beacons, grilles. Done: loader (950B-style rear grille guard, cab lamps, drip rail, door, wiper,
+  dash), dozer (D6D photos: weathered yellow, level hood, worn blade face, lift + tilt cylinders,
+  ripper rams, fuel tank), excavator (rams, boom lamp, cab glass, hood grille, rails), tug,
+  forklift, log trailer. Water truck left as it was (the paint shader made its tank flat black).
+  tools/lineup.gd ("res://tools/lineup.gd" in the lab): every machine side by side with a 1.8 m
+  person for scale - all within ~10% of the real ones. tools/_veh.gd: headless 4-view sheet.
+
+216. Hydraulics, live (13 Oct). scripts/hyd_ram.gd: working rams pinned part to part (barrel swings,
+  chrome rod slides). Hard lines only (Dave: no soft rope): hyd_hose.gd routes a steel tube from a
+  valve point through waypoints on its part, then a short bend into the ram's port; static runs are
+  steel tubes in clamps on the boom / stick. scripts/hyd_system.gd: pump (L/rev x rpm, slip with
+  pressure), relief valve, rams with bore / rod areas; drive() moves each joint as fast as its share
+  of the oil allows, pressure = load / area (load from the parts' weight x height, by finite
+  difference), stalls on the relief at the end of a stroke, oil heats. Tags show bar and L/min on
+  each ram and the pump line. In the lab the excavator, loader and dozer work their own levers.
+  Paint: equip_kit dust_all() now bakes dust into vertex colours + a scratch texture (permanent) and
+  a grime detail layer (washable): set_dirt(0..1), wash(). The custom paint shader is not used on
+  the machines (it drew nothing on Dave's card).
+  LATER (Dave): fluids and air simulated in every tank and vessel. NOW: the models as accurate to
+  the photos as the truck and the plane.
+
+217. Rules from Dave for EVERY build (13 Oct): complex shapes, not boxes; every joint and pivot
+  modelled (pins, bosses, clevises, lugs) so nothing clips through; nothing floating (every ram,
+  lamp, bracket, decal and line mounted on something); tracks one connected belt (track_loop.gd
+  shoes now face out round the sprocket and idler - they fanned like a paddle wheel - plus link
+  rails the whole way round); gather close-up reference shots of how each joint and mount is built;
+  collision on every solid part (EK.add_collision); parts refuse to move into each other or the
+  ground (the clip depth check in the hydraulic sim). Check from many angles headless
+  (tools/_veh.gd views), fix, push to the lab. Fixed so far: excavator boom-ram lugs and base
+  clevises, sprocket teeth inside the loop; loader tilt-ram base ears, decal and mud flaps
+  mounted; dozer lift rams into clevises on the blade's back (they came through the face),
+  the tilt brace re-mounted, stray hoses removed, the blade face two-sided.
+  FUTURE (Dave): the water and fuel trucks need a real overhaul - working gauges, a full interior
+  with moving levers and switches, everything connected and hinged correctly.
+
+218. Machine engine sound, smoke, swing, tracks (13 Oct).
+  - Sound: the machines play a REAL cold start - an old diesel front loader after a cold night
+    (freesound.org 561724 by eZZin, CC0, no credit needed), cut into assets/sounds/machine/:
+    cold_start.wav (20.5 s in one piece: grinding, coughs 8.0-12.1 s, grinds again, fires at
+    14.3 s, revs, settles), crank.wav (starter loop), cough.wav, catch.wav, idle.wav (~720 rpm
+    rough idle loop). On a frozen morning machine_engine.gd follows that recording's timeline
+    (COLD_FIRE 14.3); above idle engine_sound blends into the truck's diesel recordings played
+    slower (deeper). Dave: synthetic engine sound is "so fake" - use real recordings.
+    The test bed's Engines bus is turned down 12 dB FOR NOW (model_lab.gd) - put back later.
+  - Revs: the engine idles and only comes up when the machine can't move its load (a ram near the
+    relief or stalled, or the tracks can't make the speed asked) - hyd_system.strain(),
+    machine_engine.travel_strain(). Not with every lever.
+  - Smoke: DELETED for now (Dave) - the particle smoke kept leaving a black circle on the stack.
+  - Excavator: the upper swings in the lab demo; the driver rides with the cab every frame
+    (model_lab); sprocket (16 teeth to the chain's pitch, bolt ring) and idler (treads, centre
+    flange, yoke, push rod, grease valve cover) from undercarriage photos, turning with the chain;
+    the chain has bushings (track_loop.gd).
+  - Lessons (Dave was very frustrated): watch HIS screen when he says so and fix exactly what he
+    points at; look at real photos BEFORE building and use them; one fix at a time, pushed live;
+    don't go off on tools or headless checks he can't see; don't keep tweaking one thing back and
+    forth. Not done yet: every cylinder/pivot as a real clevis (EK.lug written; excavator mount
+    rebuild + working bucket linkage is in scratchpad excavator_mounts_wip.gd, NOT pushed),
+    loader lift ram geometry (closed 0.38 m - impossible), dozer lift rams were re-laid.
+
+219. Real mounts, pivots and working linkages on every machine (13 Oct, from Dave's live checks).
+  - EK.lug (equip_kit.gd): a real clevis - two plates rounded round the pin, flared down to where
+    they're welded, boss rings, the pin through with keepers. No square-block mounts anywhere.
+    hyd_ram.gd draws a bright pin through BOTH eyes of every cylinder; `pin_axis` lines the eyes
+    up with their pins (UP for the loader's steering rams, which swing flat).
+  - Every cylinder laid out by its range of motion (tools/_rom.gd): open/closed under ~1.8.
+    tools/_conn.gd checks every cylinder end lands on metal.
+  - Excavator: the bucket linkage from the real diagram (idler links on the stick, the power link,
+    the bucket ram's rod on the pin they share - _link_pose); clevises at every end; the upper
+    swings in the lab; sprocket/idler/yoke from undercarriage photos.
+  - Loader: lift rams from low on the front frame to the arms (1.32/2.26 m); steering rams under
+    the frames on vertical pins; arms on clevises under a wide tower crossmember; centre hinge ears;
+    the WORKING Z-bar (lever swings on the cross tube, link to the bucket's ear - _zbar_pose; the
+    tilt ram's stroke limits the tilt); bucket body moved back onto its ears; steps clear of the
+    rear tyre; exhaust moved back along the hood.
+  - Dozer: lift rams from the hood-side trunnions to ears low on the blade; push-arm trunnion stubs
+    on the track frames; a WORKING ripper (parallelogram links, beam and shanks, two rams in the sim).
+  - Forklift: the mast tilts on its foot pins (two tilt rams), two lift cylinders push the inner
+    mast (the forks go twice as far, by the chains); overhead guard moved back so the mast tilts clear.
+  - Hydraulics: the engine's power limits the pump (hyd_power(): little at idle) - you throttle up to
+    lift (Dave); the lab operator opens the throttle while working. Held pressure capped at the relief.
+    LEAKS: a damaged line (test bed > Damage > "Hydraulic line: leak" / "fix") bleeds oil through the
+    crack (grows with pressure): a held load sinks, the pump loses flow to it; oil sprays from the line
+    and a puddle spreads (hyd_hose.gd). The machines' engine sound is the real loader recording.
+  - Smoke: only at start-up, hand-moved soft blobs (no particle emitter - it drew a black circle).
+    Working rain-cap flap on every stack.
+  - DAVE'S RULE: when he circles his mouse around something on screen, that spot is an issue - find the
+    cursor, zoom there, fix it. Reference real photos BEFORE building anything.
+
+220. Loader front end clean-up + lamps (13 Oct, Dave's live checks; moving on after this).
+  - Loader: lift arms and their pivot lugs/cross tube/bucket ears moved inboard (ARM_X 0.62, LIFT_X 0.5)
+    so the arms run inside the front fenders through the whole raise/lower; front fenders narrowed
+    (x 1.06*). Tower crossmember split into two side pieces + a rear bridge so the tilt cylinder
+    on top no longer passes through it. Doubler plate on the bucket back removed (it sat on the same
+    plane as the back = texture flicker). Front lamps live in the front kits so they turn with the
+    front end. Rear fender rebuilt as a flat deck with lip, skirt and edge. Steering demo works.
+    Range of motion re-checked: tilt 1.72, lift 1.72.
+  - Lamps (equip_kit.gd): chrome bezel with screws (round) or chrome frame (square), domed lens
+    with outward normals (the old winding was reversed = BLACK lights), cull off, glows 0.15 off /
+    1.6 on.
+  - Engine sound volume in the test bed is still turned down (-12 dB) for Dave - restore later.
+  - Lesson (Dave): build from accurate diagrams/blueprints of the exact part FIRST and these
+    clipping problems don't happen.
+  - Next: water and fuel truck overhaul (gauges, interior, levers), fluids in tanks, game integration.
+
+221. Water / fuel truck: a WHOLE NEW MODEL (13 Oct). Dave: reference first, one truck for every
+  reference, then build. Reference: ONE early-90s L-series single-axle water truck (26 listing
+  photos: every side, front, rear, ladder, wheels, dash, seats, door card, headliner) - notes and
+  measurements in reference/water_truck/REFERENCE.txt (measured off the straight side shot,
+  11R22.5 tyre = 1.05 m). Hidden parts (frame, springs, engine bay) from the same model.
+  - scripts/water_truck_model.gd builds the body; water_truck.gd keeps the systems.
+  - Moving parts first: doors hinged at the front (west-coast mirrors ride on them), one-piece
+    tilt hood with the fenders and grille on two pivots at the frame horns (test bed Hood),
+    knuckles steer on king pins with the tie rod and the drag link from the steering box's pitman
+    arm re-laid each frame, both axles ride up/down with their wheels on leaf springs (each half
+    pinned at its hanger and laid to the axle seat), shocks aim end to end, rear overload leaf,
+    driveshaft to the carrier then to the pinion (moves with the axle).
+  - Body: C-channel rails and crossmembers (shafts pass under), black channel bumper with the
+    front spray bar, dropped I-beam, inline six with radiator/fan/turbo/compressor, transmission
+    with the PTO, round intake on the right hood side, cab with raked A pillars, one-piece glass,
+    drip rails, 5 roof markers, grab handles; fuel tank (step on top) left, battery box right,
+    muffler + tail pipe out the right side, air tanks; 1,600 gal modified-elliptical tank (narrower
+    at the bottom) with seams, manway, skirts on outriggers (arched over the duals, amber / red
+    lamps), ladder with hoops, 3 ID lamps, fill pipe over the top with the black hose looped to
+    the rear bar, light boxes, centre bumper box, mud flaps; PTO pump under the tank front
+    (suction from the sump, lines under the rails to the front bar, the side head and rear bar).
+  - Inside (from the photos): tan wrap-round dash, brushed cluster (tach / speedo, two small gauges
+    each side, warning windows, round vent), yellow park-brake knob (clickable), big black
+    two-spoke wheel nearly flat, engine cover, high-back cloth seats, tall shifter, spray control
+    box between the seats (PTO + five valve switches, clickable, and the pump gauge), tan door
+    cards, overhead box, visors.
+  - Fuel truck: same truck, aluminium tank in two compartments (1,000 diesel / 600 avgas).
+  - Old model kept in _versions/water_truck_v214_before_overhaul.gd; backup v214b in builds.
+
+222. Pedestal payphone, rebuilt from photos (13 Oct, town_block.gd _payphone): black post on a
+  bolted base plate with its aluminium access cover; brushed aluminium half-shell (rounded back
+  corners, open front, rolled edges, rivet seams, shelf with a lip) with the lit "Phone" sign box
+  (glowing lens front and sides, handset badge); black back plate; the three-slot coin phone:
+  chrome face on a black case, tipped coin plate (25 / 10 / 5), 12 keys + volume knob, number
+  card, instruction card, 911 sticker, locks, vault with coin return, hookswitch, curved handset
+  with its blue cord guard and the armoured steel cord looped into the phone.
+  Scaled to the player (1.8 m): shelf 0.93 m, sign top ~1.95 m; the phone built then scaled to its
+  real size (about 21 in tall, keypad at ~1.44 m, shoulder height), handset 0.215 m long.
+
+223. Water truck follow-ups (13 Oct, Dave):
+  - Steering wheel moved to where the seated driver's hands are in the driving clip (measured
+    headless: hands 0.31 below / 0.18 ahead of the eye) - WHEEL_C (-0.47, 1.86, -1.08); the gauge
+    pod raised above the column.
+  - Hose reel + pump valve (from water-truck rear-deck photos): tread-plate deck on two channels
+    off the frame ends, hand-crank reel (spoked red flanges, red 1-1/2" hose, crank, swivel inlet),
+    hose out through a roller guide; the feed rises from the rear line through the deck to a
+    butterfly valve (notched plate, lever up = open, clickable / E beside it) then to the swivel.
+    The hose only runs with the valve open. The drum turns as the hose pays out.
+  - Test bed: "Water: pump + sprays" (tank full, engine, PTO, every spray + valve open, runs the
+    truck's systems) and it's in RUN FULL TEST with body roll and pitch; chassis view hides the cab,
+    tank, hood, doors. Diesel sound plays in the lab while the engine runs. The lab no longer saves
+    the truck (it would have overwritten the game's save).
+  - Axle travel stops where the springs meet the rails (front +0.055, rear +0.015 m).
+  - Lab: water_truck_model.gd is watched (it wasn't: model-only changes needed a restart).
+  - Dave's list: BASEMENTS under the town buildings, CAVES in the hills.
+
+224. A real hose off the reel + winch points (13 Oct, Dave):
+  - scripts/hose_line.gd: the hose is a chain of points 0.25 m apart (verlet, gravity), pinned
+    at the reel's roller guide; it pays off the drum as the nozzle is pulled away (to 50 ft) and
+    winds back on when reeled in (the drum turns, the hose wound on it shrinks). Lies on the
+    ground with friction; every point is ray-checked against the physics world each step (the
+    truck's own convex hulls - cab, tank, skirts, hood, frame, under-cab boxes, rear, reel deck,
+    drum, engine - plus anything else solid) and each length too, so it can't pass through
+    anything or cut an edge. Brass/black nozzle on the end. Headless check: pays out to 14.5 m,
+    lies on the ground, winds back in, 0 points inside solids.
+  - Test bed "Hose: pull out + reel in" (also in RUN FULL TEST): someone walks the nozzle out
+    round the back to the full length, then it's reeled back.
+  - Winch points (Dave: every vehicle, eventually): water truck has tow hooks under the front
+    bumper and D-rings on brackets under the frame ends; winch_points() gives them by name.
+    TODO: the same on every vehicle, and the winch hooking to the nearest one.
+
+224b. Hose on the reel is now one smooth hose (hose_sweep in water_truck_model.gd): the turns on the drum, the lead off the bottom of the drum through the roller guide, and the hanging hose (hose_line.gd) are the same size, colour and rubber, with no cuts or joints between lengths.
+224c. Reel flanges rebuilt: solid steel discs closed on both faces (the old open bands showed as broken lines and flicker), a rolled edge, six pressed ribs outside, the hub. All of it turns with the drum.
+224d. Hose: points 0.15 m apart, damped against the truck (not air), so it bends easily and swings when the truck pulls off, brakes or hits a bump. Lies flat and floppy when dry; rounds out and stiffens over a second or two with the pump on and the reel valve open (pressure, _fill). Pays out and reels in smoothly (the length at the guide grows from nothing; the drum loses half turns one at a time, 44 pieces, instead of whole layers). Stowed: 0.6 m hanging straight down from the guide with the nozzle weighted on the end. Brass-on-steel clank (rattle/clunk_N pitched up) when the nozzle end knocks a solid at over 0.35 m/s against the truck. Reel recoloured charcoal so it reads apart from the red hose.
+224e. One hose: hose_line draws what is left of the last turn on the drum, the tight length from the drum to the rollers and the free hose as one tube (pre points from water_truck each frame; wound turns drawn in half turns sharing one sweep, Model.wound_local). The drum turns so the end of the wound hose is always at the take-off at the bottom. Roller guide moved 0.08 m behind the deck on side plates, 1.12 m up, so the hose clears the toe rail and deck edge. Stowed hose pulled in to 0.22 m (nozzle just under the rollers). Flat dry hose leans level smoothly (no ribbon twist). Knocks faster than 6 m/s ignored (a collider a physics tick behind, not a real hit).
+224f. Cab spray box: a REEL switch (control "reel_valve") works the hose reel valve from the cab, the same as the lever at the back (both move). Switches now 4 + 3: PTO, REEL, FR L, FR R / SIDE, RR L, RR R. Lab: "ctl <name> ..." works vehicle controls by name.
+224g. Lab ear muffs: M key or "muffs on/off" puts a low-pass (900 Hz) and -14 dB on the Master bus, like hearing protection.
+224h. Ear muffs on the character (pilot_rig.ear_muffs(on)): yellow cups with black cushions on the hair at the ears, band over the crown, forks to the cups; on the head bone. Lab: "person x y z yaw muffs", and M / "muffs on" puts them on the standing character too.
+224i. Ear muffs in the game: item "ear_muffs" (new games start with them; older saves get a pair once), J puts them on / takes them off while carried. On: on his head walking and in the seat (pilot_rig.ear_muffs), and audio.set_muffled(true) puts a 900 Hz low-pass and -14 dB on the Master bus. The lab M key uses the same.
+224j. Water truck lamps work: blinker(dir) Z / X (and the test bed Blinker), hazards (blinker(0)). Lamps sorted by colour and place after build: amber on the hood = turn (fender front, fender side, side marker) flash at ~83 a minute; the red in the back light boxes (facing back) = tail / stop / turn (US combo: flashes on the side signalled, steady stop on the other); the white beside = back-up when reversing. Brake / reverse from drive() (as the pickup). Dash: green arrows in the lamp windows (left between low-air and park, right between pump and lights), blue lights-on lamp. Gauges checked: RPM 650 idle, oil 46 psi, water warms 1.5 F/s to 185, air builds, fuel, volts 14.1. Dry hose a little less floppy (stiffness 0.025) so it does not crumple where it meets the ground.
+224k. Gauge faces were hidden: the Dash puts faces 0.012 behind its plane and it sat 1 mm in front of the brushed plate, so faces and needles were behind the panel (only bezels showed). Dash now 0.022 out from the pod, the pump box gauge 0.018 off the box top: all faces and needles read.
+225. Winch points on every machine (tow_points.gd): a welded ear plate with a red D-shackle through it (bow, pin with its screw head and eye), built on the right node so it moves with it; winch_points() -> [[name, world]] on each. Dozer: front shackle on the main frame behind the blade, one on each ripper bracket. Loader: two under the nose plate (front frame, steers with it), the tow pin in the counterweight. Excavator: front and back of the undercarriage centre frame. Log trailer: tongue eye, two shackles on the back of the frame. Pickup: its two J hooks and the hitch ball. Water truck as before (224). winch.hook_to on a machine snaps to its nearest winch point; the test bed stuck-truck pull uses it.
+225b. Plane: real tie-down rings (eye bolt and hanging ring, _tie_ring) under each wing at the strut fitting and under the tail post, in place of the flat discs; winch_points() gives the three.
+
+226. Harry's Bush Air home strip and the Hope valley rework (in progress). home_strip.gd: Dave's base - an old corrugated hangar (rust, red trim, sign HARRY'S BUSH AIR / DEEP IN THE BUSH SERVICES, slogan "We go deep in the bush"), sliding doors on a track, wood trusses, shop lights, workbench, pegboard, tool chest, parts shelves, compressor, hoist, avgas drums, cargo with a platform scale; a plywood room in the back corner with a ceiling and storage loft (furniture next); his plane parked inside. small_town.gd: Silverton-style valley (Dave): peaks ring the town close and climb ~1,200 m - forested foot, timberline ~700 m, tundra, iron-stained rock, cliff bands, avalanche chutes, spurs, snow over 1,000 m; river canyons in and out. A side valley up the creek north-west of town (like Mineral Creek): U-shaped floor climbing 7
+226. Harry's Bush Air home strip and the Hope valley rework (in progress). home_strip.gd: Dave's base - an old corrugated hangar (rust, red trim, sign HARRY'S BUSH AIR / DEEP IN THE BUSH SERVICES, slogan "We go deep in the bush"), sliding doors on a track, wood trusses, shop lights, workbench, pegboard, tool chest, parts shelves, compressor, hoist, avgas drums, cargo with a platform scale; a plywood room in the back corner with a ceiling and storage loft (furniture next); his plane parked inside. small_town.gd: Silverton-style valley (Dave): peaks ring the town close and climb ~1,200 m - forested foot, timberline ~700 m, tundra, iron-stained rock, cliff bands, avalanche chutes, spurs, snow over 1,000 m; river canyons in and out. A side valley up the creek north-west of town (like Mineral Creek): U-shaped floor climbing 7 percent; the strip is on its floor (380 m, land uphill), hangar at the low end, a gravel road up the valley from the highway; fine 4 m terrain mesh there. References: reference/home_strip, reference/hope_terrain. Queue (Dave): hangar quarters furniture and props (TV, phones, magazines, calendar...), roads modelled along the mountainsides, SnowRunner-style mud and digging over the whole map (bring the valley into the game), real trees (EZ-Tree, MIT, ported), lake, a creek out of a cave mouth, a mountain crack you dig into to a cavern and underground river, film-location-inspired spots and overlooks (no names), full interiors and basements in town, signs and billboards.
+226b. Dave: the Silverton peaks looked fake and too big - back to the rounded forested walls close behind town (wall smoothstep 240-1000 m); the side valley and the strip in it stay.
+
+
+227. THE REGION (scripts/region.gd, lab "region"). 32 km mountain country,
+  same mountain heights as the town valley: a web of glacial valleys (U floors,
+  meanders, a gorge), lakes, a fjord to the sea. Mountains: ridged noise, kept
+  at their scale but jagged - gullies ~400 m apart and rock steps ~150 m on every
+  face above the floors (_jagged). Ground: shaders/region_ground.gdshader, photo
+  scans at true size (grass, forest floor, rock triplanar, snow, river gravel),
+  the colour map from afar; treeline ~1450 m. Haze tuned to Dave's Alps photo
+  (LOOK/SKY_LOOK, re-applied each frame so a reload can't undo it).
+
+228. ASSETS AND PHOTO TEXTURES. Built once, copied everywhere
+  (scripts/assets/asset_lib.gd); each rendered alone from several angles and
+  checked against reference photos (reference/, fetched by tools/fetch_refs.gd
+  from Wikimedia Commons - reference only, credits.txt) before placing.
+  Materials: CC0 Poly Haven scans in textures/ph (tools/fetch_textures.gd),
+  scripts/tex.gd (triplanar world mapping, "neutral" scans for paint),
+  scripts/assets/kits.gd (one kit per material, pieces). Landmarks: steel fire
+  lookout (60 ft, 14 ft L-4 cab), ground-cab lookout, 120 m guyed radio mast
+  (FAA orange/white, beacons - assets/glow.gd), microwave relay, passive
+  reflector, timber headframe, Alaskan lighthouse; glacier with ice cave, a
+  mammoth in clear ice (future: saw it out and crane it), dinosaur bones.
+  Sites levelled into the ground (region.add_flat). Lab capped at 120 fps.
+
+229. MATERIALS, DAMAGE AND FIRE (scripts/materials.gd; structure.gd next).
+  Every building is built of real members of real materials (steel, sheet
+  steel, Douglas-fir, plywood, OSB, drywall, concrete, block, brick, stone,
+  glass, cable, ice, rock) with density, stiffness, strength, fracture energy,
+  hinge rotation and failure mode; break energy and spans from the actual
+  sizes. Crash into it: sheet dents and tears off its screws, girts snap,
+  posts break, and whatever they held checks its span and comes down. Guy
+  wires carry real tension (EHS strand) and snap; masts can fall. Fire: ignition
+  temperature, heat of combustion, char rate; steel softens, glass cracks,
+  fire spreads along the framing, building to building, by embers; wildfire.
+
+230. GEOLOGY (scripts/region_geology.gd). Gold belts (NE fault zones, one
+  through the mine town) with quartz veins; placer gold down the creeks from
+  where they cross a belt, fading downstream, rich in the gorge and channels;
+  copper porphyry by the glacier (malachite stain); coal seams in the coastal
+  basin (black bands); gravel on the bars. Clues tinted on bare rock: gossan,
+  malachite, coal. ore_at(x, z) for prospect.gd when the region is the map.
+
+229b. DESTRUCTION - PARKED for later (Dave: "can be a later game deal").
+  Where it stands: scripts/structure.gd + scripts/assets/pole_barn.gd + lab
+  "crash_test". Real-size members/panels with materials; push() takes the
+  vehicle's swept nose: members hold or snap at the hit (posts at the bumper,
+  stub stays in the ground, the top swings off the header; girt halves hang
+  off a screw; splinters, chips and dust); 29 ga sheets fold in on the lowest
+  girt still holding above the nose (plastic hinge, buckled ribs) and come off
+  only when nothing above holds them; settle(): no path to ground -> falls;
+  beams check their span (wL^2/8). probe_vehicle() ready for ground.gd's
+  blocked_by_building. To do: drive the real pickup in the test, the truck's
+  own crumple (vehicle_breakage), torn sheets as bent debris, sound, fire.
+
+231. TREES AND THE FOREST. EZ-Tree ported (scripts/eztree.gd, MIT, presets in
+  scripts/eztree_presets); species tuned to this country (assets/trees.gd:
+  spruce, hemlock, fir, cottonwood, aspen) at real heights, bark/leaf textures
+  from eztree.dev; plugged into the game's streamed forest (veg_meshes.eztree)
+  through region_terrain.gd (the region's drawn ground as the forest sees it).
+  Lab: fps/frame-budget readout (60 fps Ultra target, RX 7800 XT, 4K, FSR).
+
+234. THE HOME TOWN, RELAID (13 Oct). Dave rejected the flat grid and then the
+  hillside tiers ("way too big"), asked for 10-15 buildings, then had Grok
+  draw the town: reference/towns/dave_town_aerial(2).png (the LAYOUT he
+  likes), entrance_v1-4.jpg (the way in), dave_town_sunset.png (the mood).
+  Style: realistic photo textures (NOT low-poly - Dave: "more realistic, same
+  vibe with the colours and textures"): weathered brown plank false fronts,
+  grey tin, white church, barn-red fire hall, overcast.
+  Layout (scripts/region_town.gd, region frame metres): the flat bench north
+  of the west river just upstream of the junction (natural ground ~151-158 m,
+  the hill rising behind from z -600; the river 100 m south). Main street
+  straight along z -335 from x -950 to -450, ~1% grade, 22 m levelled
+  (asphalt 8.4 m + gravel parking + boardwalk). Highway swings in from north
+  of the river (the river crosses z -300 at x -1150 - keep clear). West end:
+  welcome sign (town_props:3, name "PINE RIDGE" from Dave's pictures - one
+  const, TOWN_NAME), water tower behind it, gas station on the right. North:
+  5 shops (commercial_block 300+ = weathered variants: general store, cafe,
+  bar, hardware, hotel), boardwalk, the church at the end. South: town hall,
+  police (blue light), volunteer fire station. A dirt lane climbs behind the
+  shops to 3 houses. Power poles + sagging lines on the south side, lamps on
+  the north. The road on east to the bush airport: gravel strip 620 m on the
+  junction flat (-200,-200)->(380,-420), Quonset hangar, avgas tank, windsock.
+  New assets: civic.gd (church, town hall, police, fire station, gas station),
+  town_props.gd (quonset, windsock, fuel tank, welcome sign, water tower,
+  power pole, street lamp). Lab: "civic", "town_props", "shops".
+  To do: parked old trucks, lit windows/neon at dusk, bush planes tied down,
+  the roadhouse, flag. CHECKLIST.txt tracks everything Dave asked for.
+
+236. THE GAME ON THE MOUNTAIN MAP + STORMS (14 Oct).
+  Dave: "pick the most feature rich area, where you can fit everything, to
+  scale" / "I like that map". The built region (region.gd) now surrounds the
+  home airport in the real game (world.gd _build_region; region.game config):
+  the square sits on the south-east valley floor (region 900,900), turned 45
+  deg so the runway runs along the valley; the region lowered 38.5 m to the
+  square's level; ground.gd's outside_height() reads the region. Fine ground
+  + forest over region Rect2(-2900,-1300,4100,2650): Pine Ridge and its strip
+  (a game strip, lights, fuel), both bridges, the gorge, radio mast, lookout,
+  mine, fossils, the region's geology (ore where the rocks put it). Coarse
+  region to the horizon. Adds ~15 s to the load.
+  EAGLE ROCK (Dave: "airport on top of a mountain right off a steep cliff at
+  the end of the runway; if you don't gain enough speed you drop off"): a
+  300 m gravel shelf ~200 m above home, 1.3 km WSW; takeoff toward the valley
+  off a 230 m sheer drop; land uphill. Markers, windsock, a pole barn shed.
+  STORMS (storm.gd): rain soaks the ground (bp_rain: dark, glossy, puddles),
+  menu-like night (glow + volumetric haze, runway lights throw real light, a
+  rainy night black but for the lights, a touch of light on any night); rain
+  lit (only seen in light), fades with distance, none in cabs or buildings.
+  Lightning: bolts to the ground round you, a third on the claim (trees,
+  roofs) that set fires (fire.gd spreads downwind); dry storms (overcast +
+  wind 2-3) are the fire-starters. Gusts: wind.gd gust_boost, a rush of air.
+  Console: lightning. Limit: fire only burns on the claim's grid so far.
+
+237. THE STORY: HOW IT STARTS (Dave, 14 Oct). The opening campaign:
+  1. You step out of the cabin door after spawning in. Lightning strikes a
+     tree across the runway from you: you stumble, throw a hand up against
+     the flash. The wind picks up; the fire spreads, burning everything in
+     its path toward the airport.
+  2. Your only way out: the plane in the hangar, in the fire's path. Get to
+     it, get it out, take off through the smoke and gusts - out just in time.
+  3. Land at another airport, charred but safe.
+  4. Later you drive back through the burnt forest after the fire to clean
+     up: most of it's gone - your house and everything in it. Except an old
+     shed with a beaten-up retired bush plane you've been trying to restore.
+  5. You start over in the shed: a cot, a stove and the wreck. Delivery
+     missions in your truck to save enough to fix the plane.
+  6. The plane fixed, the maiden voyage: off the cliff strip (Eagle Rock),
+     you barely make it off the ground, drop off the edge - then pull out of
+     it and come into view rising through the sky, into the sunset.
+  Needs: the scripted opening (strike, stagger/flash-shield animation, fire
+  aimed at the airport), fire over the whole map (not just the claim), the
+  burnt-forest look after (char, ash, smoke), the shed + the wreck (the old
+  Cub with parts missing), the story missions chaining the beats, the
+  maiden-flight camera (the drop, the pull-out, the climb into view).
+
+238. THE MOUNTAIN AIRPORT (Dave, 14 Oct: "the airport up a mountain, cliff at
+  the end of the runway, great views, same mountains, like it was meant to be
+  there ... remove the rocks, make it approachable and usable, a dirt road up
+  there drivable in a regular truck ... make sure all the meshes are right,
+  not just a big square off the cliff").
+  - The home square sits on a bench 580 m up the mountain south of Pine Ridge
+    (region (-1200, 500), runway east = region heading 292: over the town).
+    tools/_home_search.gd ranks spots (open fan of view/climb-out off the
+    cliff end, approach behind, short road, little cut). A lower spot
+    ((-1900, 400), 375 m) was tried: buried among grey peaks, walls either
+    side of the climb-out - dropped. world.gd REGION_CENTER/ANGLE/BENCH.
+  - The drawn region ground now carries the game's shaping too (region.gd
+    _post: square blend, bench mold, cliff) - before, only the physics did,
+    so the dig block's straight 150 m side showed as "a big square".
+    The land eases out from the square's REAL edge height (ground.gd
+    natural_height at the nearest edge point), and past the square the
+    game drives on exactly the region's ground (no step, no mismatch).
+  - _bench_cliff: past the runway's east end a ledge (27-80 m, wandering)
+    then a ragged sheer face ~150-260 m, a ledge part way, gullies, talus that
+    meets the natural slope (carve tapered, no pit). _bench_mold: approach
+    corridor held under 12% off the west end, a gap for the climb-out, sides
+    under 60%; lumpy caps, smooth minimum, every cap faded in and out (no
+    steps). _calm: spires eased off 60% within 350-800 m.
+  - region_town.gd _mountain_road: 6.9 km dirt road off Pine Ridge's main
+    street (a T on the south side, west of the shops), over the west river on
+    a 60 m truss bridge, then up switchbacks round the mountain to the
+    airport's south-west corner. 12% at the very steepest (a pickup in low),
+    curves 10 m radius at the tightest, 8 m bench, cut banks that lie back on
+    the deep cuts (a saddle, not a trench), 6.4 m dirt with two worn wheel
+    tracks drawn as one mitred strip (not over the bridge). Heading-aware A*
+    on a 12 m grid (turn costs: long legs, wide switchbacks; grade costed on
+    a blurred grid; rivers expensive: one crossing; the cliff and talus off
+    limits), baked to data/mountain_road.json (tools/_hmap.gd ++ town=1
+    bake=1 re-bakes; keyed to the bench). A fine strip of ground (RoadGround,
+    4 m) follows the road so the bench shows; the 12 m ground tucks under it.
+  - Bridge decks are ground: region.add_deck() - height() (what wheels roll
+    on) carries the deck across, the drawn ground under it stays the river's
+    (the town's old bridge too).
+  - world.gd _track_to_road: from the road's end a gravel track across the
+    claim round the knoll to the apron (ground.track -> voxel_ground zones),
+    the claim's trees cleared along it.
+  - region_landmarks.gd _plan_bench: the fire base beside the road where it
+    runs in (fire station facing the road, two avgas tanks, a quonset, on a
+    pad at the airport's level); the lookout on the highest peak to one side
+    (not in the approach); homesteads (pole barns, water tower) on the
+    valley floors off the rivers. Everything set on the final ground.
+  - The valleys below hold the haze (world.gd: height fog at region 260 m).
+  - Eagle Rock (the old separate cliff strip) is off while the home is the
+    cliff airport. Console: cam x y z tx ty tz (look-around camera), cam off.

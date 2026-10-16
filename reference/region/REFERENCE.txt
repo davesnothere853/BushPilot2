@@ -1,0 +1,92 @@
+REGION, WEATHER AND YARDS - references (DESIGN_NOTES 227)
+=========================================================
+Dave: a big area with a few SMALL towns in different areas; fly through the
+mountains every which way, not one valley over and over; proper yards with
+fences; dynamic weather and fog in different places - fog settling in a
+valley. Same mountain heights as now, the map a lot bigger, roads a logging
+truck could drive. Draft: region2.png (a web of valleys and passes, 4 towns).
+
+Small towns (models):
+- Talkeetna, AK (en.wikipedia.org/wiki/Talkeetna_Historic_District): founded
+  1916 as an Alaska Railroad construction HQ, then home for miners; a few
+  blocks round Main Street; one- and two-storey wood-frame and log buildings
+  (the 1917 log roadhouse, an inn, the first schoolhouse); river junction.
+- McCarthy / Kennecott, AK: a tiny bush town at the end of a long gravel road,
+  a footbridge over a glacial river, a gravel strip beside town, the old red
+  mill buildings stacked up the mountainside, a glacier at the valley head.
+- Hope, BC (reference/hope_terrain): the river-junction town, highways meeting.
+- Cannery / fishing villages: docks on pilings, cannery sheds over the water,
+  float planes at the dock, boardwalks, a beach or tide-flat landing.
+
+Mountain passes (airfactsjournal.com Merrill Pass; adn.com Lake Clark Pass):
+- Narrow notches between peaks too steep to hold plants; tight turns; side
+  canyons that look like the way through but dead-end; a rock saddle to climb
+  over; often too narrow to turn round once committed; old wrecks in them;
+  rain and dark cut the visibility to the ground under each wing.
+
+Mountain weather (CAP mountain flying weather module; nps.gov/romo clouds and
+fog; weather.gov valley fog):
+- Valley fog: clear calm nights - cold air drains off the slopes and pools in
+  the valley bottoms, the river adds moisture; it thickens through the night,
+  deepest at daybreak, from above a white branching pattern filling the
+  valleys ("white veins") with the ridges sticking out; it burns off within a
+  few hours after sunrise, usually gone by mid-morning; it doesn't drift.
+- Evening fog/low cloud = things getting worse; morning fog = improving.
+  Ceilings in valleys can drop very fast; terrain sticks up into them.
+- Up-valley breeze by day, down-valley breeze in the evening and night.
+- Cap clouds sitting on the summits (windward side, dissolving on the lee),
+  lenticular (lens) clouds over ridges in strong wind with rotor turbulence
+  under them; lee-side downdrafts; afternoon cumulus building over the peaks.
+- Coast: sea fog rolling in over the cold water and up the river mouths.
+
+Yards (1970s-80s, small towns and homesteads):
+- Fences: white picket at the front of town houses, wire mesh on wood posts,
+  chain-link, split-rail / log rail fences on homesteads, gates.
+- Lawns, vegetable gardens, a clothesline, a swing set, a doghouse or a dog
+  yard, a tool shed, a woodpile under a lean-to, a raised log cache (Denali's
+  Pearson cabin: ~3 m up on posts, a removable ladder), a fuel tank on a
+  stand, a boat on a trailer, an old truck or car on blocks, a gravel drive,
+  a mailbox at the road.
+
+Harbor fishing town by the sea, mountains behind (Dave: "go to the ocean
+like that with some mountains, a harbor fishing town by the sea").
+Model: Cordova, AK (cityofcordova.net; sah-archipedia.org Cordova):
+- On an inlet of the sea with a mountain rising straight above town; a lake
+  just behind it (float planes use the lake and the boat harbor).
+- Platted as a grid: four main streets parallel to the water, stacked one
+  above another up a steep hillside - steep cross streets climbing from the
+  waterfront.
+- A small boat harbor behind a rock breakwater (built 1938), the fishing
+  fleet, fish plants and canneries on pilings along the shore, a dock where
+  the old railroad ended, a shipyard with a travel lift.
+- A short gravel municipal strip (about 550 m) near town; the long airport far
+  out; one gravel road out along the delta that doesn't go anywhere now.
+- Temperate rainforest: very wet (about 4,200 mm a year), low cloud, snow.
+Also Seward, AK: harbor at the head of a fjord, mountains straight out of the
+water, a glacier at the valley head.
+In the region: the river-mouth town becomes this harbor town at the head of a
+fjord - the sea, the mountains straight up out of it, sea fog in the mornings.
+
+DAVE'S TWO PHOTOS - "just like that" (dave_alps_haze.png, dave_canyon_fog.png)
+- Aerial: ridge after ridge of steep forested mountains in every direction,
+  sharp-ish summits, 1,000-1,500 m above narrow flat valley floors; the
+  ridges fade blue-grey into haze with distance (aerial perspective), layers
+  of silhouettes. A valley floor ~0.5-1 km wide: a patchwork of green fields
+  and hedgerows, a village strung along a winding road and a river, patches of
+  forest; high meadows and clearings on the shoulders; a lake glinting far
+  off; low mist lying in the far valleys.
+- Canyon: a deep gorge with sheer grey rock walls hundreds of metres high,
+  conifers on the ledges and rims, the floor filled with a river of fog,
+  peaks fading into the light beyond.
+
+DAVE'S HARBOR TOWN PHOTO (dave_harbor_town.png) - Cordova, Alaska from the air:
+- A wide calm green-grey bay in front; a small wooded island just offshore.
+- The small boat harbor: a long straight rock breakwater enclosing rows of
+  floats packed with fishing boats; cannery / fish-plant sheds and tanks on
+  pilings along the shore to the left, white and blue roofs.
+- The town on the slope behind: a grid of streets climbing the hill, houses in
+  the trees, a main road winding out past a gravel strip on the flats to the
+  right (tide flats, a grassy spit).
+- A lake right behind town in a narrow valley, a second lake (glacier-green)
+  further up; dark green forested mountains rising steeply around, alpine
+  meadow and rock on top, snow patches; a glaciered peak at the valley head.

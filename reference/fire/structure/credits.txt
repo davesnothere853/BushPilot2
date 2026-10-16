@@ -1,0 +1,22 @@
+house_fire_01.jpg | https://commons.wikimedia.org/wiki/File:Burning_of_the_Delaware_(20106802).jpg | Public domain | Ellis
+house_fire_02.jpg | https://commons.wikimedia.org/wiki/File:Fire_inside_an_abandoned_convent_in_Massueville,_Quebec,_Canada.jpg | CC BY-SA 3.0 | Sylvain Pedneault
+house_fire_03.jpg | https://commons.wikimedia.org/wiki/File:House_Fire_in_Hickory,_Mississippi.jpg | CC BY 4.0 | <a href="//commons.wikimedia.org/wiki/User:Ktkvtsh" title="User:Ktkvtsh">Ktkvtsh
+house_fire_04.jpg | https://commons.wikimedia.org/wiki/File:Structure_Fire_in_Union,_Mississippi_01.jpg | CC BY 4.0 | <a href="//commons.wikimedia.org/wiki/User:Ktkvtsh" title="User:Ktkvtsh">Ktkvtsh
+house_fire_05.jpg | https://commons.wikimedia.org/wiki/File:Structure_Fire_in_Union,_Mississippi_03.jpg | CC BY 4.0 | <a href="//commons.wikimedia.org/wiki/User:Ktkvtsh" title="User:Ktkvtsh">Ktkvtsh
+house_fire_06.jpg | https://commons.wikimedia.org/wiki/File:Structure_Fire_in_Union,_Mississippi_05.jpg | CC BY 4.0 | <a href="//commons.wikimedia.org/wiki/User:Ktkvtsh" title="User:Ktkvtsh">Ktkvtsh
+burned_building_ruins_01.jpg | https://commons.wikimedia.org/wiki/File:Flood_Zone_building_ruins_Wolcott_Street_downtown_Hardwick_VT_August_2017.jpg | CC BY-SA 4.0 | <a href="//commons.wikimedia.org/wiki/User:Artaxerxes" title="User:Artaxerxes">A
+burned_building_ruins_02.jpg | https://commons.wikimedia.org/wiki/File:The_ruins_of_the_burned-down_Prothom_Alo_office_14.jpg | CC BY-SA 4.0 | <a href="//commons.wikimedia.org/wiki/User:Yahya" title="User:Yahya">Yahya</a>
+burned_building_ruins_03.jpg | https://commons.wikimedia.org/wiki/File:The_ruins_of_the_burned-down_Prothom_Alo_office_17.jpg | CC BY-SA 4.0 | <a href="//commons.wikimedia.org/wiki/User:Yahya" title="User:Yahya">Yahya</a>
+burned_building_ruins_04.jpg | https://commons.wikimedia.org/wiki/File:The_ruins_of_the_burned-down_Prothom_Alo_office_45.jpg | CC BY-SA 4.0 | <a href="//commons.wikimedia.org/wiki/User:Yahya" title="User:Yahya">Yahya</a>
+burned_building_ruins_05.jpg | https://commons.wikimedia.org/wiki/File:The_ruins_of_the_burned-down_Prothom_Alo_office_52.jpg | CC BY-SA 4.0 | <a href="//commons.wikimedia.org/wiki/User:Yahya" title="User:Yahya">Yahya</a>
+house_fire_01.jpg | https://www.flickr.com/photos/46207792@N00/3541139652 | by 2.0 | sf-dvs
+house_fire_02.jpg | https://www.flickr.com/photos/39415781@N06/6065535870 | by 2.0 | ell brown
+house_fire_03.jpg | https://www.flickr.com/photos/127784658@N07/15798096960 | by-nc-sa 2.0 | mcfrsnews
+house_fire_04.jpg | https://www.flickr.com/photos/127784658@N07/15365755873 | by-nc-sa 2.0 | mcfrsnews
+house_fire_05.jpg | https://www.flickr.com/photos/127784658@N07/15799368769 | by-nc-sa 2.0 | mcfrsnews
+house_fire_06.jpg | https://www.flickr.com/photos/127784658@N07/15797982108 | by-nc-sa 2.0 | mcfrsnews
+burned_building_ruins_01.jpg | https://www.flickr.com/photos/71401718@N00/3946578949 | by 2.0 | Wonderlane
+burned_building_ruins_02.jpg | https://www.flickr.com/photos/51504818@N06/16690265294 | by-nc 2.0 | Jim Surkamp
+burned_building_ruins_03.jpg | https://www.flickr.com/photos/22490717@N02/5842491206 | by-sa 2.0 | archer10 (Dennis)
+burned_building_ruins_04.jpg | https://www.flickr.com/photos/51504818@N06/17338391598 | by-nc 2.0 | Jim Surkamp
+burned_building_ruins_05.jpg | https://www.flickr.com/photos/22490717@N02/2217169856 | by-sa 2.0 | archer10 (Dennis)

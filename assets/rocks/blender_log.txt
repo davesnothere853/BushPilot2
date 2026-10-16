@@ -1,0 +1,6 @@
+rock kit start 5.1.0
+wrote cliff_0 21710 tris-ish size (24.91, 9.31, 16.05)
+wrote cliff_1 20776 tris-ish size (30.14, 10.94, 23.22)
+wrote cliff_2 21957 tris-ish size (21.16, 8.53, 14.53)
+wrote cliff_3 19727 tris-ish size (27.15, 12.17, 30.73)
+done in 53 s

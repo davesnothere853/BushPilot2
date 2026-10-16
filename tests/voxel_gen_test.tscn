@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/voxel_gen_test.gd" id="1"]
+
+[node name="T" type="Node3D"]
+script = ExtResource("1")

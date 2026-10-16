@@ -1,0 +1,24 @@
+{
+ "bbox": {
+  "west": -121.552734375,
+  "east": -121.376953125,
+  "north": 49.41097319969585,
+  "south": 49.29647160265807
+ },
+ "pixels": 1024,
+ "m_per_px": 12.447583651331726,
+ "min_m": 29.0,
+ "max_m": 2089.0,
+ "encoding": "16-bit grey: height_m = min_m + v/65535*(max_m-min_m)",
+ "source": "AWS Terrain Tiles (Tilezen/Mapzen, terrarium z13); Canada data from NRCan CDEM. Open data - credit: Mapzen / NRCan.",
+ "airport": {
+  "name": "Hope Aerodrome (CYHE)",
+  "lat": 49.36833,
+  "lon": -121.49806,
+  "runway": "07/25",
+  "length_m": 1207,
+  "width_m": 76,
+  "surface": "turf",
+  "elev_m": 39
+ }
+}

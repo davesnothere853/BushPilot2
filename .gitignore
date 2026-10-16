@@ -1,0 +1,13 @@
+.godot/
+*.exe
+*.pck
+*.dll
+_downloads/
+_rec/
+_versions/
+BushPilotUE/Binaries/
+BushPilotUE/Intermediate/
+BushPilotUE/Saved/
+Unreal/Binaries/
+Unreal/Intermediate/
+Unreal/Saved/

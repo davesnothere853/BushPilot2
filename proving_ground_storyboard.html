@@ -1,0 +1,321 @@
+<title>Bush Pilot Proving Ground</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a 1980s survey/engineering sheet — title block, plan drawing, mood frames, test schedule. */
+:root{
+  --paper:#eceae4;      /* cold worksheet paper */
+  --ink:#2b2e2e;        /* drawing ink */
+  --faint:#9a9a90;      /* grid + secondary ink */
+  --line:#c8c6bc;       /* rules */
+  --sky:#aeb8bd;        /* overcast */
+  --spruce:#44523f;     /* treeline green */
+  --gravel:#8d8d86;     /* wet strip grey */
+  --bog:#8a7a4e;        /* muskeg ochre */
+  --pay:#a06b32;        /* pay gravel */
+  --water:#5d7482;      /* pond */
+  --accent:#d96b1f;     /* safety orange — flags, windsock, callouts */
+  --panel:#f4f2ec;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#232524; --ink:#d8d6cc; --faint:#80807a; --line:#3c3e3b;
+  --sky:#5d686e; --spruce:#55634e; --gravel:#73736d; --bog:#8a7a4e;
+  --pay:#a06b32; --water:#51656f; --accent:#e07a2e; --panel:#2b2d2c;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#232524; --ink:#d8d6cc; --faint:#80807a; --line:#3c3e3b;
+  --sky:#5d686e; --spruce:#55634e; --gravel:#73736d; --bog:#8a7a4e;
+  --pay:#a06b32; --water:#51656f; --accent:#e07a2e; --panel:#2b2d2c;
+  color-scheme:dark;
+}
+body{background:var(--paper); color:var(--ink); font-family:Barlow,system-ui,sans-serif;
+  padding-block:28px; padding-inline:max(16px,4vw); margin:0; line-height:1.5;}
+.sheet{max-width:980px; margin:0 auto; display:flex; flex-direction:column; gap:36px;}
+
+/* title block */
+.tblock{border:2px solid var(--ink); display:grid; grid-template-columns:1fr auto; }
+.tblock .name{padding:14px 18px 10px;}
+.tblock h1{font-family:'Barlow Condensed'; font-weight:700; font-size:clamp(28px,5vw,44px);
+  letter-spacing:.02em; margin:0; text-transform:uppercase; text-wrap:balance;}
+.tblock .sub{color:var(--faint); font-size:14px; margin-top:2px;}
+.tmeta{border-left:2px solid var(--ink); display:grid; grid-template-columns:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px;}
+.tmeta div{padding:6px 14px; border-bottom:1px solid var(--line); display:flex; gap:14px; justify-content:space-between;}
+.tmeta div:last-child{border-bottom:none}
+.tmeta b{font-weight:500; color:var(--faint); text-transform:uppercase; letter-spacing:.08em;}
+@media (max-width:560px){ .tblock{grid-template-columns:1fr} .tmeta{border-left:none; border-top:2px solid var(--ink)} }
+
+h2{font-family:'Barlow Condensed'; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+  font-size:19px; margin:0 0 4px; display:flex; align-items:baseline; gap:10px;}
+h2 .no{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:500;}
+section>p{max-width:64ch; margin:6px 0 14px; color:var(--ink);}
+.note{color:var(--faint); font-size:13.5px;}
+
+svg{display:block; width:100%; height:auto;}
+.plan-wrap{border:1px solid var(--line); background:var(--panel);}
+figcaption{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--faint); padding:8px 12px; border-top:1px solid var(--line);}
+figure{margin:0}
+
+.frames{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;}
+.frame{border:1px solid var(--line); background:var(--panel);}
+.frame .cap{padding:10px 12px;}
+.frame .cap b{font-family:'Barlow Condensed'; font-weight:600; text-transform:uppercase; letter-spacing:.05em; font-size:15px; display:block;}
+.frame .cap span{font-size:13px; color:var(--faint);}
+
+table{border-collapse:collapse; width:100%; font-size:14px;}
+.scroll{overflow-x:auto; border:1px solid var(--line);}
+th{font-family:'Barlow Condensed'; text-transform:uppercase; letter-spacing:.06em; font-weight:600; font-size:13.5px;
+  text-align:left; padding:8px 12px; border-bottom:2px solid var(--ink); background:var(--panel);}
+td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+td:first-child{font-family:'IBM Plex Mono',monospace; font-size:12px; white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+
+ol.build{margin:8px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:10px; max-width:70ch;}
+ol.build li{display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:baseline;}
+ol.build .k{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); border:1px solid var(--accent); text-align:center; padding:2px 0;}
+ol.build b{font-weight:500;}
+.swatches{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+.sw{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--faint);}
+.sw i{width:26px; height:18px; display:inline-block; border:1px solid var(--line);}
+</style>
+
+<div class="sheet">
+
+<header class="tblock">
+  <div class="name">
+    <h1>Bush Pilot — Proving Ground</h1>
+    <div class="sub">Test map storyboard: new deformable ground, new look, every machine in one square</div>
+  </div>
+  <div class="tmeta">
+    <div><b>Sheet</b> PG-01</div>
+    <div><b>Scale</b> 360 m × 360 m</div>
+    <div><b>Setting</b> North of sixty, 1988</div>
+    <div><b>Ground res</b> 0.5 m, diggable throughout</div>
+    <div><b>Beyond edge</b> open plain, flyable, no walls</div>
+  </div>
+</header>
+
+<section>
+<h2><span class="no">01</span> Site plan</h2>
+<p>One square where everything the game does can be exercised in thirty seconds of taxiing. The whole square is the <em>new</em> ground: one continuous surface, fine everywhere, dig or push anywhere — no patches, no conversion, ever. Past the fence line the plain just keeps going so you can fly out, turn round, and shoot approaches.</p>
+<figure class="plan-wrap">
+<svg viewBox="0 0 760 640" role="img" aria-label="Overhead plan of the proving ground">
+  <defs>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0H0V38" fill="none" stroke="var(--faint)" stroke-opacity=".25" stroke-width="1"/>
+    </pattern>
+    <pattern id="bogdots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="var(--bog)" fill-opacity=".30"/>
+      <circle cx="3" cy="4" r="1.1" fill="var(--bog)"/>
+      <circle cx="9" cy="9" r="1.1" fill="var(--bog)" fill-opacity=".7"/>
+    </pattern>
+  </defs>
+  <rect width="760" height="640" fill="var(--panel)"/>
+  <rect width="760" height="640" fill="url(#grid)"/>
+
+  <!-- map square 360m: drawn region x=70..690, y=60..580 -->
+  <!-- open plain callouts outside -->
+  <g font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--faint)">
+    <text x="380" y="30" text-anchor="middle">OPEN PLAIN — FLYABLE IN EVERY DIRECTION, FADES TO FLAT</text>
+    <text x="380" y="620" text-anchor="middle">NO WALLS · FLY OUT AND COME BACK</text>
+  </g>
+
+  <!-- square boundary -->
+  <rect x="70" y="60" width="620" height="520" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="78" y="52" font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--ink)">TEST SQUARE 360 m</text>
+
+  <!-- grass base -->
+  <rect x="71" y="61" width="618" height="518" fill="var(--spruce)" fill-opacity=".18"/>
+
+  <!-- rock knoll NE -->
+  <g>
+    <ellipse cx="560" cy="170" rx="105" ry="80" fill="var(--gravel)" fill-opacity=".55"/>
+    <ellipse cx="560" cy="170" rx="70" ry="50" fill="none" stroke="var(--ink)" stroke-opacity=".5" stroke-width="1"/>
+    <ellipse cx="560" cy="170" rx="40" ry="27" fill="none" stroke="var(--ink)" stroke-opacity=".5" stroke-width="1"/>
+    <text x="560" y="166" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--ink)">ROCK KNOLL</text>
+    <text x="560" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">+14 m · 30% face · shallow bedrock</text>
+  </g>
+
+  <!-- bog S -->
+  <g>
+    <path d="M250 470 Q330 430 450 460 Q560 490 600 540 L250 540 Z" fill="url(#bogdots)"/>
+    <text x="430" y="505" font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--ink)">MUSKEG / BOG</text>
+    <text x="430" y="519" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">soft · wet · machines sink, tracks rut</text>
+  </g>
+
+  <!-- pond SW + sand -->
+  <g>
+    <ellipse cx="160" cy="500" rx="72" ry="46" fill="var(--bog)" fill-opacity=".35"/>
+    <ellipse cx="160" cy="500" rx="56" ry="34" fill="var(--water)"/>
+    <text x="160" y="498" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#e8e8e2">POND</text>
+    <text x="160" y="556" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">sand shore · float tests later</text>
+  </g>
+
+  <!-- pay dirt / mining pad W -->
+  <g>
+    <rect x="100" y="250" width="150" height="150" fill="var(--pay)" fill-opacity=".45" stroke="var(--pay)" stroke-width="1.5"/>
+    <text x="175" y="300" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--ink)">MINING PAD</text>
+    <text x="175" y="314" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">pay 0.6–1.4 m down</text>
+    <text x="175" y="327" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">8–22 g/m³ · dig here</text>
+    <!-- machines -->
+    <rect x="120" y="350" width="26" height="14" fill="var(--accent)"/>
+    <text x="133" y="380" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="var(--faint)">DOZER</text>
+    <rect x="195" y="350" width="22" height="14" fill="var(--accent)" fill-opacity=".8"/>
+    <text x="206" y="380" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="var(--faint)">EXCAVATOR</text>
+  </g>
+
+  <!-- runway along north -->
+  <g>
+    <rect x="120" y="92" width="500" height="30" fill="var(--gravel)"/>
+    <g stroke="#e8e8e2" stroke-width="3">
+      <line x1="128" y1="97" x2="128" y2="117"/><line x1="136" y1="97" x2="136" y2="117"/>
+      <line x1="612" y1="97" x2="612" y2="117"/><line x1="604" y1="97" x2="604" y2="117"/>
+    </g>
+    <text x="370" y="112" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#e8e8e2">RWY 09/27 · 300 × 18 m GRAVEL</text>
+    <!-- windsock -->
+    <line x1="636" y1="92" x2="636" y2="74" stroke="var(--ink)" stroke-width="2"/>
+    <path d="M636 74 L664 78 L636 84 Z" fill="var(--accent)"/>
+    <!-- plane -->
+    <g transform="translate(560,107)">
+      <path d="M-12 0 L10 0 M-2 -9 L-2 9 M-11 -4 L-11 4" stroke="var(--ink)" stroke-width="2.5" fill="none"/>
+    </g>
+    <text x="560" y="138" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="var(--faint)">WOLVERINE</text>
+  </g>
+
+  <!-- hangar + apron -->
+  <g>
+    <rect x="100" y="130" width="90" height="56" fill="var(--gravel)" fill-opacity=".5"/>
+    <rect x="112" y="136" width="52" height="40" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>
+    <path d="M112 136 L138 124 L164 136" fill="none" stroke="var(--ink)" stroke-width="2"/>
+    <text x="138" y="160" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--ink)">HANGAR</text>
+    <text x="138" y="200" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="var(--faint)">gravel apron · parts shelf later</text>
+  </g>
+
+  <!-- the road you cut yourself -->
+  <path d="M150 200 Q140 230 160 250" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <text x="235" y="232" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--accent)">CUT YOUR OWN ROAD (DOZER JOB Nº1)</text>
+
+  <!-- grass label -->
+  <text x="420" y="330" font-family="'IBM Plex Mono',monospace" font-size="11" fill="var(--ink)" opacity=".8">ROLLING GRASS</text>
+  <text x="420" y="344" font-family="'IBM Plex Mono',monospace" font-size="10" fill="var(--faint)">soft-field takeoffs · grading practice</text>
+
+  <!-- north arrow -->
+  <g transform="translate(712,96)">
+    <line x1="0" y1="26" x2="0" y2="-10" stroke="var(--ink)" stroke-width="2"/>
+    <path d="M0 -16 L-7 -2 L7 -2 Z" fill="var(--ink)"/>
+    <text x="0" y="44" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--ink)">N</text>
+  </g>
+</svg>
+<figcaption>PG-01 · every surface shown is one continuous diggable ground — the zones differ only in material, wetness and what's buried</figcaption>
+</figure>
+</section>
+
+<section>
+<h2><span class="no">02</span> Mood frames — the look we're testing</h2>
+<p>The Dead Stick direction, translated to our island: always weather, never a blue-sky default. Low light, wet surfaces, fog sitting in the low ground. These four frames are the shots the prototype has to be able to produce.</p>
+<div class="frames">
+
+<figure class="frame">
+<svg viewBox="0 0 320 180">
+  <defs>
+    <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7d8a92"/><stop offset=".7" stop-color="#aab4b8"/><stop offset="1" stop-color="#c2c8c8"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" fill="url(#sky1)"/>
+  <circle cx="240" cy="48" r="16" fill="#d8d2c2" opacity=".5"/>
+  <path d="M0 108 L45 92 L90 106 L140 86 L200 104 L250 90 L320 102 L320 180 L0 180 Z" fill="#5a665c" opacity=".55"/>
+  <rect x="0" y="118" width="320" height="14" fill="#cfd4d2" opacity=".55"/>
+  <path d="M0 126 L320 122 L320 180 L0 180 Z" fill="#6d6e68"/>
+  <rect x="20" y="128" width="280" height="22" fill="#84847d"/>
+  <g stroke="#dadad2" stroke-width="2" opacity=".8"><line x1="30" y1="131" x2="30" y2="147"/><line x1="37" y1="131" x2="37" y2="147"/></g>
+  <g transform="translate(210,133)">
+    <path d="M-16 0 L13 0 M-3 -11 L-3 11 M-14 -5 L-14 5" stroke="#2c2e2e" stroke-width="3" fill="none"/>
+    <line x1="13" y1="0" x2="13" y2="-6" stroke="#d96b1f" stroke-width="2"/>
+  </g>
+</svg>
+<figcaption class="cap"><b>Frame A — first light on the strip</b><span>overcast dawn, fog lying on the treeline, wet gravel holding the sky's color, beacon the only warm note</span></figcaption>
+</figure>
+
+<figure class="frame">
+<svg viewBox="0 0 320 180">
+  <rect width="320" height="180" fill="#9aa4a8"/>
+  <path d="M0 60 L320 48 L320 180 L0 180 Z" fill="#70756d"/>
+  <!-- pit cut showing layers -->
+  <path d="M60 70 L260 64 L240 170 L85 174 Z" fill="#4a3c2b"/>
+  <path d="M70 84 L250 78 L246 100 L68 104 Z" fill="#6a5637"/>
+  <path d="M68 104 L246 100 L242 128 L74 132 Z" fill="#8a6a3a"/>
+  <path d="M74 132 L242 128 L240 152 L80 156 Z" fill="#a06b32"/>
+  <path d="M80 156 L240 152 L240 170 L85 174 Z" fill="#54565a"/>
+  <g transform="translate(272,120)"><rect x="-14" y="-8" width="28" height="12" fill="#d96b1f"/><path d="M-14 -8 L-26 -20 L-20 -24 L-6 -10" fill="#c05e18"/></g>
+  <text x="160" y="24" text-anchor="middle" font-family="monospace" font-size="11" fill="#f0efe8">topsoil → overburden → pay → bedrock</text>
+</svg>
+<figcaption class="cap"><b>Frame B — the cut</b><span>a pit you dug, soil layers reading true, excavator parked on the lip; this is the mining loop's hero shot</span></figcaption>
+</figure>
+
+<figure class="frame">
+<svg viewBox="0 0 320 180">
+  <rect width="320" height="180" fill="#8e979b"/>
+  <path d="M0 40 Q110 10 320 56 L320 180 L0 180 Z" fill="#636a60"/>
+  <!-- benched road cut -->
+  <path d="M0 150 Q90 138 150 110 Q210 84 320 76 L320 96 Q214 102 158 128 Q98 154 0 166 Z" fill="#7b7468"/>
+  <path d="M0 150 Q90 138 150 110 Q210 84 320 76" fill="none" stroke="#56514a" stroke-width="3"/>
+  <g transform="translate(150,112) rotate(-18)"><rect x="-16" y="-10" width="32" height="14" fill="#d96b1f"/><rect x="-24" y="-12" width="6" height="18" fill="#b8b4ac"/></g>
+  <path d="M60 176 Q80 168 96 172" stroke="#4e483e" stroke-width="5" fill="none" opacity=".6"/>
+</svg>
+<figcaption class="cap"><b>Frame C — the road you made</b><span>dozer benching a grade up the knoll, windrow spilling off the low side, fog rolling over the crest</span></figcaption>
+</figure>
+
+<figure class="frame">
+<svg viewBox="0 0 320 180">
+  <defs><linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#6e7b84"/><stop offset="1" stop-color="#b6bcba"/></linearGradient></defs>
+  <rect width="320" height="180" fill="url(#sky4)"/>
+  <rect x="0" y="128" width="320" height="52" fill="#737a70"/>
+  <rect x="0" y="120" width="320" height="12" fill="#c6cac6" opacity=".6"/>
+  <g transform="translate(96,70) rotate(4)">
+    <path d="M-20 0 L16 0 M-4 -3 L-4 3 M-4 -2 L-30 -10 M-4 2 L-30 10 M-18 -1 L-18 -7" stroke="#2c2e2e" stroke-width="3" fill="none"/>
+  </g>
+  <text x="240" y="160" text-anchor="middle" font-family="monospace" font-size="10" fill="#e9e9e2" opacity=".85">…the plain keeps going</text>
+</svg>
+<figcaption class="cap"><b>Frame D — off the edge</b><span>bank away from the square and there's just grey plain and fog to the horizon: room to fly, nothing to hit</span></figcaption>
+</figure>
+
+</div>
+<div class="swatches">
+  <span class="sw"><i style="background:#7d8a92"></i>overcast</span>
+  <span class="sw"><i style="background:#84847d"></i>wet gravel</span>
+  <span class="sw"><i style="background:#44523f"></i>spruce</span>
+  <span class="sw"><i style="background:#8a7a4e"></i>muskeg</span>
+  <span class="sw"><i style="background:#a06b32"></i>pay</span>
+  <span class="sw"><i style="background:#d96b1f"></i>safety orange</span>
+</div>
+</section>
+
+<section>
+<h2><span class="no">03</span> What each zone proves</h2>
+<div class="scroll"><table>
+  <tr><th>Zone</th><th>Tests</th><th>Pass looks like</th></tr>
+  <tr><td>RWY 09/27</td><td>Takeoff, landing, taxi, surface feel on gravel</td><td>Wolverine flies circuits; wheels read gravel, not grass</td></tr>
+  <tr><td>HANGAR</td><td>Walls that block honestly; later the parts shelf + wrenching</td><td>Taxi in, no ghost walls, machines can't drive through it</td></tr>
+  <tr><td>MINING PAD</td><td>Excavator dig → wash loop, pay layers, pit walls that slump</td><td>Dig anywhere on it, layers show, no seams ever</td></tr>
+  <tr><td>ROCK KNOLL</td><td>Dozer benching a road up a 30% face, bedrock refusal</td><td>A drivable graded road exists where there wasn't one</td></tr>
+  <tr><td>MUSKEG</td><td>Soft ground: ruts, bogging down, fill-to-cross with the dozer</td><td>Pushing fill across it builds a causeway that works</td></tr>
+  <tr><td>POND + SAND</td><td>Water edge, shoreline material, float ops later</td><td>Shore reads sand→wet sand→water in one surface</td></tr>
+  <tr><td>GRASS</td><td>Soft-field flying, grading from nothing, future building pad</td><td>Any patch of it can become apron, pad or strip</td></tr>
+  <tr><td>BEYOND EDGE</td><td>Your rule: no walls, at least on this map</td><td>Fly out 5 km, turn, come home; ground never ends</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="no">04</span> Build order</h2>
+<ol class="build">
+  <li><span class="k">1</span><span><b>The ground itself</b> — one chunked, always-fine, fully deformable field with the zone materials painted in. The cube-pop problem dies here, by design.</span></li>
+  <li><span class="k">2</span><span><b>The weather and light</b> — overcast sky, valley fog, wet-surface response. Shots compared against Frame A before anything else goes in.</span></li>
+  <li><span class="k">3</span><span><b>Machines on it</b> — dozer and excavator wired straight to the new ground; cut the Road Nº1, dig the first pit, bench the knoll.</span></li>
+  <li><span class="k">4</span><span><b>The plane on it</b> — same flight model, circuits off the gravel, off-the-edge flight, land back.</span></li>
+  <li><span class="k">5</span><span><b>Judgment day</b> — side-by-side renders vs the Dead Stick references. You call it: good enough in Godot, or we take the logic and go engine shopping with evidence.</span></li>
+</ol>
+<p class="note" style="margin-top:14px">Everything proved here scales to the island later — the square <em>is</em> the new terrain system, just small. Nothing in the current game gets touched until you say so.</p>
+</section>
+
+</div>
