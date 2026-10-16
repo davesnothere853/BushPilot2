@@ -1,0 +1,11 @@
+# town buildings
+red_brick
+brick_wall_09
+dark_brick_wall
+white_planks_clean
+rustic_stone_wall
+castle_wall_slates
+roof_slates_02
+dirt
+asphalt_02
+wood_shutter
